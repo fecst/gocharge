@@ -1,41 +1,66 @@
 package br.com.gocharge.repository;
 
+import br.com.gocharge.domain.Estado;
 import br.com.gocharge.exceptions.NoContentException;
 import br.com.gocharge.exceptions.NotFoundException;
+import br.com.gocharge.mappers.EstadoMapper;
 import br.com.gocharge.model.EstadoModel;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.UUID;
 
 @Repository
+@Transactional
 public class EstadoRepository {
 
   @PersistenceContext EntityManager entityManager;
 
-  public List<EstadoModel> getAll() {
-    return Optional.ofNullable(
-            entityManager.createQuery("SELECT EstadoModel FROM EstadoModel").getResultList())
-        .orElseThrow(NoContentException::new);
+  public List<Estado> getAll() {
+    List<EstadoModel> estados =
+        entityManager.createQuery("SELECT e FROM EstadoModel e").getResultList();
+
+    if (estados.size() > 0) {
+      return EstadoMapper.INSTANCE.toDomain(estados);
+    } else {
+      throw new NoContentException();
+    }
   }
 
-  public EstadoModel getById(UUID id) {
-    return Optional.ofNullable(entityManager.find(EstadoModel.class, id))
-        .orElseThrow(NotFoundException::new);
+  public Estado getById(UUID id) {
+    EstadoModel estado = entityManager.find(EstadoModel.class, id);
+
+    if (Objects.nonNull(estado)) {
+      return EstadoMapper.INSTANCE.toDomain(estado);
+    } else {
+      throw new NotFoundException();
+    }
   }
 
-  public void create(EstadoModel estado) {
-    entityManager.persist(estado);
+  public Estado create(Estado estado) {
+    EstadoModel estadoModel = EstadoMapper.INSTANCE.toModel(estado);
+
+    entityManager.persist(estadoModel);
+
+    return EstadoMapper.INSTANCE.toDomain(estadoModel);
   }
 
-  public void update(EstadoModel estado) {
-    entityManager.merge(estado);
+  public Estado update(Estado estado) {
+    return EstadoMapper.INSTANCE.toDomain(
+        entityManager.merge(EstadoMapper.INSTANCE.toModel(estado)));
   }
 
-  public void delete(EstadoModel estado) {
-    entityManager.remove(estado);
+  public void delete(UUID idEstado) {
+    EstadoModel estado = entityManager.find(EstadoModel.class, idEstado);
+
+    if (Objects.nonNull(estado)) {
+      entityManager.remove(estado);
+    } else {
+      throw new NotFoundException();
+    }
   }
 }

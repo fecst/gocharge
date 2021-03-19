@@ -7,8 +7,9 @@ import org.springframework.http.HttpStatus;
 public class NotFoundException extends RuntimeException {
   private static final String MESSAGE = "Registro não encontrado.";
 
-  private final HttpStatus httpStatus = HttpStatus.NOT_FOUND;
-  private final String message = MESSAGE;
+  private HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+  private String message = MESSAGE;
 
   public NotFoundException() {}
+
 }

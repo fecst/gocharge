@@ -5,10 +5,11 @@ import br.com.gocharge.model.SubZonaModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-public interface SubZonaMapper {
-  SubZonaMapper INSTANCE = Mappers.getMapper(SubZonaMapper.class);
+@Mapper
+public abstract class SubZonaMapper {
+  public static final SubZonaMapper INSTANCE = Mappers.getMapper(SubZonaMapper.class);
 
-  SubZonaModel toModel(SubZona subZona);
+  public abstract SubZonaModel toModel(SubZona subZona);
 
-  SubZona toDomain(SubZonaModel estadoModel);
+  public abstract SubZona toDomain(SubZonaModel estadoModel);
 }

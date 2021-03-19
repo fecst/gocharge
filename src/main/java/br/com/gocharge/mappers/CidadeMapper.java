@@ -2,12 +2,14 @@ package br.com.gocharge.mappers;
 
 import br.com.gocharge.domain.Cidade;
 import br.com.gocharge.model.CidadeModel;
+import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-public interface CidadeMapper {
-  CidadeMapper INSTANCE = Mappers.getMapper(CidadeMapper.class);
+@Mapper
+public abstract class CidadeMapper {
+  public static final CidadeMapper INSTANCE = Mappers.getMapper(CidadeMapper.class);
 
-  CidadeModel toModel(Cidade cidade);
+  public abstract CidadeModel toModel(Cidade cidade);
 
-  Cidade toDomain(CidadeModel cidadeModel);
+  public abstract Cidade toDomain(CidadeModel cidadeModel);
 }

@@ -1,4 +1,4 @@
-package br.com.gocharge.processor;
+package br.com.gocharge.processor.estados;
 
 import br.com.gocharge.command.CommandContext;
 import br.com.gocharge.command.CommandProcessor;
@@ -18,6 +18,6 @@ public class BuscaEstadosProcessor implements CommandProcessor<List<Estado>> {
 
   @Override
   public List<Estado> process(CommandContext commandContext) {
-    return EstadoMapper.INSTANCE.toDomain(estadoRepository.getAll());
+    return estadoRepository.getAll();
   }
 }

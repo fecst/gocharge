@@ -1,4 +1,4 @@
-package br.com.gocharge.processor;
+package br.com.gocharge.processor.estados;
 
 import br.com.gocharge.command.CommandContext;
 import br.com.gocharge.command.CommandProcessor;
@@ -19,6 +19,6 @@ public class BuscaEstadoPorIdProcessor implements CommandProcessor {
   public Estado process(CommandContext context) {
     UUID idEstado = context.getProperty("idEstado", UUID.class);
 
-    return EstadoMapper.INSTANCE.toDomain(estadoRepository.getById(idEstado));
+    return estadoRepository.getById(idEstado);
   }
 }
