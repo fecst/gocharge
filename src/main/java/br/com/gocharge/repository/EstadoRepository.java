@@ -50,8 +50,16 @@ public class EstadoRepository {
   }
 
   public Estado update(Estado estado) {
-    return EstadoMapper.INSTANCE.toDomain(
-        entityManager.merge(EstadoMapper.INSTANCE.toModel(estado)));
+    EstadoModel estadoModel = entityManager.find(EstadoModel.class, estado.getId());
+
+    if (Objects.nonNull(estado)) {
+      estadoModel.setDescricao(estado.getDescricao());
+
+      return EstadoMapper.INSTANCE.toDomain(
+          entityManager.merge(estadoModel));
+    } else {
+      throw new NotFoundException();
+    }
   }
 
   public void delete(UUID idEstado) {

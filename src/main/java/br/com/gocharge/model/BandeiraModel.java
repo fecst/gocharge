@@ -23,7 +23,7 @@ public class BandeiraModel {
   private UUID id;
 
   @Column(name = "DT_HR_CAD", columnDefinition = "DATETIME", updatable = false, nullable = false)
-  private LocalDateTime dataHotaCadastro;
+  private LocalDateTime dataHoraCadastro;
 
   @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)", nullable = false)
   private String descricao;

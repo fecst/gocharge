@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public enum StatusTotemEnum {
   INATIVO("I", "Indisponível"),
-  LIBERADO("L", "Liberado"),
+  LIBERADO("D", "Disponível"),
   CARREGANDO("C", "Carregando"),
   BLOQUEADO("B", "Bloqueado");
 

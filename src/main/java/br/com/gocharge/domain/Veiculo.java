@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 public class Veiculo {
   private UUID id;
-  private LocalDateTime dataHotaCadastro;
+  private LocalDateTime dataHoraCadastro;
   private Usuario usuario;
   private String marca;
   private String modelo;

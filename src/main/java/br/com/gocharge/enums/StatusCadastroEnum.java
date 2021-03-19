@@ -2,6 +2,8 @@ package br.com.gocharge.enums;
 
 import lombok.Getter;
 
+import java.util.stream.Stream;
+
 @Getter
 public enum StatusCadastroEnum {
   INATIVO("I", "Inativo"),
@@ -13,5 +15,12 @@ public enum StatusCadastroEnum {
   StatusCadastroEnum(String codigo, String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;
+  }
+
+  public static StatusCadastroEnum get(String codigo) {
+    return Stream.of(StatusCadastroEnum.values())
+        .filter(value -> value.getCodigo().equals(codigo))
+        .findFirst()
+        .orElse(null);
   }
 }

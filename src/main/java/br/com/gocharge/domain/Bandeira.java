@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 public class Bandeira {
   private UUID id;
-  private LocalDateTime dataHotaCadastro;
+  private String dataHoraCadastro;
   private String descricao;
-  private StatusCadastroEnum status;
+  private String status;
 }

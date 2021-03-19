@@ -1,4 +1,4 @@
-package br.com.gocharge.processor.estados;
+package br.com.gocharge.processor.estado;
 
 import br.com.gocharge.command.CommandContext;
 import br.com.gocharge.command.CommandProcessor;

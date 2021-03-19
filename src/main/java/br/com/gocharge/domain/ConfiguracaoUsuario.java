@@ -10,7 +10,7 @@ import java.util.UUID;
 @Setter
 public class ConfiguracaoUsuario {
   private UUID id;
-  private LocalDateTime dataHotaCadastro;
+  private LocalDateTime dataHoraCadastro;
   private Usuario usuario;
   private Boolean duplaValidacao;
 }

@@ -23,7 +23,7 @@ public class VeiculoModel {
   private UUID id;
 
   @Column(name = "DT_HR_CAD", columnDefinition = "DATETIME", updatable = false, nullable = false)
-  private LocalDateTime dataHotaCadastro;
+  private LocalDateTime dataHoraCadastro;
 
   @ManyToOne(cascade = CascadeType.REFRESH)
   @JoinColumn(

@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 public class Valor {
   private UUID id;
-  private LocalDateTime dataHotaCadastro;
+  private LocalDateTime dataHoraCadastro;
   private Bandeira bandeira;
   private BigDecimal valorKwH;
   private Double percentualAdicional;
