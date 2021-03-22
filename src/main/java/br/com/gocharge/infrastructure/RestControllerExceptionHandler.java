@@ -39,6 +39,14 @@ class RestControllerExceptionHandler {
   }
 
   @ExceptionHandler
+  ResponseEntity<Object> handlerException(final IllegalArgumentException e, WebRequest webRequest) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(FluentResponse.error()
+                    .message(e.getMessage())
+                    .code(String.valueOf(HttpStatus.BAD_REQUEST.value())));
+  }
+
+  @ExceptionHandler
   ResponseEntity<Object> handlerException(final BadRequestException e, WebRequest webRequest) {
     final ErrorResponseResultTransform resultTransform =
         new ErrorResponseResultTransform(String.valueOf(e.getHttpStatus().value()), e.getMessage());

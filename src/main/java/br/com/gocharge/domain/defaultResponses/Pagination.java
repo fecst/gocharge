@@ -8,8 +8,10 @@ import lombok.Setter;
 @Setter
 public class Pagination {
 
+  @JsonProperty("links")
   private Links links;
 
+  @JsonProperty("page")
   private long page;
 
   @JsonProperty("total_pages")

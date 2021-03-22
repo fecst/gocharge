@@ -1,6 +1,7 @@
 package br.com.gocharge.repository;
 
 import br.com.gocharge.domain.Cidade;
+import br.com.gocharge.exceptions.NoContentException;
 import br.com.gocharge.exceptions.NotFoundException;
 import br.com.gocharge.mappers.CidadeMapper;
 import br.com.gocharge.mappers.EstadoMapper;
@@ -9,11 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Repository
+@Transactional
 public class CidadeRepository {
 
   @PersistenceContext EntityManager entityManager;
@@ -25,7 +28,7 @@ public class CidadeRepository {
     if (cidades.size() > 0) {
       return CidadeMapper.INSTANCE.toDomain(cidades);
     } else {
-      throw new NotFoundException();
+      throw new NoContentException();
     }
   }
 
