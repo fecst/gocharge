@@ -1,11 +1,14 @@
 package br.com.gocharge.repository;
 
+import br.com.gocharge.domain.ConfiguracaoUsuario;
+import br.com.gocharge.exceptions.NotFoundException;
+import br.com.gocharge.mappers.ConfiguracaoUsuarioMapper;
 import br.com.gocharge.model.ConfiguracaoUsuarioModel;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Repository
@@ -13,29 +16,64 @@ public class ConfiguracaoUsuarioRepository {
 
   @PersistenceContext EntityManager entityManager;
 
-  public List<ConfiguracaoUsuarioModel> getByUsuario(UUID idUsuario) {
-    return entityManager
-        .createQuery(
-            "SELECT ConfiguracaoUsuarioModel "
-                + "FROM ConfiguracaoUsuarioModel "
-                + "WHERE CidadeModel.usuarioModel.id = :idUsuario")
-        .setParameter("idUsuario", idUsuario)
-        .getResultList();
+  public ConfiguracaoUsuario getByUsuario(UUID idUsuario) {
+    ConfiguracaoUsuarioModel configuracao =
+        (ConfiguracaoUsuarioModel)
+            entityManager
+                .createQuery(
+                    "SELECT ConfiguracaoUsuarioModel c"
+                        + "FROM ConfiguracaoUsuarioModel c"
+                        + "WHERE CidadeModel.usuarioModel.id = :idUsuario")
+                .setParameter("idUsuario", idUsuario)
+                .getSingleResult();
+
+    if (Objects.nonNull(configuracao)) {
+      return ConfiguracaoUsuarioMapper.INSTANCE.toDomain(configuracao);
+    } else {
+      throw new NotFoundException();
+    }
   }
 
-  public ConfiguracaoUsuarioModel getById(UUID id) {
-    return entityManager.find(ConfiguracaoUsuarioModel.class, id);
+  public ConfiguracaoUsuario getById(UUID id) {
+    ConfiguracaoUsuarioModel configuracao = entityManager.find(ConfiguracaoUsuarioModel.class, id);
+
+    if (Objects.nonNull(configuracao)) {
+      return ConfiguracaoUsuarioMapper.INSTANCE.toDomain(configuracao);
+    } else {
+      throw new NotFoundException();
+    }
   }
 
-  public void create(ConfiguracaoUsuarioModel configuracaoUsuario) {
+  public ConfiguracaoUsuario create(ConfiguracaoUsuario configuracaoUsuario) {
+    ConfiguracaoUsuarioModel configuracao =
+        ConfiguracaoUsuarioMapper.INSTANCE.toModel(configuracaoUsuario);
+
     entityManager.persist(configuracaoUsuario);
+
+    return ConfiguracaoUsuarioMapper.INSTANCE.toDomain(configuracao);
   }
 
-  public void update(ConfiguracaoUsuarioModel configuracaoUsuario) {
-    entityManager.merge(configuracaoUsuario);
+  public ConfiguracaoUsuario update(ConfiguracaoUsuario configuracaoUsuario) {
+    ConfiguracaoUsuarioModel configuracao =
+        entityManager.find(ConfiguracaoUsuarioModel.class, configuracaoUsuario.getId());
+
+    if (Objects.nonNull(configuracao)) {
+      configuracao.setDuplaValidacao(configuracaoUsuario.getDuplaValidacao());
+
+      return entityManager.merge(configuracaoUsuario);
+    } else {
+      throw new NotFoundException();
+    }
   }
 
-  public void delete(ConfiguracaoUsuarioModel configuracaoUsuario) {
-    entityManager.remove(configuracaoUsuario);
+  public void delete(ConfiguracaoUsuario configuracaoUsuario) {
+    ConfiguracaoUsuarioModel configuracao =
+        entityManager.find(ConfiguracaoUsuarioModel.class, configuracaoUsuario.getId());
+
+    if (Objects.nonNull(configuracao)) {
+      entityManager.remove(configuracao);
+    } else {
+      throw new NotFoundException();
+    }
   }
 }
