@@ -1,10 +1,10 @@
 package br.com.gocharge.controller;
 
 import br.com.gocharge.command.CommandContext;
-import br.com.gocharge.domain.Usuario;
 import br.com.gocharge.domain.defaultResponses.FluentResponse;
 import br.com.gocharge.dto.UsuarioDTO;
 import br.com.gocharge.exceptions.BadRequestException;
+import br.com.gocharge.mappers.UsuarioMapper;
 import br.com.gocharge.processor.usuario.*;
 import br.com.gocharge.validator.UsuarioValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,9 @@ public class UsuarioController {
   @GetMapping("/usuarios")
   public ResponseEntity<Object> getUsuarios() {
     return ResponseEntity.ok()
-        .body(FluentResponse.success().data(buscaUsuariosProcessor.process(null)));
+        .body(
+            FluentResponse.success()
+                .data(UsuarioMapper.INSTANCE.toDTO(buscaUsuariosProcessor.process(null))));
   }
 
   @GetMapping("/usuarios/{id_usuario}")
@@ -36,7 +38,9 @@ public class UsuarioController {
     context.put("idUsuario", UUID.fromString(idUsuario));
 
     return ResponseEntity.ok()
-        .body(FluentResponse.success().data(buscaUsuarioPorIdProcessor.process(context)));
+        .body(
+            FluentResponse.success()
+                .data(UsuarioMapper.INSTANCE.toDTO(buscaUsuarioPorIdProcessor.process(context))));
   }
 
   @PostMapping("/usuarios")
@@ -47,7 +51,9 @@ public class UsuarioController {
     context.put("usuarioDTO", usuario);
 
     return ResponseEntity.status(HttpStatus.CREATED)
-        .body(FluentResponse.success().data(cadastraUsuarioProcessor.process(context)));
+        .body(
+            FluentResponse.success()
+                .data(UsuarioMapper.INSTANCE.toDTO(cadastraUsuarioProcessor.process(context))));
   }
 
   @PutMapping("/usuarios/{id_usuario}")
@@ -61,7 +67,9 @@ public class UsuarioController {
     context.put("usuarioDTO", usuario);
 
     return ResponseEntity.ok()
-        .body(FluentResponse.success().data(alteraUsuarioProcessor.process(context)));
+        .body(
+            FluentResponse.success()
+                .data(UsuarioMapper.INSTANCE.toDTO(alteraUsuarioProcessor.process(context))));
   }
 
   @DeleteMapping("/usuarios/{id_usuario}")

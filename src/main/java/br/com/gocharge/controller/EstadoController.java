@@ -4,6 +4,7 @@ import br.com.gocharge.command.CommandContext;
 import br.com.gocharge.domain.Estado;
 import br.com.gocharge.domain.defaultResponses.FluentResponse;
 import br.com.gocharge.exceptions.BadRequestException;
+import br.com.gocharge.mappers.EstadoMapper;
 import br.com.gocharge.processor.estado.*;
 import br.com.gocharge.validator.EstadoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,20 @@ public class EstadoController {
   @GetMapping("/estados")
   public ResponseEntity<Object> getEstados() {
     return ResponseEntity.ok()
-        .body(FluentResponse.success().data(buscaEstadosProcessor.process(null)));
+        .body(
+            FluentResponse.success()
+                .data(EstadoMapper.INSTANCE.toDTO(buscaEstadosProcessor.process(null))));
   }
 
   @GetMapping("/estados/{id_estado}")
   public ResponseEntity<Object> getEstadosPorId(@PathVariable("id_estado") String idEstado) {
     CommandContext context = new CommandContext();
-    context.put("idEstado", UUID.fromString(idEstado));
+    context.put("idEstado", idEstado);
 
     return ResponseEntity.ok()
-        .body(FluentResponse.success().data(buscaEstadoPorIdProcessor.process(context)));
+        .body(
+            FluentResponse.success()
+                .data(EstadoMapper.INSTANCE.toDTO(buscaEstadoPorIdProcessor.process(context))));
   }
 
   @PostMapping("/estados")
@@ -46,7 +51,9 @@ public class EstadoController {
     context.put("estado", estado);
 
     return ResponseEntity.status(HttpStatus.CREATED)
-        .body(FluentResponse.success().data(cadastraEstadoProcessor.process(context)));
+        .body(
+            FluentResponse.success()
+                .data(EstadoMapper.INSTANCE.toDTO(cadastraEstadoProcessor.process(context))));
   }
 
   @PutMapping("/estados/{id_estado}")
@@ -60,7 +67,9 @@ public class EstadoController {
     context.put("estado", estado);
 
     return ResponseEntity.ok()
-        .body(FluentResponse.success().data(alteraEstadoProcessor.process(context)));
+        .body(
+            FluentResponse.success()
+                .data(EstadoMapper.INSTANCE.toDTO(alteraEstadoProcessor.process(context))));
   }
 
   @DeleteMapping("/estados/{id_estado}")

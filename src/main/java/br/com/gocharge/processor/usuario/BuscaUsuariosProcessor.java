@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class BuscaUsuariosProcessor implements CommandProcessor<List<UsuarioDTO>> {
+public class BuscaUsuariosProcessor implements CommandProcessor<List<Usuario>> {
 
   @Autowired private UsuarioRepository usuarioRepository;
 
   @Override
-  public List<UsuarioDTO> process(CommandContext commandContext) {
-    return UsuarioMapper.INSTANCE.toDTO(usuarioRepository.getAll());
+  public List<Usuario> process(CommandContext commandContext) {
+    return usuarioRepository.getAll();
   }
 }

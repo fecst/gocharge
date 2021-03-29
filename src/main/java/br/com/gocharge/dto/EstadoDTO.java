@@ -14,5 +14,5 @@ public class EstadoDTO {
   private String id;
 
   @JsonProperty("estado")
-  private String estado;
+  private String descricao;
 }

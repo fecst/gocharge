@@ -4,6 +4,7 @@ import br.com.gocharge.command.CommandContext;
 import br.com.gocharge.command.CommandProcessor;
 import br.com.gocharge.domain.Cidade;
 import br.com.gocharge.domain.Estado;
+import br.com.gocharge.domain.Usuario;
 import br.com.gocharge.dto.UsuarioDTO;
 import br.com.gocharge.enums.StatusUsuarioEnum;
 import br.com.gocharge.exceptions.UnprocessableEntityException;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class CadastraUsuarioProcessor implements CommandProcessor<UsuarioDTO> {
+public class CadastraUsuarioProcessor implements CommandProcessor<Usuario> {
 
   @Autowired private UsuarioRepository usuarioRepository;
 
@@ -26,7 +27,7 @@ public class CadastraUsuarioProcessor implements CommandProcessor<UsuarioDTO> {
   @Autowired private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
 
   @Override
-  public UsuarioDTO process(CommandContext context) {
+  public Usuario process(CommandContext context) {
     UsuarioDTO usuario = context.getProperty("usuarioDTO", UsuarioDTO.class);
 
     context.put("idEstado", usuario.getEstado());
@@ -44,7 +45,6 @@ public class CadastraUsuarioProcessor implements CommandProcessor<UsuarioDTO> {
     usuario.setMotivoBloqueio(null);
     usuario.setDataHoraBloqueio(null);
 
-    return UsuarioMapper.INSTANCE.toDTO(
-        usuarioRepository.create(UsuarioMapper.INSTANCE.toDomain(usuario, estado, cidade)));
+    return usuarioRepository.create(UsuarioMapper.INSTANCE.toDomain(usuario, estado, cidade));
   }
 }
