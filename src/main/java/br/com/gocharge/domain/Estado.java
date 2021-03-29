@@ -9,9 +9,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Estado {
-  @JsonProperty("id")
-  private UUID id;
-
-  @JsonProperty("descricao")
+  private String id;
   private String descricao;
 }

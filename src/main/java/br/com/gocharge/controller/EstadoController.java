@@ -54,7 +54,7 @@ public class EstadoController {
       @PathVariable("id_estado") String idEstado, @RequestBody Estado estado) {
     estadoValidator.validate(estado).isInvalidThrow(BadRequestException.class);
 
-    estado.setId(UUID.fromString(idEstado));
+    estado.setId(idEstado);
 
     CommandContext context = new CommandContext();
     context.put("estado", estado);

@@ -2,6 +2,7 @@ package br.com.gocharge.enums;
 
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 @Getter
@@ -22,5 +23,10 @@ public enum StatusCadastroEnum {
         .filter(value -> value.getCodigo().equals(codigo))
         .findFirst()
         .orElse(null);
+  }
+
+  public static boolean contains(String codigo) {
+    return Stream.of(StatusCadastroEnum.values())
+            .anyMatch(status -> status.codigo.equals(codigo));
   }
 }

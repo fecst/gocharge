@@ -3,8 +3,10 @@ package br.com.gocharge.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "CAD_EST")
@@ -12,14 +14,13 @@ import java.util.UUID;
 @Setter
 public class EstadoModel {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
       name = "ID_EST",
-      columnDefinition = "VARCHAR(36)",
+      columnDefinition = "VARCHAR(2)",
       updatable = false,
       unique = true,
       nullable = false)
-  private UUID id;
+  private String id;
 
   @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)")
   private String descricao;

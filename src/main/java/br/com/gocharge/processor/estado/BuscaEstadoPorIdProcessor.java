@@ -16,7 +16,7 @@ public class BuscaEstadoPorIdProcessor implements CommandProcessor<Estado> {
 
   @Override
   public Estado process(CommandContext context) {
-    UUID idEstado = context.getProperty("idEstado", UUID.class);
+    String idEstado = context.getProperty("idEstado", String.class);
 
     return estadoRepository.getById(idEstado);
   }

@@ -8,7 +8,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Cidade {
-  private UUID id;
+  private Integer id;
   private Estado estado;
   private String descricao;
 }

@@ -32,13 +32,13 @@ public class CidadeRepository {
     }
   }
 
-  public Cidade getById(UUID id) {
+  public Cidade getById(Integer id) {
     CidadeModel cidade = entityManager.find(CidadeModel.class, id);
 
     if (Objects.nonNull(cidade)) {
       return CidadeMapper.INSTANCE.toDomain(cidade);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Cidade não encontrada");
     }
   }
 
@@ -55,8 +55,7 @@ public class CidadeRepository {
 
     if (Objects.nonNull(cidade)) {
       cidadeModel.setDescricao(cidade.getDescricao());
-      cidadeModel.setEstado(EstadoMapper.INSTANCE.toModel(cidade.getEstado()
-      ));
+      cidadeModel.setEstado(EstadoMapper.INSTANCE.toModel(cidade.getEstado()));
 
       return CidadeMapper.INSTANCE.toDomain(entityManager.merge(cidadeModel));
     } else {

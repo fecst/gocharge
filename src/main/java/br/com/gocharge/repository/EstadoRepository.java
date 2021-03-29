@@ -31,13 +31,13 @@ public class EstadoRepository {
     }
   }
 
-  public Estado getById(UUID id) {
+  public Estado getById(String id) {
     EstadoModel estado = entityManager.find(EstadoModel.class, id);
 
     if (Objects.nonNull(estado)) {
       return EstadoMapper.INSTANCE.toDomain(estado);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Estado não encontrado");
     }
   }
 

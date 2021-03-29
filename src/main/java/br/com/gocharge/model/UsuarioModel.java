@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -25,56 +26,48 @@ public class UsuarioModel {
   @Column(name = "DT_HR_CAD", columnDefinition = "DATETIME", updatable = false, nullable = false)
   private LocalDateTime dataHoraCadastro;
 
-  @Column(name = "NOME", columnDefinition = "VARCHAR(250)", nullable = false)
+  @Column(name = "NOME", columnDefinition = "VARCHAR(250)")
   private String nome;
 
-  @Column(name = "APELIDO", columnDefinition = "VARCHAR(250)", nullable = false)
+  @Column(name = "APELIDO", columnDefinition = "VARCHAR(250)")
   private String apelido;
 
   @Column(name = "EMAIL", columnDefinition = "VARCHAR(250)", nullable = false)
   private String email;
 
-  @Column(name = "CPF", columnDefinition = "VARCHAR(11)", updatable = false, nullable = false)
+  @Column(name = "CPF", columnDefinition = "VARCHAR(11)")
   private String cpf;
 
-  @Column(name = "DT_NASC", columnDefinition = "DATE", updatable = false, nullable = false)
-  private String dataNascimento;
+  @Column(name = "DT_NASC", columnDefinition = "DATE")
+  private Date dataNascimento;
 
-  @Column(name = "SENHA", columnDefinition = "VARCHAR(250)", nullable = false)
+  @Column(name = "SENHA", columnDefinition = "VARCHAR(250)")
   private String senha;
 
-  @Column(name = "TEL", columnDefinition = "VARCHAR(11)", nullable = false)
+  @Column(name = "TEL", columnDefinition = "VARCHAR(11)")
   private String telefone;
 
-  @Column(name = "CEP", columnDefinition = "VARCHAR(8)", nullable = false)
+  @Column(name = "CEP", columnDefinition = "VARCHAR(8)")
   private String cep;
 
-  @Column(name = "ENDERECO", columnDefinition = "VARCHAR(250)", nullable = false)
+  @Column(name = "ENDERECO", columnDefinition = "VARCHAR(250)")
   private String endereco;
 
-  @Column(name = "NUM_END", columnDefinition = "VARCHAR(10)", nullable = false)
+  @Column(name = "NUM_END", columnDefinition = "VARCHAR(10)")
   private String numero;
 
-  @Column(name = "BAIRRO", columnDefinition = "VARCHAR(250)", nullable = false)
+  @Column(name = "BAIRRO", columnDefinition = "VARCHAR(250)")
   private String bairro;
 
-  @ManyToOne
-  @JoinColumn(
-          name = "ID_EST",
-          referencedColumnName = "ID_EST",
-          columnDefinition = "VARCHAR(36)",
-          nullable = false)
+  @ManyToOne(cascade = CascadeType.DETACH)
+  @JoinColumn(name = "ID_EST", referencedColumnName = "ID_EST", columnDefinition = "VARCHAR(36)")
   private EstadoModel estado;
 
-  @ManyToOne
-  @JoinColumn(
-          name = "ID_CID",
-          referencedColumnName = "ID_CID",
-          columnDefinition = "VARCHAR(36)",
-          nullable = false)
+  @ManyToOne(cascade = CascadeType.DETACH)
+  @JoinColumn(name = "ID_CID", referencedColumnName = "ID_CID", columnDefinition = "VARCHAR(36)")
   private CidadeModel cidade;
 
-  @ManyToOne(cascade = CascadeType.REFRESH)
+  @ManyToOne(cascade = CascadeType.DETACH)
   @JoinColumn(
       name = "COD_STAT_USU",
       referencedColumnName = "COD_STAT_USU",

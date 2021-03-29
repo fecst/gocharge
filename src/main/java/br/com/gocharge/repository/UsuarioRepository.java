@@ -3,7 +3,10 @@ package br.com.gocharge.repository;
 import br.com.gocharge.domain.Usuario;
 import br.com.gocharge.exceptions.NoContentException;
 import br.com.gocharge.exceptions.NotFoundException;
+import br.com.gocharge.mappers.EstadoMapper;
 import br.com.gocharge.mappers.UsuarioMapper;
+import br.com.gocharge.model.CidadeModel;
+import br.com.gocharge.model.EstadoModel;
 import br.com.gocharge.model.UsuarioModel;
 import org.springframework.stereotype.Repository;
 
@@ -54,6 +57,23 @@ public class UsuarioRepository {
 
     if (Objects.nonNull(usuarioModel)) {
       UsuarioMapper.INSTANCE.updateFrom(usuario, usuarioModel);
+
+      if (usuario.getCidade().getId() != usuarioModel.getCidade().getId()) {
+        CidadeModel cidadeModel = new CidadeModel();
+        cidadeModel.setId(usuario.getCidade().getId());
+        cidadeModel.setDescricao(usuario.getCidade().getDescricao());
+        cidadeModel.setEstado(EstadoMapper.INSTANCE.toModel(usuario.getCidade().getEstado()));
+
+        usuarioModel.setCidade(cidadeModel);
+      }
+
+      if (usuario.getEstado().getId() != usuarioModel.getEstado().getId()) {
+        EstadoModel estadoModel = new EstadoModel();
+        estadoModel.setId(usuario.getEstado().getId());
+        estadoModel.setDescricao(usuario.getEstado().getDescricao());
+
+        usuarioModel.setEstado(estadoModel);
+      }
 
       entityManager.merge(usuarioModel);
 

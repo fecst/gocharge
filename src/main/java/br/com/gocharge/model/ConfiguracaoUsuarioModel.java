@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "CAD_USU")
+@Table(name = "CONF_USU")
 @Getter
 @Setter
 public class ConfiguracaoUsuarioModel {

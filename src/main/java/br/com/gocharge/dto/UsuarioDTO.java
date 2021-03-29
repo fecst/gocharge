@@ -1,13 +1,11 @@
 package br.com.gocharge.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UsuarioDTO {
 
   @JsonProperty("id")
@@ -50,7 +48,7 @@ public class UsuarioDTO {
   private String bairro;
 
   @JsonProperty("cidade")
-  private String cidadeDTO;
+  private String cidade;
 
   @JsonProperty("estado")
   private String estado;
@@ -63,6 +61,4 @@ public class UsuarioDTO {
 
   @JsonProperty("motivo_bloqueio")
   private String motivoBloqueio;
-
-  private boolean isCreate;
 }

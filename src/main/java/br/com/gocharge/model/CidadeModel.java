@@ -12,20 +12,19 @@ import java.util.UUID;
 @Setter
 public class CidadeModel {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
       name = "ID_CID",
-      columnDefinition = "VARCHAR(36)",
+      columnDefinition = "INT",
       updatable = false,
       unique = true,
       nullable = false)
-  private UUID id;
+  private Integer id;
 
   @ManyToOne
   @JoinColumn(
       name = "ID_EST",
       referencedColumnName = "ID_EST",
-      columnDefinition = "VARCHAR(36)",
+      columnDefinition = "VARCHAR(2)",
       nullable = false)
   private EstadoModel estado;
 

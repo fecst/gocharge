@@ -17,5 +17,5 @@ public class CidadeDTO {
   private String estado;
 
   @JsonProperty("cidade")
-  private String cidade;
+  private String descricao;
 }

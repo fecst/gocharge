@@ -9,6 +9,7 @@ import br.com.gocharge.domain.defaultResponses.FluentResponse;
 import br.com.gocharge.exceptions.BadRequestException;
 import br.com.gocharge.exceptions.NoContentException;
 import br.com.gocharge.exceptions.NotFoundException;
+import br.com.gocharge.exceptions.UnprocessableEntityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,10 +33,19 @@ class RestControllerExceptionHandler {
   @ExceptionHandler
   ResponseEntity<Object> handlerException(final NoContentException e, WebRequest webRequest) {
     return ResponseEntity.status(e.getHttpStatus())
-        .body(
-            FluentResponse.error()
-                .message(e.getMessage())
-                .code(String.valueOf(e.getHttpStatus().value())));
+            .body(
+                    FluentResponse.error()
+                            .message(e.getMessage())
+                            .code(String.valueOf(e.getHttpStatus().value())));
+  }
+
+  @ExceptionHandler
+  ResponseEntity<Object> handlerException(final UnprocessableEntityException e, WebRequest webRequest) {
+    return ResponseEntity.status(e.getHttpStatus())
+            .body(
+                    FluentResponse.error()
+                            .message(e.getMessage())
+                            .code(String.valueOf(e.getHttpStatus().value())));
   }
 
   @ExceptionHandler

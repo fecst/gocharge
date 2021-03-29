@@ -54,7 +54,7 @@ public class CidadeController {
       @PathVariable("id_cidade") String idCidade, @RequestBody Cidade cidade) {
     cidadeValidator.validate(cidade).isInvalidThrow(BadRequestException.class);
 
-    cidade.setId(UUID.fromString(idCidade));
+    cidade.setId(Integer.valueOf(idCidade));
 
     CommandContext context = new CommandContext();
     context.put("cidade", cidade);

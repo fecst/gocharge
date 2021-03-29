@@ -3,6 +3,7 @@ package br.com.gocharge.controller;
 import br.com.gocharge.command.CommandContext;
 import br.com.gocharge.domain.Usuario;
 import br.com.gocharge.domain.defaultResponses.FluentResponse;
+import br.com.gocharge.dto.UsuarioDTO;
 import br.com.gocharge.exceptions.BadRequestException;
 import br.com.gocharge.processor.usuario.*;
 import br.com.gocharge.validator.UsuarioValidator;
@@ -39,13 +40,11 @@ public class UsuarioController {
   }
 
   @PostMapping("/usuarios")
-  public ResponseEntity<Object> postUsuario(@RequestBody Usuario usuario) {
-    usuario.setCreate(true);
-
+  public ResponseEntity<Object> postUsuario(@RequestBody UsuarioDTO usuario) {
     usuarioValidator.validate(usuario).isInvalidThrow(BadRequestException.class);
 
     CommandContext context = new CommandContext();
-    context.put("usuario", usuario);
+    context.put("usuarioDTO", usuario);
 
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(FluentResponse.success().data(cadastraUsuarioProcessor.process(context)));
@@ -53,13 +52,13 @@ public class UsuarioController {
 
   @PutMapping("/usuarios/{id_usuario}")
   public ResponseEntity<Object> putUsuario(
-      @PathVariable("id_usuario") String idUsuario, @RequestBody Usuario usuario) {
+      @PathVariable("id_usuario") String idUsuario, @RequestBody UsuarioDTO usuario) {
     usuarioValidator.validate(usuario).isInvalidThrow(BadRequestException.class);
 
-    usuario.setId(UUID.fromString(idUsuario));
+    usuario.setId(idUsuario);
 
     CommandContext context = new CommandContext();
-    context.put("usuario", usuario);
+    context.put("usuarioDTO", usuario);
 
     return ResponseEntity.ok()
         .body(FluentResponse.success().data(alteraUsuarioProcessor.process(context)));
