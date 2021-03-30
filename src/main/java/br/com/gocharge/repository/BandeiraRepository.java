@@ -55,13 +55,12 @@ public class BandeiraRepository {
 
     if (Objects.nonNull(bandeiraModel)) {
       StatusCadastroModel statusCadastroModel = new StatusCadastroModel();
-      statusCadastroModel.setId(bandeira.getStatus());
+      statusCadastroModel.setId(bandeira.getStatus().getCodigo());
 
       bandeiraModel.setDescricao(bandeira.getDescricao());
       bandeiraModel.setStatus(statusCadastroModel);
 
-      return BandeiraMapper.INSTANCE.toDomain(
-              entityManager.merge(bandeiraModel));
+      return BandeiraMapper.INSTANCE.toDomain(entityManager.merge(bandeiraModel));
     } else {
       throw new NotFoundException();
     }
