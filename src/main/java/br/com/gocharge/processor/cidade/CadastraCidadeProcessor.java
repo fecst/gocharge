@@ -4,7 +4,11 @@ import br.com.gocharge.command.CommandContext;
 import br.com.gocharge.command.CommandProcessor;
 import br.com.gocharge.domain.Bandeira;
 import br.com.gocharge.domain.Cidade;
+import br.com.gocharge.domain.Estado;
+import br.com.gocharge.dto.CidadeDTO;
 import br.com.gocharge.enums.StatusCadastroEnum;
+import br.com.gocharge.mappers.CidadeMapper;
+import br.com.gocharge.processor.estado.BuscaEstadoPorIdProcessor;
 import br.com.gocharge.repository.BandeiraRepository;
 import br.com.gocharge.repository.CidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +21,16 @@ public class CadastraCidadeProcessor implements CommandProcessor<Cidade> {
 
   @Autowired private CidadeRepository cidadeRepository;
 
+  @Autowired private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
+
   @Override
   public Cidade process(CommandContext context) {
-    Cidade cidade = context.getProperty("cidade", Cidade.class);
+    CidadeDTO cidade = context.getProperty("cidade", CidadeDTO.class);
 
-    return cidadeRepository.create(cidade);
+    context.put("idEstado", cidade.getEstado());
+
+    Estado estado = buscaEstadoPorIdProcessor.process(context);
+
+    return cidadeRepository.create(CidadeMapper.INSTANCE.toDomain(cidade, estado));
   }
 }

@@ -7,19 +7,19 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TP_PESS")
+@Table(name = "TP_USU")
 @Getter
 @Setter
-public class TipoPessoaModel {
+public class TipoUsuarioModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "COD_TP_PESS",
-      columnDefinition = "VARCHAR(36)",
+      name = "COD_TP_USU",
+      columnDefinition = "INT",
       updatable = false,
       unique = true,
       nullable = false)
-  private UUID id;
+  private Integer id;
 
   @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)", nullable = false)
   private String descricao;

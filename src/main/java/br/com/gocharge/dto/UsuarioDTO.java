@@ -1,5 +1,7 @@
 package br.com.gocharge.dto;
 
+import br.com.gocharge.enums.CategoriaUsuarioEnum;
+import br.com.gocharge.enums.TipoUsuarioEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +19,8 @@ public class UsuarioDTO {
   @JsonProperty("nome")
   private String nome;
 
-  @JsonProperty("apelido")
-  private String apelido;
+  @JsonProperty("login")
+  private String login;
 
   @JsonProperty("email")
   private String email;
@@ -26,23 +28,35 @@ public class UsuarioDTO {
   @JsonProperty("cpf")
   private String cpf;
 
+  @JsonProperty("cnpj")
+  private String cnpj;
+
   @JsonProperty("data_nascimento")
   private String dataNascimento;
 
   @JsonProperty("senha")
   private String senha;
 
-  @JsonProperty("telefone")
-  private String telefone;
+  @JsonProperty("telefone_1")
+  private String telefone1;
 
-  @JsonProperty("endereco")
-  private String endereco;
+  @JsonProperty("telefone_2")
+  private String telefone2;
+
+  @JsonProperty("telefone_3")
+  private String telefone3;
 
   @JsonProperty("cep")
   private String cep;
 
-  @JsonProperty("numero_endereco")
+  @JsonProperty("endereco")
+  private String endereco;
+
+  @JsonProperty("numero")
   private String numero;
+
+  @JsonProperty("complemento")
+  private String complemento;
 
   @JsonProperty("bairro")
   private String bairro;
@@ -52,6 +66,18 @@ public class UsuarioDTO {
 
   @JsonProperty("estado")
   private String estado;
+
+  @JsonProperty("pais")
+  private String pais;
+
+  @JsonProperty("tipo_usuario")
+  private String tipoUsuario;
+
+  @JsonProperty("maps")
+  private Boolean maps;
+
+  @JsonProperty("categoria_usuario")
+  private String categoriaUsuario;
 
   @JsonProperty("status")
   private String status;

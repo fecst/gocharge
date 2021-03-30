@@ -1,9 +1,10 @@
 package br.com.gocharge.controller;
 
 import br.com.gocharge.command.CommandContext;
-import br.com.gocharge.domain.Cidade;
 import br.com.gocharge.domain.defaultResponses.FluentResponse;
+import br.com.gocharge.dto.CidadeDTO;
 import br.com.gocharge.exceptions.BadRequestException;
+import br.com.gocharge.mappers.CidadeMapper;
 import br.com.gocharge.processor.cidade.*;
 import br.com.gocharge.validator.CidadeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @RestController
 public class CidadeController {
 
-  @Autowired private BuscaCidadeProcessor buscaCidadeProcessor;
+  @Autowired private BuscaCidadesProcessor buscaCidadesProcessor;
   @Autowired private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
   @Autowired private ApagaCidadePorIdProcessor apagaCidadePorIdProcessor;
   @Autowired private CadastraCidadeProcessor cadastraCidadeProcessor;
@@ -24,43 +25,51 @@ public class CidadeController {
   @Autowired private CidadeValidator cidadeValidator;
 
   @GetMapping("/cidades")
-  public ResponseEntity<Object> getEstados() {
+  public ResponseEntity<Object> getCidades() {
     return ResponseEntity.ok()
-        .body(FluentResponse.success().data(buscaCidadeProcessor.process(null)));
+        .body(
+            FluentResponse.success()
+                .data(CidadeMapper.INSTANCE.toDTO(buscaCidadesProcessor.process(null))));
   }
 
   @GetMapping("/cidades/{id_cidade}")
-  public ResponseEntity<Object> getEstadosPorId(@PathVariable("id_cidade") String idCidade) {
+  public ResponseEntity<Object> getCidadesPorId(@PathVariable("id_cidade") String idCidade) {
     CommandContext context = new CommandContext();
-    context.put("idCidade", UUID.fromString(idCidade));
+    context.put("idCidade", Integer.valueOf(idCidade));
 
     return ResponseEntity.ok()
-        .body(FluentResponse.success().data(buscaCidadePorIdProcessor.process(context)));
+            .body(
+                    FluentResponse.success()
+                            .data(CidadeMapper.INSTANCE.toDTO(buscaCidadePorIdProcessor.process(context))));
   }
 
   @PostMapping("/cidades")
-  public ResponseEntity<Object> postCidade(@RequestBody Cidade cidade) {
+  public ResponseEntity<Object> postCidade(@RequestBody CidadeDTO cidade) {
     cidadeValidator.validate(cidade).isInvalidThrow(BadRequestException.class);
 
     CommandContext context = new CommandContext();
     context.put("cidade", cidade);
 
     return ResponseEntity.status(HttpStatus.CREATED)
-        .body(FluentResponse.success().data(cadastraCidadeProcessor.process(context)));
+        .body(
+            FluentResponse.success()
+                .data(CidadeMapper.INSTANCE.toDTO(cadastraCidadeProcessor.process(context))));
   }
 
   @PutMapping("/cidades/{id_cidade}")
   public ResponseEntity<Object> putCidade(
-      @PathVariable("id_cidade") String idCidade, @RequestBody Cidade cidade) {
+      @PathVariable("id_cidade") String idCidade, @RequestBody CidadeDTO cidade) {
     cidadeValidator.validate(cidade).isInvalidThrow(BadRequestException.class);
 
-    cidade.setId(Integer.valueOf(idCidade));
+    cidade.setId(idCidade);
 
     CommandContext context = new CommandContext();
     context.put("cidade", cidade);
 
     return ResponseEntity.ok()
-        .body(FluentResponse.success().data(alteraCidadeProcessor.process(context)));
+        .body(
+            FluentResponse.success()
+                .data(CidadeMapper.INSTANCE.toDTO(alteraCidadeProcessor.process(context))));
   }
 
   @DeleteMapping("/cidades/{id_cidade}")
@@ -68,6 +77,7 @@ public class CidadeController {
     CommandContext context = new CommandContext();
     context.put("idCidade", UUID.fromString(idCidade));
 
-    return ResponseEntity.accepted().body(apagaCidadePorIdProcessor.process(context));
+    return ResponseEntity.accepted()
+        .body(CidadeMapper.INSTANCE.toDTO(apagaCidadePorIdProcessor.process(context)));
   }
 }

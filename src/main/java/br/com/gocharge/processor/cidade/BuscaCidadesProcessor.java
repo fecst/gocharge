@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class BuscaCidadeProcessor implements CommandProcessor<List<Cidade>> {
+public class BuscaCidadesProcessor implements CommandProcessor<List<Cidade>> {
 
   @Autowired private CidadeRepository cidadeRepository;
 

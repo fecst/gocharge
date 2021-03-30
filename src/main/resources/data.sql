@@ -5608,3 +5608,18 @@ INSERT INTO CAD_CID VALUES ('5222054', 'Vicentinópolis','GO');
 INSERT INTO CAD_CID VALUES ('5222203', 'Vila Boa','GO');
 INSERT INTO CAD_CID VALUES ('5222302', 'Vila Propício','GO');
 INSERT INTO CAD_CID VALUES ('5300108', 'Brasília','DF');
+
+INSERT INTO TP_USU VALUES (1, 'Cliente final CPF residencial');
+INSERT INTO TP_USU VALUES (2, 'Cliente final CPF compra');
+INSERT INTO TP_USU VALUES (3, 'Cliente CNPJ');
+INSERT INTO TP_USU VALUES (4, 'Cliente final CNPJ venda');
+INSERT INTO TP_USU VALUES (5, 'Cliente final CNPJ interno');
+INSERT INTO TP_USU VALUES (6, 'Cliente final CNPJ compra');
+INSERT INTO TP_USU VALUES (7, 'Cliente final CNPJ interno e compra');
+INSERT INTO TP_USU VALUES (8, 'Cliente CNPJ gestor');
+
+INSERT INTO CAT_USU VALUES ('A', 'A');
+INSERT INTO CAT_USU VALUES ('B', 'B');
+INSERT INTO CAT_USU VALUES ('C', 'C');
+INSERT INTO CAT_USU VALUES ('D', 'D');
+INSERT INTO CAT_USU VALUES ('E', 'E');

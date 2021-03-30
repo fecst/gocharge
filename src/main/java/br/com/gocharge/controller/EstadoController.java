@@ -1,10 +1,12 @@
 package br.com.gocharge.controller;
 
 import br.com.gocharge.command.CommandContext;
-import br.com.gocharge.domain.Estado;
 import br.com.gocharge.domain.defaultResponses.FluentResponse;
+import br.com.gocharge.dto.EstadoDTO;
 import br.com.gocharge.exceptions.BadRequestException;
+import br.com.gocharge.mappers.CidadeMapper;
 import br.com.gocharge.mappers.EstadoMapper;
+import br.com.gocharge.processor.cidade.BuscaCidadesPorEstadoProcessor;
 import br.com.gocharge.processor.estado.*;
 import br.com.gocharge.validator.EstadoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ public class EstadoController {
   @Autowired private CadastraEstadoProcessor cadastraEstadoProcessor;
   @Autowired private AlteraEstadoProcessor alteraEstadoProcessor;
   @Autowired private EstadoValidator estadoValidator;
+  @Autowired private BuscaCidadesPorEstadoProcessor buscaCidadesPorEstadoProcessor;
 
   @GetMapping("/estados")
   public ResponseEntity<Object> getEstados() {
@@ -43,8 +46,20 @@ public class EstadoController {
                 .data(EstadoMapper.INSTANCE.toDTO(buscaEstadoPorIdProcessor.process(context))));
   }
 
+  @GetMapping("/estados/{id_estado}/cidades")
+  public ResponseEntity<Object> getCidadesPorEstado(@PathVariable("id_estado") String idEstado) {
+    CommandContext context = new CommandContext();
+    context.put("idEstado", idEstado);
+
+    return ResponseEntity.ok()
+        .body(
+            FluentResponse.success()
+                .data(
+                    CidadeMapper.INSTANCE.toDTO(buscaCidadesPorEstadoProcessor.process(context))));
+  }
+
   @PostMapping("/estados")
-  public ResponseEntity<Object> postEstado(@RequestBody Estado estado) {
+  public ResponseEntity<Object> postEstado(@RequestBody EstadoDTO estado) {
     estadoValidator.validate(estado).isInvalidThrow(BadRequestException.class);
 
     CommandContext context = new CommandContext();
@@ -58,7 +73,7 @@ public class EstadoController {
 
   @PutMapping("/estados/{id_estado}")
   public ResponseEntity<Object> putEstado(
-      @PathVariable("id_estado") String idEstado, @RequestBody Estado estado) {
+      @PathVariable("id_estado") String idEstado, @RequestBody EstadoDTO estado) {
     estadoValidator.validate(estado).isInvalidThrow(BadRequestException.class);
 
     estado.setId(idEstado);

@@ -38,6 +38,6 @@ public abstract class BandeiraMapper {
 
   @AfterMapping
   void afterMapping(BandeiraModel bandeiraModel, @MappingTarget Bandeira bandeira) {
-    bandeira.setStatus(StatusCadastroEnum.get(bandeiraModel.getStatus().getId()).getDescricao());
+    bandeira.setStatus(StatusCadastroEnum.get(bandeiraModel.getStatus().getId()).getCodigo());
   }
 }

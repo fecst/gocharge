@@ -4,9 +4,10 @@ import br.com.gocharge.domain.Cidade;
 import br.com.gocharge.domain.Estado;
 import br.com.gocharge.domain.Usuario;
 import br.com.gocharge.dto.UsuarioDTO;
+import br.com.gocharge.enums.CategoriaUsuarioEnum;
 import br.com.gocharge.enums.StatusUsuarioEnum;
-import br.com.gocharge.model.StatusUsuarioModel;
-import br.com.gocharge.model.UsuarioModel;
+import br.com.gocharge.enums.TipoUsuarioEnum;
+import br.com.gocharge.model.*;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,6 +24,8 @@ public abstract class UsuarioMapper {
   @Mapping(target = "status", ignore = true)
   @Mapping(target = "cidade", ignore = true)
   @Mapping(target = "estado", ignore = true)
+  @Mapping(target = "tipoUsuario", ignore = true)
+  @Mapping(target = "categoriaUsuario", ignore = true)
   @Mapping(target = "id", source = "id", qualifiedByName = ConverterMapper.UUID_TO_STRING)
   @Mapping(
       target = "dataHoraCadastro",
@@ -41,11 +44,15 @@ public abstract class UsuarioMapper {
   public abstract List<UsuarioDTO> toDTO(List<Usuario> usuarioList);
 
   @Mapping(target = "status", ignore = true)
+  @Mapping(target = "tipoUsuario", ignore = true)
+  @Mapping(target = "categoriaUsuario", ignore = true)
   public abstract Usuario toDomain(UsuarioModel usuarioModel);
 
   @Mapping(target = "status", ignore = true)
   @Mapping(target = "cidade", source = "cidade")
   @Mapping(target = "estado", source = "estado")
+  @Mapping(target = "tipoUsuario", ignore = true)
+  @Mapping(target = "categoriaUsuario", ignore = true)
   @Mapping(
       target = "dataHoraCadastro",
       source = "usuarioDTO.dataHoraCadastro",
@@ -67,6 +74,8 @@ public abstract class UsuarioMapper {
   public abstract List<Usuario> toDomain(List<UsuarioModel> usuarioModel);
 
   @Mapping(target = "status", ignore = true)
+  @Mapping(target = "tipoUsuario", ignore = true)
+  @Mapping(target = "categoriaUsuario", ignore = true)
   public abstract UsuarioModel toModel(Usuario usuario);
 
   public abstract List<UsuarioModel> toModel(List<Usuario> usuario);
@@ -76,6 +85,8 @@ public abstract class UsuarioMapper {
   @Mapping(target = "status", ignore = true)
   @Mapping(target = "cidade", ignore = true)
   @Mapping(target = "estado", ignore = true)
+  @Mapping(target = "tipoUsuario", ignore = true)
+  @Mapping(target = "categoriaUsuario", ignore = true)
   public abstract void updateFrom(
       final Usuario usuario, @MappingTarget final UsuarioModel usuarioModel);
 
@@ -87,21 +98,80 @@ public abstract class UsuarioMapper {
 
       usuarioModel.setStatus(statusUsuarioModel);
     }
+
+    if (Objects.nonNull(usuario.getCidade())
+        && usuario.getCidade().getId() != usuarioModel.getCidade().getId()) {
+      CidadeModel cidadeModel = new CidadeModel();
+      cidadeModel.setId(usuario.getCidade().getId());
+      cidadeModel.setDescricao(usuario.getCidade().getDescricao());
+      cidadeModel.setEstado(EstadoMapper.INSTANCE.toModel(usuario.getCidade().getEstado()));
+
+      usuarioModel.setCidade(cidadeModel);
+    }
+
+    if (Objects.nonNull(usuario.getEstado())
+        && usuario.getEstado().getId() != usuarioModel.getEstado().getId()) {
+      EstadoModel estadoModel = new EstadoModel();
+      estadoModel.setId(usuario.getEstado().getId());
+      estadoModel.setDescricao(usuario.getEstado().getDescricao());
+
+      usuarioModel.setEstado(estadoModel);
+    }
+
+    if (Objects.isNull(usuarioModel.getTipoUsuario())
+        || (Objects.nonNull(usuario.getTipoUsuario())
+            && usuario.getTipoUsuario().getId() != usuarioModel.getTipoUsuario().getId())) {
+      TipoUsuarioModel tipoUsuarioModel = new TipoUsuarioModel();
+      tipoUsuarioModel.setId(usuario.getTipoUsuario().getId());
+
+      usuarioModel.setTipoUsuario(tipoUsuarioModel);
+    } else if (Objects.isNull(usuario.getTipoUsuario())) {
+      usuarioModel.setTipoUsuario(null);
+    }
+
+    if (Objects.isNull(usuarioModel.getCategoriaUsuario())
+        || (Objects.nonNull(usuario.getCategoriaUsuario())
+            && usuario.getCategoriaUsuario().getId()
+                != usuarioModel.getCategoriaUsuario().getId())) {
+      CategoriaUsuarioModel categoriaUsuarioModel = new CategoriaUsuarioModel();
+      categoriaUsuarioModel.setId(usuario.getCategoriaUsuario().getId());
+
+      usuarioModel.setCategoriaUsuario(categoriaUsuarioModel);
+    } else if (Objects.isNull(usuario.getCategoriaUsuario())) {
+      usuarioModel.setCategoriaUsuario(null);
+    }
   }
 
   @AfterMapping
   void afterMapping(UsuarioModel usuarioModel, @MappingTarget Usuario usuario) {
     usuario.setStatus(StatusUsuarioEnum.get(usuarioModel.getStatus().getId()));
+
+    if (Objects.nonNull(usuarioModel.getTipoUsuario())) {
+      usuario.setTipoUsuario(TipoUsuarioEnum.get(usuarioModel.getTipoUsuario().getId()));
+    }
+
+    if (Objects.nonNull(usuarioModel.getCategoriaUsuario())) {
+      usuario.setCategoriaUsuario(
+          CategoriaUsuarioEnum.get(usuarioModel.getCategoriaUsuario().getId()));
+    }
   }
 
   @AfterMapping
   void afterMapping(UsuarioDTO usuarioDTO, @MappingTarget Usuario usuario) {
     usuario.setStatus(StatusUsuarioEnum.get(usuarioDTO.getStatus()));
+
+    if (Objects.nonNull(usuarioDTO.getTipoUsuario())) {
+      usuario.setTipoUsuario(TipoUsuarioEnum.get(Integer.valueOf(usuarioDTO.getTipoUsuario())));
+    }
+
+    if (Objects.nonNull(usuarioDTO.getCategoriaUsuario())) {
+      usuario.setCategoriaUsuario(CategoriaUsuarioEnum.get(usuarioDTO.getCategoriaUsuario()));
+    }
   }
 
   @AfterMapping
   void afterMapping(Usuario usuario, @MappingTarget UsuarioDTO usuarioDTO) {
-    usuarioDTO.setStatus(StatusUsuarioEnum.get(usuario.getStatus().getCodigo()).getDescricao());
+    usuarioDTO.setStatus(StatusUsuarioEnum.get(usuario.getStatus().getCodigo()).getCodigo());
 
     if (Objects.nonNull(usuario.getCidade())) {
       usuarioDTO.setCidade(usuario.getCidade().getId().toString());
@@ -109,6 +179,18 @@ public abstract class UsuarioMapper {
 
     if (Objects.nonNull(usuario.getEstado())) {
       usuarioDTO.setEstado(usuario.getEstado().getId());
+    }
+
+    if (Objects.nonNull(usuario.getTipoUsuario())) {
+      usuarioDTO.setTipoUsuario(
+          TipoUsuarioEnum.get(Integer.valueOf(usuario.getTipoUsuario().getId()))
+              .getId()
+              .toString());
+    }
+
+    if (Objects.nonNull(usuario.getCategoriaUsuario())) {
+      usuarioDTO.setCategoriaUsuario(
+          CategoriaUsuarioEnum.get(usuario.getCategoriaUsuario().getId()).getId());
     }
   }
 }

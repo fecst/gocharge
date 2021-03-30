@@ -4,7 +4,9 @@ import br.com.fluentvalidator.AbstractValidator;
 import br.com.fluentvalidator.function.FunctionBuilder;
 import br.com.fluentvalidator.predicate.PredicateBuilder;
 import br.com.gocharge.dto.UsuarioDTO;
+import br.com.gocharge.enums.CategoriaUsuarioEnum;
 import br.com.gocharge.enums.StatusCadastroEnum;
+import br.com.gocharge.enums.TipoUsuarioEnum;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
@@ -26,12 +28,12 @@ public class UsuarioValidator extends AbstractValidator<UsuarioDTO> {
         .withFieldName("nome")
         .withAttempedValue(UsuarioDTO::getNome)
 
-        .must(stringSizeLessThanOrEqual(UsuarioDTO::getApelido, 250))
-        .when(not(stringEmptyOrNull(UsuarioDTO::getApelido)))
+        .must(stringSizeLessThanOrEqual(UsuarioDTO::getLogin, 250))
+        .when(not(stringEmptyOrNull(UsuarioDTO::getLogin)))
         .withMessage(
             "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 250 caracteres.")
-        .withFieldName("apelido")
-        .withAttempedValue(UsuarioDTO::getApelido)
+        .withFieldName("login")
+        .withAttempedValue(UsuarioDTO::getLogin)
 
         .must(not(nullValue(UsuarioDTO::getEmail)))
         .withMessage("E-mail não pode ser nulo")
@@ -44,10 +46,10 @@ public class UsuarioValidator extends AbstractValidator<UsuarioDTO> {
         .withFieldName("email")
         .withAttempedValue(UsuarioDTO::getEmail)
 
-        .must(stringSizeLessThanOrEqual(UsuarioDTO::getCpf, 11))
+        .must(stringSize(UsuarioDTO::getCpf, 11))
         .when(not(stringEmptyOrNull(UsuarioDTO::getCpf)))
         .withMessage(
-            "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 11 caracteres.")
+            "Tamanho do campo permito inválido. O campo deve ter 11 caracteres.")
         .withFieldName("cpf")
         .withAttempedValue(UsuarioDTO::getCpf)
 
@@ -57,18 +59,45 @@ public class UsuarioValidator extends AbstractValidator<UsuarioDTO> {
         .withFieldName("cpf")
         .withAttempedValue(UsuarioDTO::getCpf)
 
+        .must(stringSizeLessThanOrEqual(UsuarioDTO::getCnpj, 14))
+        .when(not(stringEmptyOrNull(UsuarioDTO::getCnpj)))
+        .withMessage(
+                "Tamanho do campo inválido. O campo deve ter 14 caracteres.")
+        .withFieldName("cnpj")
+        .withAttempedValue(UsuarioDTO::getCnpj)
+
+        .must(validateCNPJ(FunctionBuilder.of(UsuarioDTO::getCnpj)))
+        .when(not(stringEmptyOrNull(UsuarioDTO::getCnpj)))
+        .withMessage("CNPJ inválido")
+        .withFieldName("cnpj")
+        .withAttempedValue(UsuarioDTO::getCnpj)
+
         .must(isDate(FunctionBuilder.of(UsuarioDTO::getDataNascimento), "uuuu-MM-dd"))
         .when(not(stringEmptyOrNull(UsuarioDTO::getDataNascimento)))
         .withMessage("O campo deve ser uma data válida com formato 'uuuu-MM-dd'")
         .withFieldName("data_nascimento")
         .withAttempedValue(UsuarioDTO::getDataNascimento)
 
-        .must(stringSizeLessThanOrEqual(UsuarioDTO::getTelefone, 11))
-        .when(not(stringEmptyOrNull(UsuarioDTO::getTelefone)))
+        .must(stringSizeLessThanOrEqual(UsuarioDTO::getTelefone1, 11))
+        .when(not(stringEmptyOrNull(UsuarioDTO::getTelefone1)))
         .withMessage(
             "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 11 caracteres.")
-        .withFieldName("telefone")
-        .withAttempedValue(UsuarioDTO::getTelefone)
+        .withFieldName("telefone_1")
+        .withAttempedValue(UsuarioDTO::getTelefone1)
+
+        .must(stringSizeLessThanOrEqual(UsuarioDTO::getTelefone2, 11))
+        .when(not(stringEmptyOrNull(UsuarioDTO::getTelefone2)))
+        .withMessage(
+                "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 11 caracteres.")
+        .withFieldName("telefone_2")
+        .withAttempedValue(UsuarioDTO::getTelefone2)
+
+        .must(stringSizeLessThanOrEqual(UsuarioDTO::getTelefone3, 11))
+        .when(not(stringEmptyOrNull(UsuarioDTO::getTelefone3)))
+        .withMessage(
+                "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 11 caracteres.")
+        .withFieldName("telefone_3")
+            .withAttempedValue(UsuarioDTO::getTelefone3)
 
         .must(stringSizeLessThanOrEqual(UsuarioDTO::getCep, 8))
         .when(not(stringEmptyOrNull(UsuarioDTO::getCep)))
@@ -88,13 +117,20 @@ public class UsuarioValidator extends AbstractValidator<UsuarioDTO> {
         .when(not(stringEmptyOrNull(UsuarioDTO::getNumero)))
         .withMessage(
             "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 10 caracteres.")
-        .withFieldName("numero_endereco")
+        .withFieldName("numero")
         .withAttempedValue(UsuarioDTO::getNumero)
+
+        .must(stringSizeLessThanOrEqual(UsuarioDTO::getComplemento, 250))
+        .when(not(stringEmptyOrNull(UsuarioDTO::getComplemento)))
+        .withMessage(
+                "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 250 caracteres.")
+        .withFieldName("complemento")
+        .withAttempedValue(UsuarioDTO::getComplemento)
 
         .must(stringSizeLessThanOrEqual(UsuarioDTO::getBairro, 250))
         .when(not(stringEmptyOrNull(UsuarioDTO::getBairro)))
         .withMessage(
-            "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 250 caracteres.")
+                "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 250 caracteres.")
         .withFieldName("bairro")
         .withAttempedValue(UsuarioDTO::getBairro)
 
@@ -109,18 +145,42 @@ public class UsuarioValidator extends AbstractValidator<UsuarioDTO> {
         .when(not(stringEmptyOrNull(UsuarioDTO::getEstado)))
         .withMessage(
             "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 36 caracteres.")
-        .withFieldName("cidade")
-        .withAttempedValue(UsuarioDTO::getEndereco);
+        .withFieldName("estado")
+        .withAttempedValue(UsuarioDTO::getEstado)
+
+        .must(stringSizeLessThanOrEqual(UsuarioDTO::getPais, 250))
+        .when(not(stringEmptyOrNull(UsuarioDTO::getPais)))
+        .withMessage(
+                "Tamanho máximo do campo permito excedido. O campo deve ter no máximo 250 caracteres.")
+        .withFieldName("pais")
+        .withAttempedValue(UsuarioDTO::getPais);
 
     ruleFor(UsuarioDTO::getStatus)
         .must(StatusCadastroEnum::contains)
         .when(not(stringEmptyOrNull()))
         .withMessage("Status só pode receber o valor 'A' ou 'I'")
         .withFieldName("status");
+
+    ruleFor(UsuarioDTO::getTipoUsuario)
+        .must(TipoUsuarioEnum::contains)
+        .when(not(stringEmptyOrNull()))
+        .withMessage("Código informado inválido")
+        .withFieldName("tipo_usuario");
+
+    ruleFor(UsuarioDTO::getCategoriaUsuario)
+        .must(CategoriaUsuarioEnum::contains)
+        .when(not(stringEmptyOrNull()))
+        .withMessage("Código informado inválido")
+        .withFieldName("categoria_usuario");
   }
 
   private static Predicate<UsuarioDTO> validateCPF(final Function<UsuarioDTO, String> source) {
     return PredicateBuilder.from(stringMatches(source, "[0-9]{11}"))
-        .and(usuario -> CpfValidator.isValid(source.apply(usuario)));
+            .and(usuario -> CpfValidator.isValid(source.apply(usuario)));
+  }
+
+  private static Predicate<UsuarioDTO> validateCNPJ(final Function<UsuarioDTO, String> source) {
+    return PredicateBuilder.from(stringMatches(source, "[0-9]{14}"))
+            .and(usuario -> CnpjValidator.isValid(source.apply(usuario)));
   }
 }

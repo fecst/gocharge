@@ -32,6 +32,20 @@ public class CidadeRepository {
     }
   }
 
+  public List<Cidade> getByEstado(String idEstado) {
+    List<CidadeModel> cidades =
+        entityManager
+            .createQuery("SELECT c FROM CidadeModel c WHERE c.estado.id = :idEstado")
+            .setParameter("idEstado", idEstado)
+            .getResultList();
+
+    if (cidades.size() > 0) {
+      return CidadeMapper.INSTANCE.toDomain(cidades);
+    } else {
+      throw new NoContentException();
+    }
+  }
+
   public Cidade getById(Integer id) {
     CidadeModel cidade = entityManager.find(CidadeModel.class, id);
 
