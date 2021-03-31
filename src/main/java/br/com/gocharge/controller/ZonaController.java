@@ -4,7 +4,10 @@ import br.com.gocharge.command.CommandContext;
 import br.com.gocharge.domain.defaultResponses.FluentResponse;
 import br.com.gocharge.dto.ZonaDTO;
 import br.com.gocharge.exceptions.BadRequestException;
+import br.com.gocharge.mappers.SubZonaMapper;
 import br.com.gocharge.mappers.ZonaMapper;
+import br.com.gocharge.processor.subZonas.BuscaSubZonaPorCidadeProcessor;
+import br.com.gocharge.processor.subZonas.BuscaSubZonaPorZonaProcessor;
 import br.com.gocharge.processor.zonas.*;
 import br.com.gocharge.validator.ZonaValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ public class ZonaController {
   @Autowired private CadastraZonaProcessor cadastraZonaProcessor;
   @Autowired private AlteraZonaProcessor alteraZonaProcessor;
   @Autowired private ZonaValidator zonaValidator;
+  @Autowired private BuscaSubZonaPorZonaProcessor buscaSubZonaPorZonaProcessor;
 
   @GetMapping("/zonas")
   public ResponseEntity<Object> getZonas() {
@@ -41,6 +45,18 @@ public class ZonaController {
         .body(
             FluentResponse.success()
                 .data(ZonaMapper.INSTANCE.toDTO(buscaZonaPorIdProcessor.process(context))));
+  }
+
+  @GetMapping("/zonas/{id_zona}/subZonas")
+  public ResponseEntity<Object> getSubZonasPorZona(@PathVariable("id_zona") String idZona) {
+    CommandContext context = new CommandContext();
+    context.put("idZona", UUID.fromString(idZona));
+
+    return ResponseEntity.ok()
+        .body(
+            FluentResponse.success()
+                .data(
+                    SubZonaMapper.INSTANCE.toDTO(buscaSubZonaPorZonaProcessor.process(context))));
   }
 
   @PostMapping("/zonas")

@@ -5,8 +5,10 @@ import br.com.gocharge.domain.defaultResponses.FluentResponse;
 import br.com.gocharge.dto.CidadeDTO;
 import br.com.gocharge.exceptions.BadRequestException;
 import br.com.gocharge.mappers.CidadeMapper;
+import br.com.gocharge.mappers.SubZonaMapper;
 import br.com.gocharge.mappers.ZonaMapper;
 import br.com.gocharge.processor.cidade.*;
+import br.com.gocharge.processor.subZonas.BuscaSubZonaPorCidadeProcessor;
 import br.com.gocharge.processor.zonas.BuscaZonaPorCidadeProcessor;
 import br.com.gocharge.validator.CidadeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ public class CidadeController {
   @Autowired private AlteraCidadeProcessor alteraCidadeProcessor;
   @Autowired private CidadeValidator cidadeValidator;
   @Autowired private BuscaZonaPorCidadeProcessor buscaZonaPorCidadeProcessor;
+  @Autowired private BuscaSubZonaPorCidadeProcessor buscaSubZonaPorCidadeProcessor;
 
   @GetMapping("/cidades")
   public ResponseEntity<Object> getCidades() {
@@ -50,9 +53,20 @@ public class CidadeController {
     context.put("idCidade", Integer.valueOf(idCidade));
 
     return ResponseEntity.ok()
-        .body(
-            FluentResponse.success()
-                .data(ZonaMapper.INSTANCE.toDTO(buscaZonaPorCidadeProcessor.process(context))));
+            .body(
+                    FluentResponse.success()
+                            .data(ZonaMapper.INSTANCE.toDTO(buscaZonaPorCidadeProcessor.process(context))));
+  }
+
+  @GetMapping("/cidades/{id_cidade}/subZonas")
+  public ResponseEntity<Object> getSubZonasPorCidade(@PathVariable("id_cidade") String idCidade) {
+    CommandContext context = new CommandContext();
+    context.put("idCidade", Integer.valueOf(idCidade));
+
+    return ResponseEntity.ok()
+            .body(
+                    FluentResponse.success()
+                            .data(SubZonaMapper.INSTANCE.toDTO(buscaSubZonaPorCidadeProcessor.process(context))));
   }
 
   @PostMapping("/cidades")

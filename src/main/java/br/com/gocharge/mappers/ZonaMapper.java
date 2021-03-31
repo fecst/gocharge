@@ -49,15 +49,15 @@ public abstract class ZonaMapper {
     zonaDTO.setEstado(zona.getEstado().getId());
   }
 
-    @AfterMapping
-    void afterMapping(Zona zona, @MappingTarget ZonaModel zonaModel) {
-      zonaModel.setCidade(CidadeMapper.INSTANCE.toModel(zona.getCidade()));
-      zonaModel.setEstado(EstadoMapper.INSTANCE.toModel(zona.getEstado()));
-    }
+  @AfterMapping
+  void afterMapping(Zona zona, @MappingTarget ZonaModel zonaModel) {
+    zonaModel.setCidade(CidadeMapper.INSTANCE.toModel(zona.getCidade()));
+    zonaModel.setEstado(EstadoMapper.INSTANCE.toModel(zona.getEstado()));
+  }
 
-    @AfterMapping
-    void afterMapping(ZonaModel zonaModel, @MappingTarget Zona zona) {
-      zona.setCidade(CidadeMapper.INSTANCE.toDomain(zonaModel.getCidade()));
-      zona.setEstado(EstadoMapper.INSTANCE.toDomain(zonaModel.getEstado()));
-    }
+  @AfterMapping
+  void afterMapping(ZonaModel zonaModel, @MappingTarget Zona zona) {
+    zona.setCidade(CidadeMapper.INSTANCE.toDomain(zonaModel.getCidade()));
+    zona.setEstado(EstadoMapper.INSTANCE.toDomain(zonaModel.getEstado()));
+  }
 }

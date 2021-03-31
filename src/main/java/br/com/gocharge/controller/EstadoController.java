@@ -6,9 +6,11 @@ import br.com.gocharge.dto.EstadoDTO;
 import br.com.gocharge.exceptions.BadRequestException;
 import br.com.gocharge.mappers.CidadeMapper;
 import br.com.gocharge.mappers.EstadoMapper;
+import br.com.gocharge.mappers.SubZonaMapper;
 import br.com.gocharge.mappers.ZonaMapper;
 import br.com.gocharge.processor.cidade.BuscaCidadesPorEstadoProcessor;
 import br.com.gocharge.processor.estado.*;
+import br.com.gocharge.processor.subZonas.BuscaSubZonaPorEstadoProcessor;
 import br.com.gocharge.processor.zonas.BuscaZonaPorEstadoProcessor;
 import br.com.gocharge.validator.EstadoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ public class EstadoController {
   @Autowired private EstadoValidator estadoValidator;
   @Autowired private BuscaCidadesPorEstadoProcessor buscaCidadesPorEstadoProcessor;
   @Autowired private BuscaZonaPorEstadoProcessor buscaZonaPorEstadoProcessor;
+  @Autowired private BuscaSubZonaPorEstadoProcessor buscaSubZonaPorEstadoProcessor;
 
   @GetMapping("/estados")
   public ResponseEntity<Object> getEstados() {
@@ -70,6 +73,18 @@ public class EstadoController {
         .body(
             FluentResponse.success()
                 .data(ZonaMapper.INSTANCE.toDTO(buscaZonaPorEstadoProcessor.process(context))));
+  }
+
+  @GetMapping("/estados/{id_estado}/subZonas")
+  public ResponseEntity<Object> getSubZonasPorEstado(@PathVariable("id_estado") String idEstado) {
+    CommandContext context = new CommandContext();
+    context.put("idEstado", idEstado);
+
+    return ResponseEntity.ok()
+        .body(
+            FluentResponse.success()
+                .data(
+                    SubZonaMapper.INSTANCE.toDTO(buscaSubZonaPorEstadoProcessor.process(context))));
   }
 
   @PostMapping("/estados")

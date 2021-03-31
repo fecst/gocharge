@@ -20,6 +20,6 @@ public class SubZonaDTO {
   @JsonProperty("zona")
   private String zona;
 
-  @JsonProperty("descricao")
+  @JsonProperty("sub_zona")
   private String descricao;
 }
