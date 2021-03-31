@@ -17,6 +17,6 @@ public class ZonaDTO {
   @JsonProperty("cidade")
   private String cidade;
 
-  @JsonProperty("descricao")
+  @JsonProperty("zona")
   private String descricao;
 }

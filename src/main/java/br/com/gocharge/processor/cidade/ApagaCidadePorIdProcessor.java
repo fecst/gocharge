@@ -16,7 +16,7 @@ public class ApagaCidadePorIdProcessor implements CommandProcessor<Cidade> {
 
   @Override
   public Cidade process(CommandContext context) {
-    UUID idCidade = context.getProperty("idCidade", UUID.class);
+    Integer idCidade = context.getProperty("idCidade", Integer.class);
 
     cidadeRepository.delete(idCidade);
 

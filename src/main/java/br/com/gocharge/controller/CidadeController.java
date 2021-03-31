@@ -5,14 +5,14 @@ import br.com.gocharge.domain.defaultResponses.FluentResponse;
 import br.com.gocharge.dto.CidadeDTO;
 import br.com.gocharge.exceptions.BadRequestException;
 import br.com.gocharge.mappers.CidadeMapper;
+import br.com.gocharge.mappers.ZonaMapper;
 import br.com.gocharge.processor.cidade.*;
+import br.com.gocharge.processor.zonas.BuscaZonaPorCidadeProcessor;
 import br.com.gocharge.validator.CidadeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 public class CidadeController {
@@ -23,6 +23,7 @@ public class CidadeController {
   @Autowired private CadastraCidadeProcessor cadastraCidadeProcessor;
   @Autowired private AlteraCidadeProcessor alteraCidadeProcessor;
   @Autowired private CidadeValidator cidadeValidator;
+  @Autowired private BuscaZonaPorCidadeProcessor buscaZonaPorCidadeProcessor;
 
   @GetMapping("/cidades")
   public ResponseEntity<Object> getCidades() {
@@ -38,9 +39,20 @@ public class CidadeController {
     context.put("idCidade", Integer.valueOf(idCidade));
 
     return ResponseEntity.ok()
-            .body(
-                    FluentResponse.success()
-                            .data(CidadeMapper.INSTANCE.toDTO(buscaCidadePorIdProcessor.process(context))));
+        .body(
+            FluentResponse.success()
+                .data(CidadeMapper.INSTANCE.toDTO(buscaCidadePorIdProcessor.process(context))));
+  }
+
+  @GetMapping("/cidades/{id_cidade}/zonas")
+  public ResponseEntity<Object> getZonasPorCidade(@PathVariable("id_cidade") String idCidade) {
+    CommandContext context = new CommandContext();
+    context.put("idCidade", Integer.valueOf(idCidade));
+
+    return ResponseEntity.ok()
+        .body(
+            FluentResponse.success()
+                .data(ZonaMapper.INSTANCE.toDTO(buscaZonaPorCidadeProcessor.process(context))));
   }
 
   @PostMapping("/cidades")
@@ -75,7 +87,7 @@ public class CidadeController {
   @DeleteMapping("/cidades/{id_cidade}")
   public ResponseEntity<Object> deleteCidade(@PathVariable("id_cidade") String idCidade) {
     CommandContext context = new CommandContext();
-    context.put("idCidade", UUID.fromString(idCidade));
+    context.put("idCidade", Integer.valueOf(idCidade));
 
     return ResponseEntity.accepted()
         .body(CidadeMapper.INSTANCE.toDTO(apagaCidadePorIdProcessor.process(context)));

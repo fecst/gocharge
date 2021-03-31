@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Repository
 @Transactional
@@ -77,7 +76,7 @@ public class CidadeRepository {
     }
   }
 
-  public void delete(UUID id) {
+  public void delete(Integer id) {
     CidadeModel cidadeModel = entityManager.find(CidadeModel.class, id);
 
     if (Objects.nonNull(cidadeModel)) {

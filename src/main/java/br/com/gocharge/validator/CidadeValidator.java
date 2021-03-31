@@ -15,9 +15,9 @@ public class CidadeValidator extends AbstractValidator<CidadeDTO> {
         .must(not(nullValue(CidadeDTO::getDescricao)))
         .withMessage("Cidade não pode ser vazia")
         .withFieldName("cidade")
-        .must(not(nullValue(CidadeDTO::getEstado)))
 
-        .withMessage("Estadp não pode ser nulo")
+        .must(not(nullValue(CidadeDTO::getEstado)))
+        .withMessage("Estado não pode ser nulo")
         .withFieldName("estado");
   }
 }
