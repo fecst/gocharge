@@ -5,7 +5,9 @@ import br.com.gocharge.domain.defaultResponses.FluentResponse;
 import br.com.gocharge.dto.BandeiraDTO;
 import br.com.gocharge.exceptions.BadRequestException;
 import br.com.gocharge.mappers.BandeiraMapper;
+import br.com.gocharge.mappers.ValorMapper;
 import br.com.gocharge.processor.bandeira.*;
+import br.com.gocharge.processor.valor.BuscaValorPorBandeiraProcessor;
 import br.com.gocharge.validator.BandeiraValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ public class BandeiraController {
   @Autowired private CadastraBandeiraProcessor cadastraBandeiraProcessor;
   @Autowired private AlteraBandeiraProcessor alteraBandeiraProcessor;
   @Autowired private BandeiraValidator bandeiraValidator;
+  @Autowired private BuscaValorPorBandeiraProcessor buscaValorPorBandeiraProcessor;
 
   @GetMapping("/bandeiras")
   public ResponseEntity<Object> getBandeiras() {
@@ -41,6 +44,18 @@ public class BandeiraController {
         .body(
             FluentResponse.success()
                 .data(BandeiraMapper.INSTANCE.toDTO(buscaBandeiraPorIdProcessor.process(context))));
+  }
+
+  @GetMapping("/bandeiras/{id_bandeira}/valores")
+  public ResponseEntity<Object> getValoresPorBandeira(
+      @PathVariable("id_bandeira") String idBandeira) {
+    CommandContext context = new CommandContext();
+    context.put("idBandeira", UUID.fromString(idBandeira));
+
+    return ResponseEntity.ok()
+        .body(
+            FluentResponse.success()
+                .data(ValorMapper.INSTANCE.toDTO(buscaValorPorBandeiraProcessor.process(context))));
   }
 
   @PostMapping("/bandeiras")

@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -24,6 +25,30 @@ public interface ConverterMapper {
   String DATE_TO_STRING = "dateToString";
   String STRING_TO_INTEGER = "stringToInt";
   String INTEGER_TO_STRING = "integerToString";
+  String DOUBLE_TO_STRING = "doubleToString";
+  String STRING_TO_DOUBLE = "stringToDouble";
+  String BIG_DECIMAL_TO_STRING = "bigDecimalToString";
+  String STRING_TO_BIG_DECIMAL = "stringToBigDecimal";
+
+  @Named(STRING_TO_BIG_DECIMAL)
+  default BigDecimal stringToBigDecimal(String valor) {
+    return StringUtils.isNotBlank(valor) ? new BigDecimal(valor) : null;
+  }
+
+  @Named(BIG_DECIMAL_TO_STRING)
+  default String bigDecimalToString(BigDecimal valor) {
+    return Objects.nonNull(valor) ? valor.toString() : null;
+  }
+
+  @Named(STRING_TO_DOUBLE)
+  default Double stringToDouble(String valor) {
+    return StringUtils.isNotBlank(valor) ? Double.valueOf(valor) : null;
+  }
+
+  @Named(DOUBLE_TO_STRING)
+  default String doubleToString(Double valor) {
+    return Objects.nonNull(valor) ? valor.toString() : null;
+  }
 
   @Named(STRING_TO_LOCAL_DATE_TIME)
   default LocalDateTime stringToLocalDateTime(String datetime) {
@@ -35,7 +60,7 @@ public interface ConverterMapper {
     try {
       return StringUtils.isNotBlank(date) ? new SimpleDateFormat("yyyy-MM-dd").parse(date) : null;
     } catch (Exception e) {
-      throw new UnprocessableEntityException("Data de nascimento com formato incorreto");
+      throw new UnprocessableEntityException("Data com formato incorreto (yyyy-MM-dd)");
     }
   }
 
@@ -66,7 +91,7 @@ public interface ConverterMapper {
     try {
       return Objects.nonNull(id) ? Integer.valueOf(id) : null;
     } catch (Exception e) {
-      throw new UnprocessableEntityException("ID não é um número inteiro válido");
+      throw new UnprocessableEntityException("Valor informado não é um número inteiro válido");
     }
   }
 

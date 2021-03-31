@@ -22,13 +22,13 @@ public class ValorDTO {
   private String bandeira;
 
   @JsonProperty("valor_kwh")
-  private String valorKwH;
+  private BigDecimal valorKwH;
 
   @JsonProperty("percentual_adicional")
-  private String percentualAdicional;
+  private Double percentualAdicional;
 
   @JsonProperty("valor_adicional")
-  private String valorAdicional;
+  private BigDecimal valorAdicional;
 
   @JsonProperty("descricao")
   private String descricao;

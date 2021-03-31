@@ -37,7 +37,7 @@ public class ValorModel {
   @Column(name = "VALOR_KWH", columnDefinition = "NUMERIC(9,2)", nullable = false)
   private BigDecimal valorKwH;
 
-  @Column(name = "PERC_ADIC", columnDefinition = "NUMERIC(2,2)", nullable = false)
+  @Column(name = "PERC_ADIC", columnDefinition = "NUMERIC(5,2)", nullable = false)
   private Double percentualAdicional;
 
   @Column(name = "VALOR_ADIC", columnDefinition = "NUMERIC(9,2)", nullable = false)
