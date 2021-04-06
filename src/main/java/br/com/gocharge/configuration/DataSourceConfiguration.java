@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Profile;
 class DataSourceConfiguration {
 
   @Bean
-  @ConfigurationProperties("app.mysql.datasource")
+  @ConfigurationProperties("app.postgres.datasource")
   public PoolProperties dataSourceProperties() {
     return new PoolProperties();
   }
