@@ -30,7 +30,7 @@ public class ConfiguracaoUsuarioRepository {
     if (Objects.nonNull(configuracao)) {
       return ConfiguracaoUsuarioMapper.INSTANCE.toDomain(configuracao);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Configuração não encontrada");
     }
   }
 
@@ -40,7 +40,7 @@ public class ConfiguracaoUsuarioRepository {
     if (Objects.nonNull(configuracao)) {
       return ConfiguracaoUsuarioMapper.INSTANCE.toDomain(configuracao);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Configuração não encontrada");
     }
   }
 
@@ -62,7 +62,7 @@ public class ConfiguracaoUsuarioRepository {
 
       return entityManager.merge(configuracaoUsuario);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Configuração não encontrada");
     }
   }
 
@@ -73,7 +73,7 @@ public class ConfiguracaoUsuarioRepository {
     if (Objects.nonNull(configuracao)) {
       entityManager.remove(configuracao);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Configuração não encontrada");
     }
   }
 }

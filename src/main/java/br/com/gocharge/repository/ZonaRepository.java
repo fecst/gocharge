@@ -39,7 +39,7 @@ public class ZonaRepository {
     if (Objects.nonNull(zona)) {
       return ZonaMapper.INSTANCE.toDomain(zona);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Zona não encontrada");
     }
   }
 
@@ -89,7 +89,7 @@ public class ZonaRepository {
 
       return ZonaMapper.INSTANCE.toDomain(entityManager.merge(zonaModel));
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Zona não encontrada");
     }
   }
 
@@ -99,7 +99,7 @@ public class ZonaRepository {
     if (Objects.nonNull(zona)) {
       entityManager.remove(zona);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Zona não encontrada");
     }
   }
 }

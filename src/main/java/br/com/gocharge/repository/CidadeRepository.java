@@ -72,7 +72,7 @@ public class CidadeRepository {
 
       return CidadeMapper.INSTANCE.toDomain(entityManager.merge(cidadeModel));
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Cidade não encontrada");
     }
   }
 
@@ -82,7 +82,7 @@ public class CidadeRepository {
     if (Objects.nonNull(cidadeModel)) {
       entityManager.remove(cidadeModel);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Cidade não encontrada");
     }
   }
 }

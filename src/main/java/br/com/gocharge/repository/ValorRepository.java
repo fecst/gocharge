@@ -51,7 +51,7 @@ public class ValorRepository {
     if (Objects.nonNull(valor)) {
       return ValorMapper.INSTANCE.toDomain(valor);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Valor não encontrado");
     }
   }
 
@@ -71,7 +71,7 @@ public class ValorRepository {
 
       return ValorMapper.INSTANCE.toDomain(entityManager.merge(valorModel));
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Valor não encontrado");
     }
   }
 
@@ -81,7 +81,7 @@ public class ValorRepository {
     if (Objects.nonNull(valor)) {
       entityManager.remove(valor);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Valor não encontrado");
     }
   }
 }

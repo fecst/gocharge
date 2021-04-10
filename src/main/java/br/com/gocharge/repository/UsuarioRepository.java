@@ -38,7 +38,7 @@ public class UsuarioRepository {
     if (Objects.nonNull(usuario)) {
       return UsuarioMapper.INSTANCE.toDomain(usuario);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Usuário não encontrado");
     }
   }
 
@@ -60,7 +60,7 @@ public class UsuarioRepository {
 
       return UsuarioMapper.INSTANCE.toDomain(entityManager.merge(usuarioModel));
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Usuário não encontrado");
     }
   }
 
@@ -70,7 +70,7 @@ public class UsuarioRepository {
     if (Objects.nonNull(usuario)) {
       entityManager.remove(usuario);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Usuário não encontrado");
     }
   }
 }

@@ -37,7 +37,7 @@ public class SubZonaRepository {
     if (Objects.nonNull(zona)) {
       return SubZonaMapper.INSTANCE.toDomain(zona);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("SubZona não encontrada");
     }
   }
 
@@ -101,7 +101,7 @@ public class SubZonaRepository {
 
       return SubZonaMapper.INSTANCE.toDomain(entityManager.merge(SubZonaModel));
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("SubZona não encontrada");
     }
   }
 
@@ -111,7 +111,7 @@ public class SubZonaRepository {
     if (Objects.nonNull(zona)) {
       entityManager.remove(zona);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("SubZona não encontrada");
     }
   }
 }

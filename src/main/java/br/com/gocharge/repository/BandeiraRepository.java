@@ -38,7 +38,7 @@ public class BandeiraRepository {
     if (Objects.nonNull(bandeira)) {
       return BandeiraMapper.INSTANCE.toDomain(bandeira);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Bandeira não encontrada");
     }
   }
 
@@ -62,7 +62,7 @@ public class BandeiraRepository {
 
       return BandeiraMapper.INSTANCE.toDomain(entityManager.merge(bandeiraModel));
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Bandeira não encontrada");
     }
   }
 
@@ -72,7 +72,7 @@ public class BandeiraRepository {
     if (Objects.nonNull(bandeira)) {
       entityManager.remove(bandeira);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Bandeira não encontrada");
     }
   }
 }

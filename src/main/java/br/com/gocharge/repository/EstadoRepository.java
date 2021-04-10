@@ -58,7 +58,7 @@ public class EstadoRepository {
       return EstadoMapper.INSTANCE.toDomain(
           entityManager.merge(estadoModel));
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Estado não encontrado");
     }
   }
 
@@ -68,7 +68,7 @@ public class EstadoRepository {
     if (Objects.nonNull(estado)) {
       entityManager.remove(estado);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("Estado não encontrado");
     }
   }
 }

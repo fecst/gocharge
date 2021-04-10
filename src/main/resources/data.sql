@@ -5634,3 +5634,5 @@ INSERT INTO CAD_BAND (ID_BAND, DT_HR_CAD, DESCRICAO, COD_STAT_CAD) VALUES ('bae3
 INSERT INTO CAD_BAND (ID_BAND, DT_HR_CAD, DESCRICAO, COD_STAT_CAD) VALUES ('d5cd5516309c4e9a8e0cd1482a9206dc', '2021-03-31 20:00:14', 'Vermelha', 'A');
 
 INSERT INTO CAD_VALOR (ID_VALOR, DT_HR_CAD, ID_BAND, VALOR_KWH, PERC_ADIC, VALOR_ADIC, DESCRICAO) VALUES ('46a97f30bd3b4e2a9e459c4628c325c0', '2021-03-31 20:00:00', '443f38db65ca4064aae5c72d762520e4', 10.1, 2.1, 5, 'Verde Padrão');
+
+INSERT INTO cad_usu (bairro, cod_cat_usu, cep, id_cid, cnpj, compl_end, cpf, dt_hr_blq, dt_hr_cad, dt_nasc, email, endereco, id_est, login, maps, mot_blq, nome, num_end, obs_1, obs_2, pais, senha, cod_stat_usu, tel_1, tel_2, tel_3, cod_tp_usu, id_usu) values ('XPTOZAO', 'A', '09520310', '3300258', null, 'APTO 123', '40079939805', null, '2021-04-09 20:29:54', '1992-03-27', 'email@email.com', 'Rua XPTO', 'RJ', 'costinha', '1', null, 'Felipe Costa', '123', null, null, 'Brasil', '1234', 'A', '12345678901', '12345678901', '12345678901', '1', 'a17cac9ec58e46a89efa04b3043e0809');

@@ -23,6 +23,12 @@ public class VeiculoDTO {
   @JsonProperty("modelo")
   private String modelo;
 
+  @JsonProperty("ano")
+  private String ano;
+
+  @JsonProperty("eletrico")
+  private Boolean eletrico;
+
   @JsonProperty("apelido")
   private String apelido;
 
