@@ -16,35 +16,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Component
 public class CadastraUsuarioProcessor implements CommandProcessor<Usuario> {
 
-  @Autowired private UsuarioRepository usuarioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-  @Autowired private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
+    @Autowired
+    private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
 
-  @Autowired private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
+    @Autowired
+    private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
 
-  @Override
-  public Usuario process(CommandContext context) {
-    UsuarioDTO usuario = context.getProperty("usuarioDTO", UsuarioDTO.class);
+    @Override
+    public Usuario process(CommandContext context) {
+        UsuarioDTO usuario = context.getProperty("usuarioDTO", UsuarioDTO.class);
+        Estado estado = null;
+        Cidade cidade = null;
 
-    context.put("idEstado", usuario.getEstado());
-    context.put("idCidade", Integer.valueOf(usuario.getCidade()));
+        if (Objects.nonNull(usuario.getEstado())) {
+            context.put("idEstado", usuario.getEstado());
 
-    Estado estado = buscaEstadoPorIdProcessor.process(context);
-    Cidade cidade = buscaCidadePorIdProcessor.process(context);
+            estado = buscaEstadoPorIdProcessor.process(context);
+        }
 
-    if (cidade.getEstado().getId() != estado.getId()) {
-      throw new UnprocessableEntityException("Cidade não pertence ao Estado informado");
+        if (Objects.nonNull(usuario.getCidade())) {
+            context.put("idCidade", Integer.valueOf(usuario.getCidade()));
+
+            cidade = buscaCidadePorIdProcessor.process(context);
+        }
+
+        if (Objects.nonNull(usuario.getEstado()) &&
+                Objects.nonNull(usuario.getCidade()) &&
+                cidade.getEstado().getId() != estado.getId()) {
+            throw new UnprocessableEntityException("Cidade não pertence ao Estado informado");
+        }
+
+        usuario.setDataHoraCadastro(LocalDateTime.now().toString());
+        usuario.setStatus(StatusUsuarioEnum.ATIVO.getCodigo());
+        usuario.setMotivoBloqueio(null);
+        usuario.setDataHoraBloqueio(null);
+
+        return usuarioRepository.create(UsuarioMapper.INSTANCE.toDomain(usuario, estado, cidade));
     }
-
-    usuario.setDataHoraCadastro(LocalDateTime.now().toString());
-    usuario.setStatus(StatusUsuarioEnum.ATIVO.getCodigo());
-    usuario.setMotivoBloqueio(null);
-    usuario.setDataHoraBloqueio(null);
-
-    return usuarioRepository.create(UsuarioMapper.INSTANCE.toDomain(usuario, estado, cidade));
-  }
 }

@@ -71,11 +71,11 @@ public class UsuarioModel {
   @Column(name = "BAIRRO", columnDefinition = "VARCHAR(250)")
   private String bairro;
 
-  @ManyToOne(cascade = CascadeType.REFRESH)
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "ID_CID", referencedColumnName = "ID_CID", columnDefinition = "VARCHAR(36)")
   private CidadeModel cidade;
 
-  @ManyToOne(cascade = CascadeType.REFRESH)
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "ID_EST", referencedColumnName = "ID_EST", columnDefinition = "VARCHAR(36)")
   private EstadoModel estado;
 

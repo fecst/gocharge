@@ -6,7 +6,6 @@ import br.com.gocharge.dto.ZonaDTO;
 import br.com.gocharge.exceptions.BadRequestException;
 import br.com.gocharge.mappers.SubZonaMapper;
 import br.com.gocharge.mappers.ZonaMapper;
-import br.com.gocharge.processor.subZonas.BuscaSubZonaPorCidadeProcessor;
 import br.com.gocharge.processor.subZonas.BuscaSubZonaPorZonaProcessor;
 import br.com.gocharge.processor.zonas.*;
 import br.com.gocharge.validator.ZonaValidator;
@@ -15,85 +14,122 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
 public class ZonaController {
 
-  @Autowired private BuscaZonasProcessor buscaZonasProcessor;
-  @Autowired private BuscaZonaPorIdProcessor buscaZonaPorIdProcessor;
-  @Autowired private ApagaZonaPorIdProcessor apagaZonaPorIdProcessor;
-  @Autowired private CadastraZonaProcessor cadastraZonaProcessor;
-  @Autowired private AlteraZonaProcessor alteraZonaProcessor;
-  @Autowired private ZonaValidator zonaValidator;
-  @Autowired private BuscaSubZonaPorZonaProcessor buscaSubZonaPorZonaProcessor;
+    @Autowired
+    private BuscaZonasProcessor buscaZonasProcessor;
+    @Autowired
+    private BuscaZonaPorIdProcessor buscaZonaPorIdProcessor;
+    @Autowired
+    private ApagaZonaPorIdProcessor apagaZonaPorIdProcessor;
+    @Autowired
+    private CadastraZonaProcessor cadastraZonaProcessor;
+    @Autowired
+    private AlteraZonaProcessor alteraZonaProcessor;
+    @Autowired
+    private ZonaValidator zonaValidator;
+    @Autowired
+    private BuscaSubZonaPorZonaProcessor buscaSubZonaPorZonaProcessor;
 
-  @GetMapping("/zonas")
-  public ResponseEntity<Object> getZonas() {
-    return ResponseEntity.ok()
-        .body(
-            FluentResponse.success()
-                .data(ZonaMapper.INSTANCE.toDTO(buscaZonasProcessor.process(null))));
-  }
+    @GetMapping("/zonas")
+    public ResponseEntity<Object> getZonas() {
+        return ResponseEntity.ok()
+                .body(
+                        FluentResponse.success()
+                                .data(ZonaMapper.INSTANCE.toDTO(buscaZonasProcessor.process(null))));
+    }
 
-  @GetMapping("/zonas/{id_zona}")
-  public ResponseEntity<Object> getZonasPorId(@PathVariable("id_zona") String idZona) {
-    CommandContext context = new CommandContext();
-    context.put("idZona", UUID.fromString(idZona));
+    @GetMapping("/zonas/{id_zona}")
+    public ResponseEntity<Object> getZonasPorId(@PathVariable("id_zona") String idZona) {
+        CommandContext context = new CommandContext();
+        context.put("idZona", UUID.fromString(idZona));
 
-    return ResponseEntity.ok()
-        .body(
-            FluentResponse.success()
-                .data(ZonaMapper.INSTANCE.toDTO(buscaZonaPorIdProcessor.process(context))));
-  }
+        return ResponseEntity.ok()
+                .body(
+                        FluentResponse.success()
+                                .data(ZonaMapper.INSTANCE.toDTO(buscaZonaPorIdProcessor.process(context))));
+    }
 
-  @GetMapping("/zonas/{id_zona}/subZonas")
-  public ResponseEntity<Object> getSubZonasPorZona(@PathVariable("id_zona") String idZona) {
-    CommandContext context = new CommandContext();
-    context.put("idZona", UUID.fromString(idZona));
+    @GetMapping("/zonas/{id_zona}/subZonas")
+    public ResponseEntity<Object> getSubZonasPorZona(@PathVariable("id_zona") String idZona) {
+        CommandContext context = new CommandContext();
+        context.put("idZona", UUID.fromString(idZona));
 
-    return ResponseEntity.ok()
-        .body(
-            FluentResponse.success()
-                .data(
-                    SubZonaMapper.INSTANCE.toDTO(buscaSubZonaPorZonaProcessor.process(context))));
-  }
+        return ResponseEntity.ok()
+                .body(
+                        FluentResponse.success()
+                                .data(
+                                        SubZonaMapper.INSTANCE.toDTO(buscaSubZonaPorZonaProcessor.process(context))));
+    }
 
-  @PostMapping("/zonas")
-  public ResponseEntity<Object> postZona(@RequestBody ZonaDTO zona) {
-    zonaValidator.validate(zona).isInvalidThrow(BadRequestException.class);
+    @PostMapping("/zonas")
+    public ResponseEntity<Object> postZona(@RequestBody ZonaDTO zona) {
+        zonaValidator.validate(zona).isInvalidThrow(BadRequestException.class);
 
-    CommandContext context = new CommandContext();
-    context.put("zona", zona);
+        CommandContext context = new CommandContext();
+        context.put("zona", zona);
 
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(
-            FluentResponse.success()
-                .data(ZonaMapper.INSTANCE.toDTO(cadastraZonaProcessor.process(context))));
-  }
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(
+                        FluentResponse.success()
+                                .data(ZonaMapper.INSTANCE.toDTO(cadastraZonaProcessor.process(context))));
+    }
 
-  @PutMapping("/zonas/{id_zona}")
-  public ResponseEntity<Object> putZona(
-      @PathVariable("id_zona") String idZona, @RequestBody ZonaDTO zona) {
-    zonaValidator.validate(zona).isInvalidThrow(BadRequestException.class);
+    @PutMapping("/zonas/{id_zona}")
+    public ResponseEntity<Object> putZona(
+            @PathVariable("id_zona") String idZona, @RequestBody ZonaDTO zona) {
+        zonaValidator.validate(zona).isInvalidThrow(BadRequestException.class);
 
-    zona.setId(idZona);
+        zona.setId(idZona);
 
-    CommandContext context = new CommandContext();
-    context.put("zona", zona);
+        CommandContext context = new CommandContext();
+        context.put("zona", zona);
 
-    return ResponseEntity.ok()
-        .body(
-            FluentResponse.success()
-                .data(ZonaMapper.INSTANCE.toDTO(alteraZonaProcessor.process(context))));
-  }
+        return ResponseEntity.ok()
+                .body(
+                        FluentResponse.success()
+                                .data(ZonaMapper.INSTANCE.toDTO(alteraZonaProcessor.process(context))));
+    }
 
-  @DeleteMapping("/zonas/{id_zona}")
-  public ResponseEntity<Object> deleteZona(@PathVariable("id_zona") String idZona) {
-    CommandContext context = new CommandContext();
-    context.put("idZona", UUID.fromString(idZona));
+    @DeleteMapping("/zonas/{id_zona}")
+    public ResponseEntity<Object> deleteZona(@PathVariable("id_zona") String idZona) {
+        CommandContext context = new CommandContext();
+        context.put("idZona", UUID.fromString(idZona));
 
-    return ResponseEntity.accepted()
-        .body(ZonaMapper.INSTANCE.toDTO(apagaZonaPorIdProcessor.process(context)));
-  }
+        return ResponseEntity.accepted()
+                .body(ZonaMapper.INSTANCE.toDTO(apagaZonaPorIdProcessor.process(context)));
+    }
+
+    @GetMapping("/test")
+    public int test() {
+        int steps = 8;
+        String path = "UDDDUDUU";
+
+        String[] pathArray = path.split("");
+        int seaLevel = 0;
+        int montains = 0;
+        int vale = 2;
+
+        for(int step = 0; step < steps; step++) {
+          if (pathArray[step].equals("U")) {
+            seaLevel++;
+            vale--;
+          } else {
+            seaLevel--;
+            vale++;
+          }
+
+          if (seaLevel==0 && vale==0) {
+            montains++;
+          }
+        }
+
+        return montains;
+    }
 }
