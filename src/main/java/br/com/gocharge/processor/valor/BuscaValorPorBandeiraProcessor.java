@@ -13,12 +13,13 @@ import java.util.UUID;
 @Component
 public class BuscaValorPorBandeiraProcessor implements CommandProcessor<List<Valor>> {
 
-  @Autowired private ValorRepository valorRepository;
+    @Autowired
+    private ValorRepository valorRepository;
 
-  @Override
-  public List<Valor> process(CommandContext context) {
-    UUID idBandeira = context.getProperty("idBandeira", UUID.class);
+    @Override
+    public List<Valor> process(CommandContext context) {
+        UUID idBandeira = context.getProperty("idBandeira", UUID.class);
 
-    return valorRepository.getByBandeira(idBandeira);
-  }
+        return valorRepository.getByBandeira(idBandeira);
+    }
 }

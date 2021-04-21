@@ -19,36 +19,39 @@ import java.util.Objects;
 @Component
 public class AlteraUsuarioProcessor implements CommandProcessor<Usuario> {
 
-  @Autowired private UsuarioRepository usuarioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-  @Autowired private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
+    @Autowired
+    private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
 
-  @Autowired private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
+    @Autowired
+    private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
 
-  @Override
-  public Usuario process(CommandContext context) {
-    UsuarioDTO usuario = context.getProperty("usuarioDTO", UsuarioDTO.class);
-    Estado estado = null;
-    Cidade cidade = null;
+    @Override
+    public Usuario process(CommandContext context) {
+        UsuarioDTO usuario = context.getProperty("usuarioDTO", UsuarioDTO.class);
+        Estado estado = null;
+        Cidade cidade = null;
 
-    if (Objects.nonNull(usuario.getEstado())) {
-      context.put("idEstado", usuario.getEstado());
+        if (Objects.nonNull(usuario.getEstado())) {
+            context.put("idEstado", usuario.getEstado());
 
-      estado = buscaEstadoPorIdProcessor.process(context);
+            estado = buscaEstadoPorIdProcessor.process(context);
+        }
+
+        if (Objects.nonNull(usuario.getCidade())) {
+            context.put("idCidade", Integer.valueOf(usuario.getCidade()));
+
+            cidade = buscaCidadePorIdProcessor.process(context);
+        }
+
+        if (Objects.nonNull(usuario.getEstado()) &&
+                Objects.nonNull(usuario.getCidade()) &&
+                cidade.getEstado().getId() != estado.getId()) {
+            throw new UnprocessableEntityException("Cidade não pertence ao Estado informado");
+        }
+
+        return usuarioRepository.update(UsuarioMapper.INSTANCE.toDomain(usuario, estado, cidade));
     }
-
-    if (Objects.nonNull(usuario.getCidade())) {
-      context.put("idCidade", Integer.valueOf(usuario.getCidade()));
-
-      cidade = buscaCidadePorIdProcessor.process(context);
-    }
-
-    if (Objects.nonNull(usuario.getEstado()) &&
-            Objects.nonNull(usuario.getCidade()) &&
-            cidade.getEstado().getId() != estado.getId()) {
-      throw new UnprocessableEntityException("Cidade não pertence ao Estado informado");
-    }
-
-    return usuarioRepository.update(UsuarioMapper.INSTANCE.toDomain(usuario, estado, cidade));
-  }
 }

@@ -17,20 +17,22 @@ import java.util.UUID;
 @Component
 public class CadastraValorProcessor implements CommandProcessor<Valor> {
 
-  @Autowired private ValorRepository valorRepository;
+    @Autowired
+    private ValorRepository valorRepository;
 
-  @Autowired private BuscaBandeiraPorIdProcessor buscaBandeiraPorIdProcessor;
+    @Autowired
+    private BuscaBandeiraPorIdProcessor buscaBandeiraPorIdProcessor;
 
-  @Override
-  public Valor process(CommandContext context) {
-    ValorDTO valor = context.getProperty("valor", ValorDTO.class);
+    @Override
+    public Valor process(CommandContext context) {
+        ValorDTO valor = context.getProperty("valor", ValorDTO.class);
 
-    context.put("idBandeira", UUID.fromString(valor.getBandeira()));
+        context.put("idBandeira", UUID.fromString(valor.getBandeira()));
 
-    Bandeira bandeira = buscaBandeiraPorIdProcessor.process(context);
+        Bandeira bandeira = buscaBandeiraPorIdProcessor.process(context);
 
-    valor.setDataHoraCadastro(LocalDateTime.now().toString());
+        valor.setDataHoraCadastro(LocalDateTime.now().toString());
 
-    return valorRepository.create(ValorMapper.INSTANCE.toDomain(valor, bandeira));
-  }
+        return valorRepository.create(ValorMapper.INSTANCE.toDomain(valor, bandeira));
+    }
 }

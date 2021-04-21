@@ -12,12 +12,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class AlteraBandeiraProcessor implements CommandProcessor<Bandeira> {
 
-  @Autowired private BandeiraRepository bandeiraRepository;
+    @Autowired
+    private BandeiraRepository bandeiraRepository;
 
-  @Override
-  public Bandeira process(CommandContext context) {
-    BandeiraDTO bandeira = context.getProperty("bandeira", BandeiraDTO.class);
+    @Override
+    public Bandeira process(CommandContext context) {
+        BandeiraDTO bandeira = context.getProperty("bandeira", BandeiraDTO.class);
 
-    return bandeiraRepository.update(BandeiraMapper.INSTANCE.toDomain(bandeira));
-      }
+        return bandeiraRepository.update(BandeiraMapper.INSTANCE.toDomain(bandeira));
+    }
 }

@@ -12,12 +12,13 @@ import java.util.List;
 @Component
 public class BuscaZonaPorEstadoProcessor implements CommandProcessor<List<Zona>> {
 
-  @Autowired private ZonaRepository zonaRepository;
+    @Autowired
+    private ZonaRepository zonaRepository;
 
-  @Override
-  public List<Zona> process(CommandContext context) {
-    String idEstado = context.getProperty("idEstado", String.class);
+    @Override
+    public List<Zona> process(CommandContext context) {
+        String idEstado = context.getProperty("idEstado", String.class);
 
-    return zonaRepository.getByEstado(idEstado);
-  }
+        return zonaRepository.getByEstado(idEstado);
+    }
 }

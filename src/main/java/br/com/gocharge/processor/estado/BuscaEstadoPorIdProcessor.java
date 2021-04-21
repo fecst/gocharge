@@ -10,12 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class BuscaEstadoPorIdProcessor implements CommandProcessor<Estado> {
 
-  @Autowired private EstadoRepository estadoRepository;
+    @Autowired
+    private EstadoRepository estadoRepository;
 
-  @Override
-  public Estado process(CommandContext context) {
-    String idEstado = context.getProperty("idEstado", String.class);
+    @Override
+    public Estado process(CommandContext context) {
+        String idEstado = context.getProperty("idEstado", String.class);
 
-    return estadoRepository.getById(idEstado);
-  }
+        return estadoRepository.getById(idEstado);
+    }
 }

@@ -10,12 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class AlteraEstadoProcessor implements CommandProcessor<Estado> {
 
-  @Autowired private EstadoRepository estadoRepository;
+    @Autowired
+    private EstadoRepository estadoRepository;
 
-  @Override
-  public Estado process(CommandContext context) {
-    Estado estado = context.getProperty("estado", Estado.class);
+    @Override
+    public Estado process(CommandContext context) {
+        Estado estado = context.getProperty("estado", Estado.class);
 
-    return estadoRepository.update(estado);
-  }
+        return estadoRepository.update(estado);
+    }
 }

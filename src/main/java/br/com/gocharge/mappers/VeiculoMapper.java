@@ -5,7 +5,6 @@ import br.com.gocharge.domain.Veiculo;
 import br.com.gocharge.dto.VeiculoDTO;
 import br.com.gocharge.enums.StatusCadastroEnum;
 import br.com.gocharge.model.StatusCadastroModel;
-import br.com.gocharge.model.UsuarioModel;
 import br.com.gocharge.model.VeiculoModel;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;

@@ -10,17 +10,17 @@ import java.util.List;
 
 @Mapper
 public abstract class EstadoMapper {
-  public static final EstadoMapper INSTANCE = Mappers.getMapper(EstadoMapper.class);
+    public static final EstadoMapper INSTANCE = Mappers.getMapper(EstadoMapper.class);
 
-  public abstract EstadoModel toModel(Estado estado);
+    public abstract EstadoModel toModel(Estado estado);
 
-  public abstract Estado toDomain(EstadoModel estadoModel);
+    public abstract Estado toDomain(EstadoModel estadoModel);
 
-  public abstract Estado toDomain(EstadoDTO estadoModel);
+    public abstract Estado toDomain(EstadoDTO estadoModel);
 
-  public abstract EstadoDTO toDTO(Estado estado);
+    public abstract EstadoDTO toDTO(Estado estado);
 
-  public abstract List<Estado> toDomain(List<EstadoModel> estadoModelList);
+    public abstract List<Estado> toDomain(List<EstadoModel> estadoModelList);
 
-  public abstract List<EstadoDTO> toDTO(List<Estado> estado);
+    public abstract List<EstadoDTO> toDTO(List<Estado> estado);
 }

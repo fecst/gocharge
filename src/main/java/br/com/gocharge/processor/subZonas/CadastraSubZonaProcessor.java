@@ -20,23 +20,27 @@ import java.util.UUID;
 @Component
 public class CadastraSubZonaProcessor implements CommandProcessor<SubZona> {
 
-  @Autowired private SubZonaRepository subZonaRepository;
-  @Autowired private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
-  @Autowired private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
-  @Autowired private BuscaZonaPorIdProcessor buscaZonaPorIdProcessor;
+    @Autowired
+    private SubZonaRepository subZonaRepository;
+    @Autowired
+    private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
+    @Autowired
+    private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
+    @Autowired
+    private BuscaZonaPorIdProcessor buscaZonaPorIdProcessor;
 
-  @Override
-  public SubZona process(CommandContext context) {
-    SubZonaDTO subZona = context.getProperty("subZona", SubZonaDTO.class);
+    @Override
+    public SubZona process(CommandContext context) {
+        SubZonaDTO subZona = context.getProperty("subZona", SubZonaDTO.class);
 
-    context.put("idEstado", subZona.getEstado());
-    context.put("idCidade", Integer.valueOf(subZona.getCidade()));
-    context.put("idZona", UUID.fromString(subZona.getZona()));
+        context.put("idEstado", subZona.getEstado());
+        context.put("idCidade", Integer.valueOf(subZona.getCidade()));
+        context.put("idZona", UUID.fromString(subZona.getZona()));
 
-    Estado estado = buscaEstadoPorIdProcessor.process(context);
-    Cidade cidade = buscaCidadePorIdProcessor.process(context);
-    Zona zona = buscaZonaPorIdProcessor.process(context);
+        Estado estado = buscaEstadoPorIdProcessor.process(context);
+        Cidade cidade = buscaCidadePorIdProcessor.process(context);
+        Zona zona = buscaZonaPorIdProcessor.process(context);
 
-    return subZonaRepository.create(SubZonaMapper.INSTANCE.toDomain(subZona, zona, cidade, estado));
-  }
+        return subZonaRepository.create(SubZonaMapper.INSTANCE.toDomain(subZona, zona, cidade, estado));
+    }
 }

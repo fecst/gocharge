@@ -16,18 +16,20 @@ import java.util.UUID;
 @Component
 public class AlteraValorProcessor implements CommandProcessor<Valor> {
 
-  @Autowired private ValorRepository valorRepository;
+    @Autowired
+    private ValorRepository valorRepository;
 
-  @Autowired private BuscaBandeiraPorIdProcessor buscaBandeiraPorIdProcessor;
+    @Autowired
+    private BuscaBandeiraPorIdProcessor buscaBandeiraPorIdProcessor;
 
-  @Override
-  public Valor process(CommandContext context) {
-    ValorDTO valor = context.getProperty("valor", ValorDTO.class);
+    @Override
+    public Valor process(CommandContext context) {
+        ValorDTO valor = context.getProperty("valor", ValorDTO.class);
 
-    context.put("idBandeira", UUID.fromString(valor.getBandeira()));
+        context.put("idBandeira", UUID.fromString(valor.getBandeira()));
 
-    Bandeira bandeira = buscaBandeiraPorIdProcessor.process(context);
+        Bandeira bandeira = buscaBandeiraPorIdProcessor.process(context);
 
-    return valorRepository.update(ValorMapper.INSTANCE.toDomain(valor, bandeira));
-  }
+        return valorRepository.update(ValorMapper.INSTANCE.toDomain(valor, bandeira));
+    }
 }

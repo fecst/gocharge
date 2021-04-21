@@ -12,12 +12,13 @@ import java.util.List;
 @Component
 public class BuscaCidadesPorEstadoProcessor implements CommandProcessor<List<Cidade>> {
 
-  @Autowired private CidadeRepository cidadeRepository;
+    @Autowired
+    private CidadeRepository cidadeRepository;
 
-  @Override
-  public List<Cidade> process(CommandContext context) {
-    String idEstado = context.getProperty("idEstado", String.class);
+    @Override
+    public List<Cidade> process(CommandContext context) {
+        String idEstado = context.getProperty("idEstado", String.class);
 
-    return cidadeRepository.getByEstado(idEstado);
-  }
+        return cidadeRepository.getByEstado(idEstado);
+    }
 }

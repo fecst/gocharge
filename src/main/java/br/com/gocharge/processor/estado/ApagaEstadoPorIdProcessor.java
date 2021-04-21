@@ -12,14 +12,15 @@ import java.util.UUID;
 @Component
 public class ApagaEstadoPorIdProcessor implements CommandProcessor<Estado> {
 
-  @Autowired private EstadoRepository estadoRepository;
+    @Autowired
+    private EstadoRepository estadoRepository;
 
-  @Override
-  public Estado process(CommandContext context) {
-    UUID idEstado = context.getProperty("idEstado", UUID.class);
+    @Override
+    public Estado process(CommandContext context) {
+        UUID idEstado = context.getProperty("idEstado", UUID.class);
 
-    estadoRepository.delete(idEstado);
+        estadoRepository.delete(idEstado);
 
-    return null;
-  }
+        return null;
+    }
 }

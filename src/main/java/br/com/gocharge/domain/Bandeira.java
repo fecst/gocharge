@@ -10,8 +10,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Bandeira {
-  private UUID id;
-  private LocalDateTime dataHoraCadastro;
-  private String descricao;
-  private StatusCadastroEnum status;
+    private UUID id;
+    private LocalDateTime dataHoraCadastro;
+    private String descricao;
+    private StatusCadastroEnum status;
 }

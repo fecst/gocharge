@@ -12,10 +12,11 @@ import java.util.List;
 @Component
 public class BuscaSubZonasProcessor implements CommandProcessor<List<SubZona>> {
 
-  @Autowired private SubZonaRepository subZonaRepository;
+    @Autowired
+    private SubZonaRepository subZonaRepository;
 
-  @Override
-  public List<SubZona> process(CommandContext commandContext) {
-    return subZonaRepository.getAll();
-  }
+    @Override
+    public List<SubZona> process(CommandContext commandContext) {
+        return subZonaRepository.getAll();
+    }
 }

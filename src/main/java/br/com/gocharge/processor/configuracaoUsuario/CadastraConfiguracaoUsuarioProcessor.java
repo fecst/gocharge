@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CadastraConfiguracaoUsuarioProcessor implements CommandProcessor<ConfiguracaoUsuario> {
 
-  @Autowired private ConfiguracaoUsuarioRepository configuracaoUsuarioRepository;
+    @Autowired
+    private ConfiguracaoUsuarioRepository configuracaoUsuarioRepository;
 
-  @Override
-  public ConfiguracaoUsuario process(CommandContext context) {
-    ConfiguracaoUsuario configuracaoUsuario =
-        context.getProperty("configuracaoUsuario", ConfiguracaoUsuario.class);
+    @Override
+    public ConfiguracaoUsuario process(CommandContext context) {
+        ConfiguracaoUsuario configuracaoUsuario =
+                context.getProperty("configuracaoUsuario", ConfiguracaoUsuario.class);
 
-    return configuracaoUsuarioRepository.create(configuracaoUsuario);
-  }
+        return configuracaoUsuarioRepository.create(configuracaoUsuario);
+    }
 }

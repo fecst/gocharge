@@ -13,36 +13,36 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ValorModel {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(
-      name = "ID_VALOR",
-      columnDefinition = "VARCHAR(36)",
-      updatable = false,
-      unique = true,
-      nullable = false)
-  private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(
+            name = "ID_VALOR",
+            columnDefinition = "VARCHAR(36)",
+            updatable = false,
+            unique = true,
+            nullable = false)
+    private UUID id;
 
-  @Column(name = "DT_HR_CAD", columnDefinition = "DATETIME", updatable = false, nullable = false)
-  private LocalDateTime dataHoraCadastro;
+    @Column(name = "DT_HR_CAD", columnDefinition = "DATETIME", updatable = false, nullable = false)
+    private LocalDateTime dataHoraCadastro;
 
-  @ManyToOne(cascade = CascadeType.REFRESH)
-  @JoinColumn(
-      name = "ID_BAND",
-      referencedColumnName = "ID_BAND",
-      columnDefinition = "VARCHAR(36)",
-      nullable = false)
-  private BandeiraModel bandeira;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(
+            name = "ID_BAND",
+            referencedColumnName = "ID_BAND",
+            columnDefinition = "VARCHAR(36)",
+            nullable = false)
+    private BandeiraModel bandeira;
 
-  @Column(name = "VALOR_KWH", columnDefinition = "NUMERIC(9,2)", nullable = false)
-  private BigDecimal valorKwH;
+    @Column(name = "VALOR_KWH", columnDefinition = "NUMERIC(9,2)", nullable = false)
+    private BigDecimal valorKwH;
 
-  @Column(name = "PERC_ADIC", columnDefinition = "NUMERIC(5,2)", nullable = false)
-  private Double percentualAdicional;
+    @Column(name = "PERC_ADIC", columnDefinition = "NUMERIC(5,2)", nullable = false)
+    private Double percentualAdicional;
 
-  @Column(name = "VALOR_ADIC", columnDefinition = "NUMERIC(9,2)", nullable = false)
-  private BigDecimal valorAdicional;
+    @Column(name = "VALOR_ADIC", columnDefinition = "NUMERIC(9,2)", nullable = false)
+    private BigDecimal valorAdicional;
 
-  @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)", nullable = false)
-  private String descricao;
+    @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)", nullable = false)
+    private String descricao;
 }

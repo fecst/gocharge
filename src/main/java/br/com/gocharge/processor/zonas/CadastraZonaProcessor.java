@@ -16,20 +16,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class CadastraZonaProcessor implements CommandProcessor<Zona> {
 
-  @Autowired private ZonaRepository zonaRepository;
-  @Autowired private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
-  @Autowired private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
+    @Autowired
+    private ZonaRepository zonaRepository;
+    @Autowired
+    private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
+    @Autowired
+    private BuscaCidadePorIdProcessor buscaCidadePorIdProcessor;
 
-  @Override
-  public Zona process(CommandContext context) {
-    ZonaDTO zona = context.getProperty("zona", ZonaDTO.class);
+    @Override
+    public Zona process(CommandContext context) {
+        ZonaDTO zona = context.getProperty("zona", ZonaDTO.class);
 
-    context.put("idEstado", zona.getEstado());
-    context.put("idCidade", Integer.valueOf(zona.getCidade()));
+        context.put("idEstado", zona.getEstado());
+        context.put("idCidade", Integer.valueOf(zona.getCidade()));
 
-    Estado estado = buscaEstadoPorIdProcessor.process(context);
-    Cidade cidade = buscaCidadePorIdProcessor.process(context);
+        Estado estado = buscaEstadoPorIdProcessor.process(context);
+        Cidade cidade = buscaCidadePorIdProcessor.process(context);
 
-    return zonaRepository.create(ZonaMapper.INSTANCE.toDomain(zona, cidade, estado));
-  }
+        return zonaRepository.create(ZonaMapper.INSTANCE.toDomain(zona, cidade, estado));
+    }
 }

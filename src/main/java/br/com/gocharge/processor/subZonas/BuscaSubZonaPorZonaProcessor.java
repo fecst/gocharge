@@ -13,12 +13,13 @@ import java.util.UUID;
 @Component
 public class BuscaSubZonaPorZonaProcessor implements CommandProcessor<List<SubZona>> {
 
-  @Autowired private SubZonaRepository subZonaRepository;
+    @Autowired
+    private SubZonaRepository subZonaRepository;
 
-  @Override
-  public List<SubZona> process(CommandContext context) {
-    UUID idZona = context.getProperty("idZona", UUID.class);
+    @Override
+    public List<SubZona> process(CommandContext context) {
+        UUID idZona = context.getProperty("idZona", UUID.class);
 
-    return subZonaRepository.getByZona(idZona);
-  }
+        return subZonaRepository.getByZona(idZona);
+    }
 }

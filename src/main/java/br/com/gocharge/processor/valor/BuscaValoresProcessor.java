@@ -12,10 +12,11 @@ import java.util.List;
 @Component
 public class BuscaValoresProcessor implements CommandProcessor<List<Valor>> {
 
-  @Autowired private ValorRepository valorRepository;
+    @Autowired
+    private ValorRepository valorRepository;
 
-  @Override
-  public List<Valor> process(CommandContext commandContext) {
-    return valorRepository.getAll();
-  }
+    @Override
+    public List<Valor> process(CommandContext commandContext) {
+        return valorRepository.getAll();
+    }
 }

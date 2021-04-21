@@ -12,14 +12,15 @@ import java.util.UUID;
 @Component
 public class ApagaBandeiraPorIdProcessor implements CommandProcessor<Bandeira> {
 
-  @Autowired private BandeiraRepository bandeiraRepository;
+    @Autowired
+    private BandeiraRepository bandeiraRepository;
 
-  @Override
-  public Bandeira process(CommandContext context) {
-    UUID idBandeira = context.getProperty("idBandeira", UUID.class);
+    @Override
+    public Bandeira process(CommandContext context) {
+        UUID idBandeira = context.getProperty("idBandeira", UUID.class);
 
-    bandeiraRepository.delete(idBandeira);
+        bandeiraRepository.delete(idBandeira);
 
-    return null;
-  }
+        return null;
+    }
 }

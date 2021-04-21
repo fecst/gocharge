@@ -12,10 +12,11 @@ import java.util.List;
 @Component
 public class BuscaEstadosProcessor implements CommandProcessor<List<Estado>> {
 
-  @Autowired private EstadoRepository estadoRepository;
+    @Autowired
+    private EstadoRepository estadoRepository;
 
-  @Override
-  public List<Estado> process(CommandContext commandContext) {
-    return estadoRepository.getAll();
-  }
+    @Override
+    public List<Estado> process(CommandContext commandContext) {
+        return estadoRepository.getAll();
+    }
 }

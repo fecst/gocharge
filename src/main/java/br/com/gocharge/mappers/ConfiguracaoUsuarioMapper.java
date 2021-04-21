@@ -7,10 +7,10 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public abstract class ConfiguracaoUsuarioMapper {
-  public static final ConfiguracaoUsuarioMapper INSTANCE =
-      Mappers.getMapper(ConfiguracaoUsuarioMapper.class);
+    public static final ConfiguracaoUsuarioMapper INSTANCE =
+            Mappers.getMapper(ConfiguracaoUsuarioMapper.class);
 
-  public abstract ConfiguracaoUsuarioModel toModel(ConfiguracaoUsuario configuracaoUsuario);
+    public abstract ConfiguracaoUsuarioModel toModel(ConfiguracaoUsuario configuracaoUsuario);
 
-  public abstract ConfiguracaoUsuario toDomain(ConfiguracaoUsuarioModel configuracaoUsuarioModel);
+    public abstract ConfiguracaoUsuario toDomain(ConfiguracaoUsuarioModel configuracaoUsuarioModel);
 }

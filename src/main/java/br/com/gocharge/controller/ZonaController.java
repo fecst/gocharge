@@ -105,31 +105,4 @@ public class ZonaController {
         return ResponseEntity.accepted()
                 .body(ZonaMapper.INSTANCE.toDTO(apagaZonaPorIdProcessor.process(context)));
     }
-
-    @GetMapping("/test")
-    public int test() {
-        int steps = 8;
-        String path = "UDDDUDUU";
-
-        String[] pathArray = path.split("");
-        int seaLevel = 0;
-        int montains = 0;
-        int vale = 2;
-
-        for(int step = 0; step < steps; step++) {
-          if (pathArray[step].equals("U")) {
-            seaLevel++;
-            vale--;
-          } else {
-            seaLevel--;
-            vale++;
-          }
-
-          if (seaLevel==0 && vale==0) {
-            montains++;
-          }
-        }
-
-        return montains;
-    }
 }

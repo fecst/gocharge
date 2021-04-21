@@ -10,12 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class BuscaCidadePorIdProcessor implements CommandProcessor<Cidade> {
 
-  @Autowired private CidadeRepository cidadeRepository;
+    @Autowired
+    private CidadeRepository cidadeRepository;
 
-  @Override
-  public Cidade process(CommandContext context) {
-    Integer id = context.getProperty("idCidade", Integer.class);
+    @Override
+    public Cidade process(CommandContext context) {
+        Integer id = context.getProperty("idCidade", Integer.class);
 
-    return cidadeRepository.getById(id);
-  }
+        return cidadeRepository.getById(id);
+    }
 }

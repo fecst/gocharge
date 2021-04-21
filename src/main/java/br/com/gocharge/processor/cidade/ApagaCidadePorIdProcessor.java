@@ -7,19 +7,18 @@ import br.com.gocharge.repository.CidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class ApagaCidadePorIdProcessor implements CommandProcessor<Cidade> {
 
-  @Autowired private CidadeRepository cidadeRepository;
+    @Autowired
+    private CidadeRepository cidadeRepository;
 
-  @Override
-  public Cidade process(CommandContext context) {
-    Integer idCidade = context.getProperty("idCidade", Integer.class);
+    @Override
+    public Cidade process(CommandContext context) {
+        Integer idCidade = context.getProperty("idCidade", Integer.class);
 
-    cidadeRepository.delete(idCidade);
+        cidadeRepository.delete(idCidade);
 
-    return null;
-  }
+        return null;
+    }
 }

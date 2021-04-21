@@ -12,14 +12,15 @@ import java.util.UUID;
 @Component
 public class ApagaValorPorIdProcessor implements CommandProcessor<Valor> {
 
-  @Autowired private ValorRepository valorRepository;
+    @Autowired
+    private ValorRepository valorRepository;
 
-  @Override
-  public Valor process(CommandContext context) {
-    UUID idValor = context.getProperty("idValor", UUID.class);
+    @Override
+    public Valor process(CommandContext context) {
+        UUID idValor = context.getProperty("idValor", UUID.class);
 
-    valorRepository.delete(idValor);
+        valorRepository.delete(idValor);
 
-    return null;
-  }
+        return null;
+    }
 }

@@ -13,12 +13,13 @@ import java.util.UUID;
 @Component
 public class BuscaVeiculoPorUsuarioProcessor implements CommandProcessor<List<Veiculo>> {
 
-  @Autowired private VeiculoRepository veiculoRepository;
+    @Autowired
+    private VeiculoRepository veiculoRepository;
 
-  @Override
-  public List<Veiculo> process(CommandContext context) {
-    UUID idUsuario = context.getProperty("idUsuario", UUID.class);
+    @Override
+    public List<Veiculo> process(CommandContext context) {
+        UUID idUsuario = context.getProperty("idUsuario", UUID.class);
 
-    return veiculoRepository.getByUsuario(idUsuario);
-  }
+        return veiculoRepository.getByUsuario(idUsuario);
+    }
 }

@@ -14,31 +14,31 @@ import java.util.List;
 
 @Mapper
 public abstract class CidadeMapper {
-  public static final CidadeMapper INSTANCE = Mappers.getMapper(CidadeMapper.class);
+    public static final CidadeMapper INSTANCE = Mappers.getMapper(CidadeMapper.class);
 
-  public abstract CidadeModel toModel(Cidade cidade);
+    public abstract CidadeModel toModel(Cidade cidade);
 
-  public abstract Cidade toDomain(CidadeModel cidadeModel);
+    public abstract Cidade toDomain(CidadeModel cidadeModel);
 
-  @Mapping(target = "estado", ignore = true)
-  @Mapping(target = "id", source = "cidadeDTO.id")
-  @Mapping(target = "descricao", source = "cidadeDTO.descricao")
-  public abstract Cidade toDomain(CidadeDTO cidadeDTO, Estado estado);
+    @Mapping(target = "estado", ignore = true)
+    @Mapping(target = "id", source = "cidadeDTO.id")
+    @Mapping(target = "descricao", source = "cidadeDTO.descricao")
+    public abstract Cidade toDomain(CidadeDTO cidadeDTO, Estado estado);
 
-  public abstract List<Cidade> toDomain(List<CidadeModel> cidadeModels);
+    public abstract List<Cidade> toDomain(List<CidadeModel> cidadeModels);
 
-  @Mapping(target = "estado", ignore = true)
-  public abstract CidadeDTO toDTO(Cidade cidade);
+    @Mapping(target = "estado", ignore = true)
+    public abstract CidadeDTO toDTO(Cidade cidade);
 
-  public abstract List<CidadeDTO> toDTO(List<Cidade> cidade);
+    public abstract List<CidadeDTO> toDTO(List<Cidade> cidade);
 
-  @AfterMapping
-  void afterMapping(Cidade cidade, @MappingTarget CidadeDTO cidadeDTO) {
-    cidadeDTO.setEstado(cidade.getEstado().getId());
-  }
+    @AfterMapping
+    void afterMapping(Cidade cidade, @MappingTarget CidadeDTO cidadeDTO) {
+        cidadeDTO.setEstado(cidade.getEstado().getId());
+    }
 
-  @AfterMapping
-  void afterMapping(Estado estado, @MappingTarget Cidade cidade) {
-    cidade.setEstado(estado);
-  }
+    @AfterMapping
+    void afterMapping(Estado estado, @MappingTarget Cidade cidade) {
+        cidade.setEstado(estado);
+    }
 }

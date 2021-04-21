@@ -15,15 +15,16 @@ import java.time.LocalDateTime;
 @Component
 public class CadastraBandeiraProcessor implements CommandProcessor<Bandeira> {
 
-  @Autowired private BandeiraRepository bandeiraRepository;
+    @Autowired
+    private BandeiraRepository bandeiraRepository;
 
-  @Override
-  public Bandeira process(CommandContext context) {
-    BandeiraDTO bandeira = context.getProperty("bandeira", BandeiraDTO.class);
+    @Override
+    public Bandeira process(CommandContext context) {
+        BandeiraDTO bandeira = context.getProperty("bandeira", BandeiraDTO.class);
 
-    bandeira.setDataHoraCadastro(LocalDateTime.now().toString());
-    bandeira.setStatus(StatusCadastroEnum.ATIVO.getCodigo());
+        bandeira.setDataHoraCadastro(LocalDateTime.now().toString());
+        bandeira.setStatus(StatusCadastroEnum.ATIVO.getCodigo());
 
-    return bandeiraRepository.create(BandeiraMapper.INSTANCE.toDomain(bandeira));
-  }
+        return bandeiraRepository.create(BandeiraMapper.INSTANCE.toDomain(bandeira));
+    }
 }

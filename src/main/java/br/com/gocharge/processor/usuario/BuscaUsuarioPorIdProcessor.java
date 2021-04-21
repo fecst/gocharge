@@ -12,12 +12,13 @@ import java.util.UUID;
 @Component
 public class BuscaUsuarioPorIdProcessor implements CommandProcessor<Usuario> {
 
-  @Autowired private UsuarioRepository usuarioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-  @Override
-  public Usuario process(CommandContext context) {
-    UUID idUsuario = context.getProperty("idUsuario", UUID.class);
+    @Override
+    public Usuario process(CommandContext context) {
+        UUID idUsuario = context.getProperty("idUsuario", UUID.class);
 
-    return usuarioRepository.getById(idUsuario);
-  }
+        return usuarioRepository.getById(idUsuario);
+    }
 }

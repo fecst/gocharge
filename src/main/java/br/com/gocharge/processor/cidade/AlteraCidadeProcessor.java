@@ -14,18 +14,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class AlteraCidadeProcessor implements CommandProcessor<Cidade> {
 
-  @Autowired private CidadeRepository cidadeRepository;
+    @Autowired
+    private CidadeRepository cidadeRepository;
 
-  @Autowired private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
+    @Autowired
+    private BuscaEstadoPorIdProcessor buscaEstadoPorIdProcessor;
 
-  @Override
-  public Cidade process(CommandContext context) {
-    CidadeDTO cidade = context.getProperty("cidade", CidadeDTO.class);
+    @Override
+    public Cidade process(CommandContext context) {
+        CidadeDTO cidade = context.getProperty("cidade", CidadeDTO.class);
 
-    context.put("idEstado", cidade.getEstado());
+        context.put("idEstado", cidade.getEstado());
 
-    Estado estado = buscaEstadoPorIdProcessor.process(context);
+        Estado estado = buscaEstadoPorIdProcessor.process(context);
 
-    return cidadeRepository.update(CidadeMapper.INSTANCE.toDomain(cidade, estado));
-  }
+        return cidadeRepository.update(CidadeMapper.INSTANCE.toDomain(cidade, estado));
+    }
 }

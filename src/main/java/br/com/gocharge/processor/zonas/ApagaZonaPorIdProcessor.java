@@ -12,14 +12,15 @@ import java.util.UUID;
 @Component
 public class ApagaZonaPorIdProcessor implements CommandProcessor<Zona> {
 
-  @Autowired private ZonaRepository zonaRepository;
+    @Autowired
+    private ZonaRepository zonaRepository;
 
-  @Override
-  public Zona process(CommandContext context) {
-    UUID idZona = context.getProperty("idZona", UUID.class);
+    @Override
+    public Zona process(CommandContext context) {
+        UUID idZona = context.getProperty("idZona", UUID.class);
 
-    zonaRepository.delete(idZona);
+        zonaRepository.delete(idZona);
 
-    return null;
-  }
+        return null;
+    }
 }

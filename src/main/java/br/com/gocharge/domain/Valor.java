@@ -10,11 +10,11 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Valor {
-  private UUID id;
-  private LocalDateTime dataHoraCadastro;
-  private Bandeira bandeira;
-  private BigDecimal valorKwH;
-  private Double percentualAdicional;
-  private BigDecimal valorAdicional;
-  private String descricao;
+    private UUID id;
+    private LocalDateTime dataHoraCadastro;
+    private Bandeira bandeira;
+    private BigDecimal valorKwH;
+    private Double percentualAdicional;
+    private BigDecimal valorAdicional;
+    private String descricao;
 }

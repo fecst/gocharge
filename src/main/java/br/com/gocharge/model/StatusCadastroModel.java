@@ -3,9 +3,10 @@ package br.com.gocharge.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "STAT_CAD")
@@ -13,15 +14,15 @@ import java.util.UUID;
 @Setter
 public class StatusCadastroModel {
 
-  @Id
-  @Column(
-      name = "COD_STAT_CAD",
-      columnDefinition = "VARCHAR(1)",
-      updatable = false,
-      unique = true,
-      nullable = false)
-  private String id;
+    @Id
+    @Column(
+            name = "COD_STAT_CAD",
+            columnDefinition = "VARCHAR(1)",
+            updatable = false,
+            unique = true,
+            nullable = false)
+    private String id;
 
-  @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)", nullable = false)
-  private String descricao;
+    @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)", nullable = false)
+    private String descricao;
 }

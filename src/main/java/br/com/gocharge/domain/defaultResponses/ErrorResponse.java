@@ -2,7 +2,8 @@ package br.com.gocharge.domain.defaultResponses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,9 @@ public class ErrorResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<ErrorField> fields;
 
-    public ErrorResponse() {super();}
+    public ErrorResponse() {
+        super();
+    }
 
     public ErrorResponse(final String code, final String message, final List<ErrorField> fields) {
         this.code = code;
@@ -39,13 +42,13 @@ public class ErrorResponse {
         return this;
     }
 
-    public ErrorResponse fields(final List<ErrorField> fields){
+    public ErrorResponse fields(final List<ErrorField> fields) {
         this.fields = fields;
         return this;
     }
 
     public ErrorResponse field(final ErrorField field) {
-        if (fields == null){
+        if (fields == null) {
             fields = new ArrayList<>();
         }
 
