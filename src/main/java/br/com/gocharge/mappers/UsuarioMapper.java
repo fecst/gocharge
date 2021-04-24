@@ -99,8 +99,7 @@ public abstract class UsuarioMapper {
             usuarioModel.setStatus(statusUsuarioModel);
         }
 
-        if (Objects.nonNull(usuario.getCidade())
-                && usuario.getCidade().getId() != usuarioModel.getCidade().getId()) {
+        if (Objects.nonNull(usuario.getCidade())) {
             CidadeModel cidadeModel = new CidadeModel();
             cidadeModel.setId(usuario.getCidade().getId());
             cidadeModel.setDescricao(usuario.getCidade().getDescricao());
@@ -109,8 +108,7 @@ public abstract class UsuarioMapper {
             usuarioModel.setCidade(cidadeModel);
         }
 
-        if (Objects.nonNull(usuario.getEstado())
-                && usuario.getEstado().getId() != usuarioModel.getEstado().getId()) {
+        if (Objects.nonNull(usuario.getEstado())) {
             EstadoModel estadoModel = new EstadoModel();
             estadoModel.setId(usuario.getEstado().getId());
             estadoModel.setDescricao(usuario.getEstado().getDescricao());
