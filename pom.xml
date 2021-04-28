@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>br.com</groupId>
-    <artifactId>gocharge</artifactId>
+    <artifactId>gocharg</artifactId>
     <version>1.0.0</version>
-    <name>gocharge</name>
-    <description>GoCharge</description>
+    <name>gocharg</name>
+    <description>GoCharg</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
@@ -232,7 +232,7 @@
                         </goals>
                         <configuration>
                             <classifier>gocharge</classifier>
-                            <mainClass>br.com.gocharge.GoChargeApplication</mainClass>
+                            <mainClass>br.com.gocharg.GoChargApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>
