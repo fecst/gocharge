@@ -36,7 +36,12 @@ public class TotemValidator extends AbstractValidator<TotemDTO> {
         .must(not(nullValue(TotemDTO::getEstado)))
         .withMessage("Estado não pode ser nulo")
         .withFieldName("estado")
-        .withAttempedValue(TotemDTO::getEstado);
+        .withAttempedValue(TotemDTO::getEstado)
+
+        .must(not(nullValue(TotemDTO::getFabricante)))
+        .withMessage("Fabricante não pode ser nulo")
+        .withFieldName("fabricante")
+        .withAttempedValue(TotemDTO::getFabricante);
 
     ruleFor(TotemDTO::getStatus)
             .must(stringEmptyOrNull())

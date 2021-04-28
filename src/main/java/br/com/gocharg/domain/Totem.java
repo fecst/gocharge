@@ -10,13 +10,14 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Totem {
-    private UUID id;
-    private LocalDateTime dataHoraCadastro;
-    private Estado estado;
-    private Cidade cidade;
-    private Zona zona;
-    private SubZona subZona;
-    private Valor valor;
-    private StatusTotemEnum status;
-    private String apelido;
+  private UUID id;
+  private LocalDateTime dataHoraCadastro;
+  private Estado estado;
+  private Cidade cidade;
+  private Zona zona;
+  private SubZona subZona;
+  private Valor valor;
+  private Fabricante fabricante;
+  private StatusTotemEnum status;
+  private String apelido;
 }

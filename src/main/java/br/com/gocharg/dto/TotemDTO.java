@@ -34,6 +34,9 @@ public class TotemDTO {
     @JsonProperty("status")
     private String status;
 
+    @JsonProperty("fabricante")
+    private String fabricante;
+
     @JsonProperty("apelido")
     private String apelido;
 }

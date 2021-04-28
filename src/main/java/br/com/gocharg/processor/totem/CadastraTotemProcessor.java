@@ -8,6 +8,7 @@ import br.com.gocharg.enums.StatusTotemEnum;
 import br.com.gocharg.mappers.TotemMapper;
 import br.com.gocharg.processor.cidade.BuscaCidadePorIdProcessor;
 import br.com.gocharg.processor.estado.BuscaEstadoPorIdProcessor;
+import br.com.gocharg.processor.fabricante.BuscaFabricantePorIdProcessor;
 import br.com.gocharg.processor.subZonas.BuscaSubZonaPorIdProcessor;
 import br.com.gocharg.processor.valor.BuscaValorPorIdProcessor;
 import br.com.gocharg.processor.zonas.BuscaZonaPorIdProcessor;
@@ -27,6 +28,7 @@ public class CadastraTotemProcessor implements CommandProcessor<Totem> {
   @Autowired private BuscaZonaPorIdProcessor buscaZonaPorIdProcessor;
   @Autowired private BuscaSubZonaPorIdProcessor buscaSubZonaPorIdProcessor;
   @Autowired private BuscaValorPorIdProcessor buscaValorPorIdProcessor;
+  @Autowired private BuscaFabricantePorIdProcessor buscaFabricantePorIdProcessor;
 
   @Override
   public Totem process(CommandContext context) {
@@ -40,14 +42,17 @@ public class CadastraTotemProcessor implements CommandProcessor<Totem> {
     context.put("idZona", UUID.fromString(totem.getZona()));
     context.put("idSubZona", UUID.fromString(totem.getSubZona()));
     context.put("idValor", UUID.fromString(totem.getValor()));
+    context.put("idFabricante", UUID.fromString(totem.getFabricante()));
+    context.put("idTotem", totem.getId());
 
     Estado estado = buscaEstadoPorIdProcessor.process(context);
     Cidade cidade = buscaCidadePorIdProcessor.process(context);
     Zona zona = buscaZonaPorIdProcessor.process(context);
     SubZona subZona = buscaSubZonaPorIdProcessor.process(context);
     Valor valor = buscaValorPorIdProcessor.process(context);
+    Fabricante fabricante = buscaFabricantePorIdProcessor.process(context);
 
     return repository.create(
-        TotemMapper.INSTANCE.toDomain(totem, estado, cidade, zona, subZona, valor));
+        TotemMapper.INSTANCE.toDomain(totem, estado, cidade, zona, subZona, valor, fabricante));
   }
 }

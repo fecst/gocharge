@@ -21,7 +21,8 @@ import java.util.Objects;
       CidadeMapper.class,
       ZonaMapper.class,
       SubZonaMapper.class,
-      ValorMapper.class
+      ValorMapper.class,
+      FabricanteMapper.class
     })
 public abstract class TotemMapper {
   public static final TotemMapper INSTANCE = Mappers.getMapper(TotemMapper.class);
@@ -37,6 +38,7 @@ public abstract class TotemMapper {
   @Mapping(target = "zona", ignore = true)
   @Mapping(target = "subZona", ignore = true)
   @Mapping(target = "valor", ignore = true)
+  @Mapping(target = "fabricante", ignore = true)
   public abstract TotemDTO toDTO(Totem totem);
 
   public abstract List<TotemDTO> toDTO(List<Totem> totem);
@@ -51,6 +53,7 @@ public abstract class TotemMapper {
   @Mapping(target = "zona", source = "zona")
   @Mapping(target = "subZona", source = "subZona")
   @Mapping(target = "valor", source = "valor")
+  @Mapping(target = "fabricante", source = "fabricante")
   @Mapping(target = "status", ignore = true)
   @Mapping(target = "id", source = "totemDTO.id", qualifiedByName = ConverterMapper.STRING_TO_UUID)
   @Mapping(
@@ -58,16 +61,17 @@ public abstract class TotemMapper {
       source = "totemDTO.dataHoraCadastro",
       qualifiedByName = ConverterMapper.STRING_TO_LOCAL_DATE_TIME)
   public abstract Totem toDomain(
-      TotemDTO totemDTO, Estado estado, Cidade cidade, Zona zona, SubZona subZona, Valor valor);
+      TotemDTO totemDTO,
+      Estado estado,
+      Cidade cidade,
+      Zona zona,
+      SubZona subZona,
+      Valor valor,
+      Fabricante fabricante);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "dataHoraCadastro", ignore = true)
   @Mapping(target = "status", ignore = true)
-  //  @Mapping(target = "estado", ignore = true)
-  //  @Mapping(target = "cidade", ignore = true)
-  //  @Mapping(target = "zona", ignore = true)
-  //  @Mapping(target = "subZona", ignore = true)
-  //  @Mapping(target = "valor", ignore = true)
   public abstract void updateFrom(Totem totem, @MappingTarget final TotemModel totemModel);
 
   @AfterMapping
@@ -100,5 +104,6 @@ public abstract class TotemMapper {
     totemDTO.setZona(totem.getZona().getId().toString());
     totemDTO.setSubZona(totem.getSubZona().getId().toString());
     totemDTO.setValor(totem.getValor().getId().toString());
+    totemDTO.setFabricante(totem.getFabricante().getId().toString());
   }
 }

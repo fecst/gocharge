@@ -67,6 +67,14 @@ public class TotemModel {
 
     @ManyToOne
     @JoinColumn(
+            name = "ID_FAB",
+            referencedColumnName = "ID_FAB",
+            columnDefinition = "VARCHAR(36)",
+            nullable = false)
+    private FabricanteModel fabricante;
+
+    @ManyToOne
+    @JoinColumn(
             name = "COD_STAT_TOTEM",
             referencedColumnName = "COD_STAT_TOTEM",
             columnDefinition = "VARCHAR(1)",
