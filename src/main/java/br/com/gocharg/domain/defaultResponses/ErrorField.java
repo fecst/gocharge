@@ -12,13 +12,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ErrorField {
 
-    @JsonProperty("campo")
-    private String field;
+  @JsonProperty("campo")
+  private String field;
 
-    @JsonProperty("mensagem")
-    private String message;
+  @JsonProperty("mensagem")
+  private String message;
 
-    @JsonProperty("valor")
-    private String value;
-
+  @JsonProperty("valor")
+  private String value;
 }

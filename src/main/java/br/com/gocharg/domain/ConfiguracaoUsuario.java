@@ -9,8 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ConfiguracaoUsuario {
-    private UUID id;
-    private LocalDateTime dataHoraCadastro;
-    private Usuario usuario;
-    private Boolean duplaValidacao;
+  private UUID id;
+  private LocalDateTime dataHoraCadastro;
+  private Usuario usuario;
+  private Boolean duplaValidacao;
 }

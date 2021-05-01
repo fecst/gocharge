@@ -8,18 +8,18 @@ import lombok.Setter;
 @Setter
 public class SubZonaDTO {
 
-    @JsonProperty("id")
-    private String id;
+  @JsonProperty("id")
+  private String id;
 
-    @JsonProperty("estado")
-    private String estado;
+  @JsonProperty("estado")
+  private String estado;
 
-    @JsonProperty("cidade")
-    private String cidade;
+  @JsonProperty("cidade")
+  private String cidade;
 
-    @JsonProperty("zona")
-    private String zona;
+  @JsonProperty("zona")
+  private String zona;
 
-    @JsonProperty("sub_zona")
-    private String descricao;
+  @JsonProperty("sub_zona")
+  private String descricao;
 }

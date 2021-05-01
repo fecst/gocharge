@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GetDiagnosticsRequest {
-    private String location;
-    private Integer retries;
-    private Integer retryInterval;
-    private String startTime;
-    private String stopTime;
+  private String location;
+  private Integer retries;
+  private Integer retryInterval;
+  private String startTime;
+  private String stopTime;
 }

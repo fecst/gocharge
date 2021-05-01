@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StopTransactionResponse {
-    private TagInfo idTagInfo;
+  private TagInfo idTagInfo;
 }

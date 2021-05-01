@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UnlockConnectorResponse {
-    private OcppResponseStatusEnum status;
+  private OcppResponseStatusEnum status;
 }

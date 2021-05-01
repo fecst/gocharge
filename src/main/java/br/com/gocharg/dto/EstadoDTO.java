@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 public class EstadoDTO {
 
-    @JsonProperty("id")
-    private String id;
+  @JsonProperty("id")
+  private String id;
 
-    @JsonProperty("estado")
-    private String descricao;
+  @JsonProperty("estado")
+  private String descricao;
 }

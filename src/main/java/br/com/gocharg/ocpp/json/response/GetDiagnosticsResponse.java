@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GetDiagnosticsResponse {
-    private String fileName;
+  private String fileName;
 }

@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RemoteStopTransactionRequest {
-    private Integer transactionId;
+  private Integer transactionId;
 }

@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Cidade {
-    private Integer id;
-    private Estado estado;
-    private String descricao;
+  private Integer id;
+  private Estado estado;
+  private String descricao;
 }

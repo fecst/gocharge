@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DataTransferResponse {
-    private OcppResponseStatusEnum status;
-    private String data;
+  private OcppResponseStatusEnum status;
+  private String data;
 }

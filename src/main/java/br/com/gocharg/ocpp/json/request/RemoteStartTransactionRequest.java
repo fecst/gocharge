@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RemoteStartTransactionRequest {
-    private Integer connectorId;
-    private String idTag;
-    private ChargingProfile chargingProfile;
+  private Integer connectorId;
+  private String idTag;
+  private ChargingProfile chargingProfile;
 }

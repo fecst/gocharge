@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Estado {
-    private String id;
-    private String descricao;
+  private String id;
+  private String descricao;
 }

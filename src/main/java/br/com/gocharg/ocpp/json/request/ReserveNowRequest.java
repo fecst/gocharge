@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ReserveNowRequest {
-    private Integer connectorId;
-    private LocalDateTime expiryDate;
-    private String idTag;
-    private String parentIdTag;
-    private Integer reservationId;
+  private Integer connectorId;
+  private LocalDateTime expiryDate;
+  private String idTag;
+  private String parentIdTag;
+  private Integer reservationId;
 }

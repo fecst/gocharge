@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResetResponse {
-    private OcppResponseStatusEnum status;
+  private OcppResponseStatusEnum status;
 }

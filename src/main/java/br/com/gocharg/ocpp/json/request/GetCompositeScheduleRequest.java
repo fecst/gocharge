@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GetCompositeScheduleRequest {
-    private Integer connectorId;
-    private Integer duration;
-    private OcppChargingRateUnitEnum chargingRateUnit;
+  private Integer connectorId;
+  private Integer duration;
+  private OcppChargingRateUnitEnum chargingRateUnit;
 }

@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HeartbeatResponse {
-    private String currentTime;
+  private String currentTime;
 }

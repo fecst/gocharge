@@ -7,11 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SampledValue {
-    private String value;
-    private OcppContextEnum context;
-    private OcppFormatEnum format;
-    private OcppMeasurandEnum measurand;
-    private OcppPhaseEnum phase;
-    private OcppLocationEnum location;
-    private OcppUnitEnum unit;
+  private String value;
+  private OcppContextEnum context;
+  private OcppFormatEnum format;
+  private OcppMeasurandEnum measurand;
+  private OcppPhaseEnum phase;
+  private OcppLocationEnum location;
+  private OcppUnitEnum unit;
 }

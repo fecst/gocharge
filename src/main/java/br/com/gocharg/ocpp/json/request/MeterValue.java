@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MeterValue {
-    private String timestamp;
-    private SampledValue sampledValue;
+  private String timestamp;
+  private SampledValue sampledValue;
 }

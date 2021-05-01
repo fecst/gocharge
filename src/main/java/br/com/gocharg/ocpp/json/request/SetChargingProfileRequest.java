@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SetChargingProfileRequest {
-    private Integer connectorId;
-    private ChargingProfile csChargingProfiles;
+  private Integer connectorId;
+  private ChargingProfile csChargingProfiles;
 }

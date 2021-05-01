@@ -9,13 +9,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChargingProfile {
-    private Integer chargingProfileId;
-    private Integer transactionId;
-    private Integer stackLevel;
-    private OcppProfilePurposeEnum chargingProfilePurpose;
-    private OcppChargingProfileKindEnum chargingProfileKind;
-    private OcppRecurrencyKindEnum recurrencyKind;
-    private String validFrom;
-    private String validTo;
-    private ChargingSchedule chargingSchedule;
+  private Integer chargingProfileId;
+  private Integer transactionId;
+  private Integer stackLevel;
+  private OcppProfilePurposeEnum chargingProfilePurpose;
+  private OcppChargingProfileKindEnum chargingProfileKind;
+  private OcppRecurrencyKindEnum recurrencyKind;
+  private String validFrom;
+  private String validTo;
+  private ChargingSchedule chargingSchedule;
 }

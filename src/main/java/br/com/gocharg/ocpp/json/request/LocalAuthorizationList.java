@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LocalAuthorizationList {
-    private String idTag;
-    private TagInfo idTagInfo;
-
+  private String idTag;
+  private TagInfo idTagInfo;
 }

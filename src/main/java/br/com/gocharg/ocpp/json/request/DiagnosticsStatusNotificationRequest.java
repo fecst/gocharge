@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DiagnosticsStatusNotificationRequest {
-    private OcppDiagnosticsStatusEnum status;
+  private OcppDiagnosticsStatusEnum status;
 }

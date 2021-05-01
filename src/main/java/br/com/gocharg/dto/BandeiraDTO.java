@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 public class BandeiraDTO {
 
-    @JsonProperty("id")
-    private String id;
+  @JsonProperty("id")
+  private String id;
 
-    @JsonProperty("data_hora_cadastro")
-    private String dataHoraCadastro;
+  @JsonProperty("data_hora_cadastro")
+  private String dataHoraCadastro;
 
-    @JsonProperty("descricao")
-    private String descricao;
+  @JsonProperty("descricao")
+  private String descricao;
 
-    @JsonProperty("status")
-    private String status;
+  @JsonProperty("status")
+  private String status;
 }

@@ -24,6 +24,7 @@ public enum OcppChargingProfileKindEnum {
   }
 
   public static boolean contains(String codigo) {
-    return Stream.of(OcppChargingProfileKindEnum.values()).anyMatch(status -> status.equals(codigo));
+    return Stream.of(OcppChargingProfileKindEnum.values())
+        .anyMatch(status -> status.equals(codigo));
   }
 }

@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SetChargingProfileResponse {
-    private OcppResponseStatusEnum status;
+  private OcppResponseStatusEnum status;
 }

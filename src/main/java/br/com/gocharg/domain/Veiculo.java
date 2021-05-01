@@ -10,15 +10,15 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Veiculo {
-    private UUID id;
-    private LocalDateTime dataHoraCadastro;
-    private Usuario usuario;
-    private String marca;
-    private String modelo;
-    private String ano;
-    private Boolean eletrico;
-    private String apelido;
-    private StatusCadastroEnum status;
-    private String observaocao1;
-    private String observaocao2;
+  private UUID id;
+  private LocalDateTime dataHoraCadastro;
+  private Usuario usuario;
+  private String marca;
+  private String modelo;
+  private String ano;
+  private Boolean eletrico;
+  private String apelido;
+  private StatusCadastroEnum status;
+  private String observaocao1;
+  private String observaocao2;
 }

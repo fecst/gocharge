@@ -13,15 +13,15 @@ import javax.persistence.Table;
 @Getter
 @Setter
 public class EstadoModel {
-    @Id
-    @Column(
-            name = "ID_EST",
-            columnDefinition = "VARCHAR(2)",
-            updatable = false,
-            unique = true,
-            nullable = false)
-    private String id;
+  @Id
+  @Column(
+      name = "ID_EST",
+      columnDefinition = "VARCHAR(2)",
+      updatable = false,
+      unique = true,
+      nullable = false)
+  private String id;
 
-    @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)")
-    private String descricao;
+  @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)")
+  private String descricao;
 }

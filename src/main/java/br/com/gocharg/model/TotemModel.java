@@ -91,10 +91,7 @@ public class TotemModel {
   private Boolean propriedadeGoCharg;
 
   @OneToOne(cascade = CascadeType.REFRESH)
-  @JoinColumn(
-      name = "ID_USU",
-      referencedColumnName = "ID_USU",
-      columnDefinition = "VARCHAR(36)")
+  @JoinColumn(name = "ID_USU", referencedColumnName = "ID_USU", columnDefinition = "VARCHAR(36)")
   private UsuarioModel proprietario;
 
   @Column(name = "QRCODE", columnDefinition = "VARCHAR(250)", nullable = false)

@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ChargingSchedule {
-    private Integer duration;
-    private LocalDateTime startSchedule;
-    private OcppChargingRateUnitEnum chargingRateUnit;
-    private ChargingSchedulePeriod chargingSchedulePeriod;
-    private Number minChargingRate;
+  private Integer duration;
+  private LocalDateTime startSchedule;
+  private OcppChargingRateUnitEnum chargingRateUnit;
+  private ChargingSchedulePeriod chargingSchedulePeriod;
+  private Number minChargingRate;
 }

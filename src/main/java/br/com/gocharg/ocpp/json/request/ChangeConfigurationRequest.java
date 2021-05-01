@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChangeConfigurationRequest {
-    private String key;
-    private String value;
+  private String key;
+  private String value;
 }

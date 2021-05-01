@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClearCacheResponse {
-    private OcppResponseStatusEnum status;
+  private OcppResponseStatusEnum status;
 }

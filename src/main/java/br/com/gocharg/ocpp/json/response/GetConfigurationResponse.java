@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GetConfigurationResponse {
-    private ConfigurationKey configurationKey;
-    private String unknownKey;
+  private ConfigurationKey configurationKey;
+  private String unknownKey;
 }

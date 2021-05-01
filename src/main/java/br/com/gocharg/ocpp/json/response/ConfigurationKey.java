@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ConfigurationKey {
-    private String key;
-    private Boolean readonly;
-    private String value;
+  private String key;
+  private Boolean readonly;
+  private String value;
 }

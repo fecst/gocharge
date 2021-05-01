@@ -8,6 +8,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class TransactionData {
-    private LocalDateTime timestamp;
-    private SampledValue sampledValue;
+  private LocalDateTime timestamp;
+  private SampledValue sampledValue;
 }

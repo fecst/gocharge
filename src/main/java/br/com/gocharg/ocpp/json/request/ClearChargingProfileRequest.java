@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClearChargingProfileRequest {
-    private Integer id;
-    private Integer connectorId;
-    private OcppAvailabilityEnum chargingProfilePurpose;
-    private Integer stackLevel;
+  private Integer id;
+  private Integer connectorId;
+  private OcppAvailabilityEnum chargingProfilePurpose;
+  private Integer stackLevel;
 }

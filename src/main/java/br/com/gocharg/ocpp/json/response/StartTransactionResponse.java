@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StartTransactionResponse {
-    private TagInfo idTagInfo;
-    private Integer transactionId;
+  private TagInfo idTagInfo;
+  private Integer transactionId;
 }

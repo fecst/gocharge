@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SendLocalListRequest {
-    private Integer listVersion;
-    private LocalAuthorizationList localAuthorizationList;
-    private OcppUpdateTypeEnum updateType;
+  private Integer listVersion;
+  private LocalAuthorizationList localAuthorizationList;
+  private OcppUpdateTypeEnum updateType;
 }

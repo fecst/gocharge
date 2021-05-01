@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 public class ConfiguracaoUsuarioDTO {
 
-    @JsonProperty("id")
-    private String id;
+  @JsonProperty("id")
+  private String id;
 
-    @JsonProperty("data_hora_cadastro")
-    private String dataHoraCadastro;
+  @JsonProperty("data_hora_cadastro")
+  private String dataHoraCadastro;
 
-    @JsonProperty("usuario")
-    private String usuario;
+  @JsonProperty("usuario")
+  private String usuario;
 
-    @JsonProperty("dupla_validacao")
-    private String duplaValidacao;
+  @JsonProperty("dupla_validacao")
+  private String duplaValidacao;
 }

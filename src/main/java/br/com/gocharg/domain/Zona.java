@@ -8,8 +8,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Zona {
-    private UUID id;
-    private Estado estado;
-    private Cidade cidade;
-    private String descricao;
+  private UUID id;
+  private Estado estado;
+  private Cidade cidade;
+  private String descricao;
 }

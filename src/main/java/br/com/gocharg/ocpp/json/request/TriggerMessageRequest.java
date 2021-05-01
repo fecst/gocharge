@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TriggerMessageRequest {
-    private OcppRequestedMessageEnum requestedMessage;
-    private Integer connectorId;
+  private OcppRequestedMessageEnum requestedMessage;
+  private Integer connectorId;
 }
