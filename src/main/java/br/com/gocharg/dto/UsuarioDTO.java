@@ -75,7 +75,7 @@ public class UsuarioDTO {
     private Boolean maps;
 
     @JsonProperty("categoria_usuario")
-    private String categoriaUsuario;
+    private String categoria;
 
     @JsonProperty("status")
     private String status;

@@ -70,7 +70,7 @@ public class TotemController {
       @PathVariable("id_totem") String idTotem, @RequestBody TotemDTO totem) {
     totemValidator.validate(totem).isInvalidThrow(BadRequestException.class);
 
-    totem.setId(UUID.fromString(idTotem));
+    totem.setId(idTotem);
 
     CommandContext context = new CommandContext();
     context.put("totem", totem);

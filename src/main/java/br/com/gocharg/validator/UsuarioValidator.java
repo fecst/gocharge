@@ -4,7 +4,7 @@ import br.com.fluentvalidator.AbstractValidator;
 import br.com.fluentvalidator.function.FunctionBuilder;
 import br.com.fluentvalidator.predicate.PredicateBuilder;
 import br.com.gocharg.dto.UsuarioDTO;
-import br.com.gocharg.enums.CategoriaUsuarioEnum;
+import br.com.gocharg.enums.CategoriaEnum;
 import br.com.gocharg.enums.StatusCadastroEnum;
 import br.com.gocharg.enums.TipoUsuarioEnum;
 import org.springframework.stereotype.Component;
@@ -167,10 +167,10 @@ public class UsuarioValidator extends AbstractValidator<UsuarioDTO> {
         .withMessage("Código informado inválido")
         .withFieldName("tipo_usuario");
 
-    ruleFor(UsuarioDTO::getCategoriaUsuario)
-        .must(CategoriaUsuarioEnum::contains)
+    ruleFor(UsuarioDTO::getCategoria)
+        .must(CategoriaEnum::contains)
         .when(not(stringEmptyOrNull()))
-        .withMessage("Código informado inválido")
+        .withMessage("Valor inválido para categoria. Valores aceitos 'A', 'B', 'C', 'D', 'E'")
         .withFieldName("categoria_usuario");
   }
 

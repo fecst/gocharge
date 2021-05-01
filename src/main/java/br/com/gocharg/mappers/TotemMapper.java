@@ -2,7 +2,9 @@ package br.com.gocharg.mappers;
 
 import br.com.gocharg.domain.*;
 import br.com.gocharg.dto.TotemDTO;
+import br.com.gocharg.enums.CategoriaEnum;
 import br.com.gocharg.enums.StatusTotemEnum;
+import br.com.gocharg.model.CategoriaModel;
 import br.com.gocharg.model.StatusTotemModel;
 import br.com.gocharg.model.TotemModel;
 import org.mapstruct.AfterMapping;
@@ -22,7 +24,8 @@ import java.util.Objects;
       ZonaMapper.class,
       SubZonaMapper.class,
       ValorMapper.class,
-      FabricanteMapper.class
+      FabricanteMapper.class,
+      UsuarioMapper.class
     })
 public abstract class TotemMapper {
   public static final TotemMapper INSTANCE = Mappers.getMapper(TotemMapper.class);
@@ -39,11 +42,15 @@ public abstract class TotemMapper {
   @Mapping(target = "subZona", ignore = true)
   @Mapping(target = "valor", ignore = true)
   @Mapping(target = "fabricante", ignore = true)
+  @Mapping(target = "proprietario", ignore = true)
+  @Mapping(target = "categoria", ignore = true)
+  @Mapping(target = "id", source = "id", qualifiedByName = ConverterMapper.UUID_TO_STRING)
   public abstract TotemDTO toDTO(Totem totem);
 
   public abstract List<TotemDTO> toDTO(List<Totem> totem);
 
   @Mapping(target = "status", ignore = true)
+  @Mapping(target = "categoria", ignore = true)
   public abstract Totem toDomain(TotemModel totemModel);
 
   public abstract List<Totem> toDomain(List<TotemModel> totemModel);
@@ -54,8 +61,18 @@ public abstract class TotemMapper {
   @Mapping(target = "subZona", source = "subZona")
   @Mapping(target = "valor", source = "valor")
   @Mapping(target = "fabricante", source = "fabricante")
+  @Mapping(target = "proprietario", source = "proprietario")
   @Mapping(target = "status", ignore = true)
+  @Mapping(target = "categoria", ignore = true)
   @Mapping(target = "id", source = "totemDTO.id", qualifiedByName = ConverterMapper.STRING_TO_UUID)
+  @Mapping(
+      target = "maps",
+      source = "totemDTO.maps",
+      qualifiedByName = ConverterMapper.STRING_TO_BOOLEAN)
+  @Mapping(
+      target = "propriedadeGoCharg",
+      source = "totemDTO.propriedadeGoCharg",
+      qualifiedByName = ConverterMapper.STRING_TO_BOOLEAN)
   @Mapping(
       target = "dataHoraCadastro",
       source = "totemDTO.dataHoraCadastro",
@@ -67,17 +84,23 @@ public abstract class TotemMapper {
       Zona zona,
       SubZona subZona,
       Valor valor,
-      Fabricante fabricante);
+      Fabricante fabricante,
+      Usuario proprietario);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "dataHoraCadastro", ignore = true)
   @Mapping(target = "status", ignore = true)
+  @Mapping(target = "categoria", ignore = true)
   public abstract void updateFrom(Totem totem, @MappingTarget final TotemModel totemModel);
 
   @AfterMapping
   void afterMapping(TotemDTO totemDTO, @MappingTarget Totem totem) {
     if (Objects.nonNull(totemDTO.getStatus())) {
       totem.setStatus(StatusTotemEnum.get(totemDTO.getStatus()));
+    }
+
+    if (Objects.nonNull(totemDTO.getCategoria())) {
+      totem.setCategoria(CategoriaEnum.get(totemDTO.getCategoria()));
     }
   }
 
@@ -89,11 +112,19 @@ public abstract class TotemMapper {
 
       totemModel.setStatus(statusTotemModel);
     }
+
+    if (Objects.nonNull(totem.getCategoria())) {
+      CategoriaModel categoriaModel = new CategoriaModel();
+      categoriaModel.setId(totem.getCategoria().getId());
+
+      totemModel.setCategoria(categoriaModel);
+    }
   }
 
   @AfterMapping
   void afterMapping(TotemModel totemModel, @MappingTarget Totem totem) {
     totem.setStatus(StatusTotemEnum.get(totemModel.getStatus().getId()));
+    totem.setCategoria(CategoriaEnum.get(totemModel.getCategoria().getId()));
   }
 
   @AfterMapping
@@ -105,5 +136,7 @@ public abstract class TotemMapper {
     totemDTO.setSubZona(totem.getSubZona().getId().toString());
     totemDTO.setValor(totem.getValor().getId().toString());
     totemDTO.setFabricante(totem.getFabricante().getId().toString());
+    totemDTO.setCategoria(totem.getCategoria().getId());
+    totemDTO.setProprietario(totem.getProprietario().getId().toString());
   }
 }

@@ -29,6 +29,18 @@ public interface ConverterMapper {
     String STRING_TO_DOUBLE = "stringToDouble";
     String BIG_DECIMAL_TO_STRING = "bigDecimalToString";
     String STRING_TO_BIG_DECIMAL = "stringToBigDecimal";
+    String STRING_TO_BOOLEAN = "stringToBoolean";
+    String BOOLEAN_TO_STRING = "booleanToString";
+
+    @Named(STRING_TO_BOOLEAN)
+    default Boolean stringToBoolean(String valor) {
+        return StringUtils.isNotBlank(valor) ? Boolean.valueOf(valor) : null;
+    }
+
+    @Named(BOOLEAN_TO_STRING)
+    default String booleanToString(Boolean valor) {
+        return Objects.nonNull(valor) ? valor.toString() : null;
+    }
 
     @Named(STRING_TO_BIG_DECIMAL)
     default BigDecimal stringToBigDecimal(String valor) {

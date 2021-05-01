@@ -1,5 +1,6 @@
 package br.com.gocharg.domain;
 
+import br.com.gocharg.enums.CategoriaEnum;
 import br.com.gocharg.enums.StatusTotemEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,4 +21,11 @@ public class Totem {
   private Fabricante fabricante;
   private StatusTotemEnum status;
   private String apelido;
+  private Boolean maps;
+  private Boolean propriedadeGoCharg;
+  private Usuario proprietario;
+  private String qrCode;
+  private CategoriaEnum categoria;
+  private String observacao1;
+  private String observacao2;
 }

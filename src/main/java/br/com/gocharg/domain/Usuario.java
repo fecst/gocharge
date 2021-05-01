@@ -1,6 +1,6 @@
 package br.com.gocharg.domain;
 
-import br.com.gocharg.enums.CategoriaUsuarioEnum;
+import br.com.gocharg.enums.CategoriaEnum;
 import br.com.gocharg.enums.StatusUsuarioEnum;
 import br.com.gocharg.enums.TipoUsuarioEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -37,7 +37,7 @@ public class Usuario {
     private String pais;
     private TipoUsuarioEnum tipoUsuario;
     private Boolean maps;
-    private CategoriaUsuarioEnum categoriaUsuario;
+    private CategoriaEnum categoria;
     private String observacao1;
     private String observacao2;
     private StatusUsuarioEnum status;

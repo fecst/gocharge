@@ -9,6 +9,7 @@ import br.com.gocharg.processor.cidade.BuscaCidadePorIdProcessor;
 import br.com.gocharg.processor.estado.BuscaEstadoPorIdProcessor;
 import br.com.gocharg.processor.fabricante.BuscaFabricantePorIdProcessor;
 import br.com.gocharg.processor.subZonas.BuscaSubZonaPorIdProcessor;
+import br.com.gocharg.processor.usuario.BuscaUsuarioPorIdProcessor;
 import br.com.gocharg.processor.valor.BuscaValorPorIdProcessor;
 import br.com.gocharg.processor.zonas.BuscaZonaPorIdProcessor;
 import br.com.gocharg.repository.TotemRepository;
@@ -28,6 +29,7 @@ public class AlteraTotemProcessor implements CommandProcessor<Totem> {
   @Autowired private BuscaValorPorIdProcessor buscaValorPorIdProcessor;
   @Autowired private BuscaTotemPorIdProcessor buscaTotemPorIdProcessor;
   @Autowired private BuscaFabricantePorIdProcessor buscaFabricantePorIdProcessor;
+  @Autowired private BuscaUsuarioPorIdProcessor buscaUsuarioPorIdProcessor;
 
   @Override
   public Totem process(CommandContext context) {
@@ -39,7 +41,8 @@ public class AlteraTotemProcessor implements CommandProcessor<Totem> {
     context.put("idSubZona", UUID.fromString(totem.getSubZona()));
     context.put("idValor", UUID.fromString(totem.getValor()));
     context.put("idFabricante", UUID.fromString(totem.getFabricante()));
-    context.put("idTotem", totem.getId());
+    context.put("idTotem", UUID.fromString(totem.getId()));
+    context.put("idUsuario", UUID.fromString(totem.getProprietario()));
 
     Estado estado = buscaEstadoPorIdProcessor.process(context);
     Cidade cidade = buscaCidadePorIdProcessor.process(context);
@@ -47,9 +50,11 @@ public class AlteraTotemProcessor implements CommandProcessor<Totem> {
     SubZona subZona = buscaSubZonaPorIdProcessor.process(context);
     Valor valor = buscaValorPorIdProcessor.process(context);
     Fabricante fabricante = buscaFabricantePorIdProcessor.process(context);
+    Usuario proprietario = buscaUsuarioPorIdProcessor.process(context);
 
     totemRepository.update(
-        TotemMapper.INSTANCE.toDomain(totem, estado, cidade, zona, subZona, valor, fabricante));
+        TotemMapper.INSTANCE.toDomain(
+            totem, estado, cidade, zona, subZona, valor, fabricante, proprietario));
 
     return buscaTotemPorIdProcessor.process(context);
   }

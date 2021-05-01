@@ -5618,11 +5618,11 @@ INSERT INTO TP_USU VALUES (6, 'Cliente final CNPJ compra');
 INSERT INTO TP_USU VALUES (7, 'Cliente final CNPJ interno e compra');
 INSERT INTO TP_USU VALUES (8, 'Cliente CNPJ gestor');
 
-INSERT INTO CAT_USU VALUES ('A', 'A');
-INSERT INTO CAT_USU VALUES ('B', 'B');
-INSERT INTO CAT_USU VALUES ('C', 'C');
-INSERT INTO CAT_USU VALUES ('D', 'D');
-INSERT INTO CAT_USU VALUES ('E', 'E');
+INSERT INTO CATEG VALUES ('A', 'A');
+INSERT INTO CATEG VALUES ('B', 'B');
+INSERT INTO CATEG VALUES ('C', 'C');
+INSERT INTO CATEG VALUES ('D', 'D');
+INSERT INTO CATEG VALUES ('E', 'E');
 
 INSERT INTO CAD_ZONA (ID_ZONA, ID_EST, ID_CID, DESCRICAO) VALUES ('443f38db65ca4064aae5c72d762520e4', 'SP', '3550308', 'Leste');
 INSERT INTO CAD_ZONA (ID_ZONA, ID_EST, ID_CID, DESCRICAO) VALUES ('bae3eace78ac475488ace3eb6b1238e6', 'SP', '3550308', 'Oeste');
@@ -5635,4 +5635,6 @@ INSERT INTO CAD_BAND (ID_BAND, DT_HR_CAD, DESCRICAO, COD_STAT_CAD) VALUES ('d5cd
 
 INSERT INTO CAD_VALOR (ID_VALOR, DT_HR_CAD, ID_BAND, VALOR_KWH, PERC_ADIC, VALOR_ADIC, DESCRICAO) VALUES ('46a97f30bd3b4e2a9e459c4628c325c0', '2021-03-31 20:00:00', '443f38db65ca4064aae5c72d762520e4', 10.1, 2.1, 5, 'Verde Padrão');
 
-INSERT INTO cad_usu (bairro, cod_cat_usu, cep, id_cid, cnpj, compl_end, cpf, dt_hr_blq, dt_hr_cad, dt_nasc, email, endereco, id_est, login, maps, mot_blq, nome, num_end, obs_1, obs_2, pais, senha, cod_stat_usu, tel_1, tel_2, tel_3, cod_tp_usu, id_usu) values ('XPTOZAO', 'A', '09520310', '3300258', null, 'APTO 123', '40079939805', null, '2021-04-09 20:29:54', '1992-03-27', 'email@email.com', 'Rua XPTO', 'RJ', 'costinha', '1', null, 'Felipe Costa', '123', null, null, 'Brasil', '1234', 'A', '12345678901', '12345678901', '12345678901', '1', 'a17cac9ec58e46a89efa04b3043e0809');
+INSERT INTO cad_usu (bairro, cod_categ, cep, id_cid, cnpj, compl_end, cpf, dt_hr_blq, dt_hr_cad, dt_nasc, email, endereco, id_est, login, maps, mot_blq, nome, num_end, obs_1, obs_2, pais, senha, cod_stat_usu, tel_1, tel_2, tel_3, cod_tp_usu, id_usu) values ('XPTOZAO', 'A', '09520310', '3300258', null, 'APTO 123', '40079939805', null, '2021-04-09 20:29:54', '1992-03-27', 'email@email.com', 'Rua XPTO', 'RJ', 'costinha', '1', null, 'Felipe Costa', '123', null, null, 'Brasil', '1234', 'A', '12345678901', '12345678901', '12345678901', '1', 'a17cac9ec58e46a89efa04b3043e0809');
+
+INSERT INTO CAD_FAB (ID_FAB, DT_HR_CAD, DESCRICAO, COD_STAT_CAD) VALUES ('d5cd5516309c4e9a8e0cd1482a9206dc', '2021-03-31 20:00:14', 'WEG', 'A');

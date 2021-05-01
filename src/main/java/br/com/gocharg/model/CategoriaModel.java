@@ -6,14 +6,14 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CAT_USU")
+@Table(name = "CATEG")
 @Getter
 @Setter
-public class CategoriaUsuarioModel {
+public class CategoriaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(
-            name = "COD_CAT_USU",
+            name = "COD_CATEG",
             columnDefinition = "VARCHAR(1)",
             updatable = false,
             unique = true,
