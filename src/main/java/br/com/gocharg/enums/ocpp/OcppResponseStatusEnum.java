@@ -17,6 +17,7 @@ public enum OcppResponseStatusEnum {
   OCCUPIED("Occupied"),
   REJECTED("Rejected"),
   REBOOT_REQUIRED("RebootRequired"),
+  SCHEDULED("Scheduled"),
   UNAVAILABLE("Unavailable"),
   UNKNOWN("Unknown"),
   UNKNOWN_MESSAGE_ID("UnknownMessageId"),
