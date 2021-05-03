@@ -4,7 +4,9 @@ import br.com.gocharg.command.CommandContext;
 import br.com.gocharg.command.CommandProcessor;
 import br.com.gocharg.dto.ocpp.json.request.BootNotificationRequest;
 import br.com.gocharg.dto.ocpp.json.request.OcppRequest;
+import br.com.gocharg.dto.ocpp.json.request.StatusNotificationRequest;
 import br.com.gocharg.dto.ocpp.json.response.BootNotificationResponse;
+import br.com.gocharg.dto.ocpp.json.response.StatusNotificationResponse;
 import br.com.gocharg.enums.ocpp.OcppResponseStatusEnum;
 import br.com.gocharg.factory.OcppResponseFactory;
 import br.com.gocharg.repository.TotemRepository;
@@ -16,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @Component
-public class ProcessaBootNotificationProcessor implements CommandProcessor<String> {
+public class ProcessaStatusNotificationProcessor implements CommandProcessor<String> {
 
   @Autowired private TotemRepository repository;
   @Autowired private OcppResponseFactory factory;
@@ -25,20 +27,14 @@ public class ProcessaBootNotificationProcessor implements CommandProcessor<Strin
   public String process(CommandContext context) {
     OcppRequest ocppRequest = context.getProperty("ocppRequest", OcppRequest.class);
 
-    BootNotificationRequest request = (BootNotificationRequest) ocppRequest.getPayload();
+    StatusNotificationRequest request = (StatusNotificationRequest) ocppRequest.getPayload();
     String retorno = new String();
-    BootNotificationResponse response = new BootNotificationResponse();
+    StatusNotificationResponse response = new StatusNotificationResponse();
 
     try {
-      // TODO Atualizar Tabela TOTEM
-
-      response.setInterval(300);
-      response.setStatus(OcppResponseStatusEnum.ACCEPTED.getStatus());
-      response.setCurrentTime(LocalDateTime.now().toString());
-
       retorno =
           factory.retorno(
-              ocppRequest.getUniqueID(), new ObjectMapper().writeValueAsString(response));
+              ocppRequest.getUniqueID(), "{}");
     } catch (Exception e) {
       System.out.println("Erro na conversão para JSON");
     }

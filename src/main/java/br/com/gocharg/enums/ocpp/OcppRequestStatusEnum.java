@@ -1,5 +1,6 @@
 package br.com.gocharg.enums.ocpp;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 import java.util.stream.Stream;
@@ -27,6 +28,11 @@ public enum OcppRequestStatusEnum {
         .filter(value -> value.equals(status))
         .findFirst()
         .orElse(null);
+  }
+
+  @JsonCreator
+  public static OcppRequestStatusEnum forValue(String value) {
+    return OcppRequestStatusEnum.get(value);
   }
 
   public static boolean contains(String codigo) {

@@ -1,6 +1,8 @@
 package br.com.gocharg.enums.ocpp;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.stream.Stream;
 
@@ -23,17 +25,22 @@ public enum OcppErrorCodeEnum {
   OVER_VOLTAGE("OverVoltage"),
   WEAK_SIGNAL("WeakSignal");
 
-  private String status;
+  private String error;
 
-  OcppErrorCodeEnum(String status) {
-    this.status = status;
+  OcppErrorCodeEnum(String error) {
+    this.error = error;
   }
 
   public static OcppErrorCodeEnum get(String status) {
     return Stream.of(OcppErrorCodeEnum.values())
-        .filter(value -> value.equals(status))
+        .filter(value -> value.getError().equals(status))
         .findFirst()
         .orElse(null);
+  }
+
+  @JsonCreator
+  public static OcppErrorCodeEnum forValue(String value) {
+    return OcppErrorCodeEnum.get(value);
   }
 
   public static boolean contains(String codigo) {
