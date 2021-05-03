@@ -18,6 +18,7 @@ public class ProcessaRequisicaoOcpp implements CommandProcessor {
   @Autowired private ProcessaStatusNotificationProcessor statusNotificationProcessor;
   @Autowired private ProcessaHeartbeatProcessor heartbeatProcessor;
   @Autowired private ProcessaStartTransactionProcessor startTransactionProcessor;
+  @Autowired private ProcessaMeterValueProcessor meterValueProcessor;
 
   @Override
   public Object process(CommandContext context) {
@@ -71,6 +72,11 @@ public class ProcessaRequisicaoOcpp implements CommandProcessor {
           break;
         case METER_VALUES:
           ocppRequest.setPayload(mapper.convertValue(ocppMessage[3], MeterValuesRequest.class));
+
+          context.put("ocppRequest", ocppRequest);
+
+          meterValueProcessor.process(context);
+
           break;
         case STOP_TRANSACTION:
           ocppRequest.setPayload(mapper.convertValue(ocppMessage[3], StopTransactionRequest.class));

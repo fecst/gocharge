@@ -1,5 +1,6 @@
 package br.com.gocharg.enums.ocpp;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 import java.util.stream.Stream;
@@ -33,6 +34,11 @@ public enum OcppMeasurandEnum {
 
   OcppMeasurandEnum(String status) {
     this.status = status;
+  }
+
+  @JsonCreator
+  public static OcppMeasurandEnum forValue(String value) {
+    return OcppMeasurandEnum.get(value);
   }
 
   public static OcppMeasurandEnum get(String status) {

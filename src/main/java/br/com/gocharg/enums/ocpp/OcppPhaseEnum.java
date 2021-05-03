@@ -1,5 +1,6 @@
 package br.com.gocharg.enums.ocpp;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 import java.util.stream.Stream;
@@ -21,6 +22,11 @@ public enum OcppPhaseEnum {
 
   OcppPhaseEnum(String status) {
     this.status = status;
+  }
+
+  @JsonCreator
+  public static OcppPhaseEnum forValue(String value) {
+    return OcppPhaseEnum.get(value);
   }
 
   public static OcppPhaseEnum get(String status) {
