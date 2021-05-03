@@ -11,14 +11,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-
 @Component
 public class ProcessaRequisicaoOcpp implements CommandProcessor {
 
   @Autowired private ProcessaBootNotificationProcessor bootNotificationProcessor;
   @Autowired private ProcessaStatusNotificationProcessor statusNotificationProcessor;
   @Autowired private ProcessaHeartbeatProcessor heartbeatProcessor;
+  @Autowired private ProcessaStartTransactionProcessor startTransactionProcessor;
 
   @Override
   public Object process(CommandContext context) {
@@ -46,15 +45,14 @@ public class ProcessaRequisicaoOcpp implements CommandProcessor {
           break;
         case STATUS_NOTIFICATION:
           ocppRequest.setPayload(
-              mapper
-                  .convertValue(ocppMessage[3], StatusNotificationRequest.class));
+              mapper.convertValue(ocppMessage[3], StatusNotificationRequest.class));
 
           context.put("ocppRequest", ocppRequest);
 
           retorno = statusNotificationProcessor.process(context);
           break;
         case HEART_BEAT:
-          //Não tem payload
+          // Não tem payload
           context.put("ocppRequest", ocppRequest);
 
           retorno = heartbeatProcessor.process(context);
@@ -66,6 +64,10 @@ public class ProcessaRequisicaoOcpp implements CommandProcessor {
         case START_TRANSACTION:
           ocppRequest.setPayload(
               mapper.convertValue(ocppMessage[3], StartTransactionRequest.class));
+
+          context.put("ocppRequest", ocppRequest);
+
+          retorno = startTransactionProcessor.process(context);
           break;
         case METER_VALUES:
           ocppRequest.setPayload(mapper.convertValue(ocppMessage[3], MeterValuesRequest.class));

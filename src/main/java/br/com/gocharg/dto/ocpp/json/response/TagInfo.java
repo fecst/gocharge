@@ -11,5 +11,5 @@ import java.time.LocalDateTime;
 public class TagInfo {
   private LocalDateTime expiryDate;
   private String parentIdTag;
-  private OcppResponseStatusEnum status;
+  private String status;
 }
