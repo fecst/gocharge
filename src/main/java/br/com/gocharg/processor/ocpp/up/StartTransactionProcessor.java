@@ -1,10 +1,15 @@
-package br.com.gocharg.processor.ocpp;
+package br.com.gocharg.processor.ocpp.up;
 
 import br.com.gocharg.command.CommandContext;
 import br.com.gocharg.command.CommandProcessor;
+import br.com.gocharg.domain.Totem;
 import br.com.gocharg.dto.ocpp.json.request.BootNotificationRequest;
 import br.com.gocharg.dto.ocpp.json.request.OcppRequest;
+import br.com.gocharg.dto.ocpp.json.request.StartTransactionRequest;
 import br.com.gocharg.dto.ocpp.json.response.BootNotificationResponse;
+import br.com.gocharg.dto.ocpp.json.response.StartTransactionResponse;
+import br.com.gocharg.dto.ocpp.json.response.TagInfo;
+import br.com.gocharg.enums.StatusTotemEnum;
 import br.com.gocharg.enums.ocpp.OcppResponseStatusEnum;
 import br.com.gocharg.factory.OcppResponseFactory;
 import br.com.gocharg.repository.TotemRepository;
@@ -12,11 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @Component
-public class ProcessaBootNotificationProcessor implements CommandProcessor<String> {
+public class StartTransactionProcessor implements CommandProcessor<String> {
 
   @Autowired private TotemRepository repository;
   @Autowired private OcppResponseFactory factory;
@@ -25,16 +29,24 @@ public class ProcessaBootNotificationProcessor implements CommandProcessor<Strin
   public String process(CommandContext context) {
     OcppRequest ocppRequest = context.getProperty("ocppRequest", OcppRequest.class);
 
-    BootNotificationRequest request = (BootNotificationRequest) ocppRequest.getPayload();
+    StartTransactionRequest request = (StartTransactionRequest) ocppRequest.getPayload();
     String retorno = new String();
-    BootNotificationResponse response = new BootNotificationResponse();
+    StartTransactionResponse response = new StartTransactionResponse();
 
     try {
-      // TODO Atualizar Tabela TOTEM
+      Totem totem = repository.getByApelido(ocppRequest.getApelidoTotem());
+      totem.setStatus(StatusTotemEnum.CARREGANDO);
 
-      response.setInterval(300);
-      response.setStatus(OcppResponseStatusEnum.ACCEPTED.getStatus());
-      response.setCurrentTime(LocalDateTime.now().toString());
+      repository.update(totem);
+
+      TagInfo tagInfo = new TagInfo();
+
+      tagInfo.setStatus(OcppResponseStatusEnum.ACCEPTED.getStatus());
+      tagInfo.setParentIdTag(request.getIdTag());
+
+      //trocar por id da tabela de transação
+      response.setTransactionId(1);
+      response.setIdTagInfo(tagInfo);
 
       retorno =
           factory.retorno(

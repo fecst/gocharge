@@ -17,11 +17,11 @@ public class StatusTotemModel {
   @Id
   @Column(
       name = "COD_STAT_TOTEM",
-      columnDefinition = "VARCHAR(1)",
+      columnDefinition = "INT",
       updatable = false,
       unique = true,
       nullable = false)
-  private String id;
+  private Integer id;
 
   @Column(name = "DESCRICAO", columnDefinition = "VARCHAR(250)", nullable = false)
   private String descricao;

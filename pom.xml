@@ -185,6 +185,23 @@
             <version>42.2.19</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.kaazing/netx.ws -->
+        <dependency>
+            <groupId>org.kaazing</groupId>
+            <artifactId>netx.ws</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+
 
 
     </dependencies>

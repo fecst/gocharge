@@ -38,7 +38,7 @@ public class CadastraTotemProcessor implements CommandProcessor<Totem> {
     TotemDTO totem = context.getProperty("totem", TotemDTO.class);
 
     totem.setDataHoraCadastro(LocalDateTime.now().toString());
-    totem.setStatus(StatusTotemEnum.BLOQUEADO.getCodigo());
+    totem.setStatus(StatusTotemEnum.DESLIGADO.getCodigo().toString());
 
     context.put("idEstado", totem.getEstado());
     context.put("idCidade", Integer.valueOf(totem.getCidade()));

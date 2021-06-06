@@ -12,4 +12,5 @@ public class OcppRequest<T> {
   private String uniqueID;
   private OcppFunctionsEnum action;
   private T payload;
+  private String apelidoTotem;
 }

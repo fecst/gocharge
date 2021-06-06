@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -31,7 +32,7 @@ public class TotemRepository {
     }
   }
 
-  public List<Totem> getByStatus(String status) {
+  public List<Totem> getByStatus(Integer status) {
     List<TotemModel> totens =
         entityManager
             .createQuery("SELECT t FROM TotemModel t WHERE status.id = :status")
@@ -112,6 +113,19 @@ public class TotemRepository {
       return TotemMapper.INSTANCE.toDomain(totens);
     } else {
       throw new NoContentException();
+    }
+  }
+
+  public Totem getByApelido(String apelido) {
+    TotemModel totem = (TotemModel) entityManager
+            .createQuery("SELECT t FROM TotemModel t WHERE apelido = :apelido")
+            .setParameter("apelido", apelido)
+            .getSingleResult();
+
+    if (Objects.nonNull(totem)) {
+      return TotemMapper.INSTANCE.toDomain(totem);
+    } else {
+      throw new NotFoundException();
     }
   }
 

@@ -1,4 +1,4 @@
-package br.com.gocharg.processor.ocpp;
+package br.com.gocharg.processor.ocpp.up;
 
 import br.com.gocharg.command.CommandContext;
 import br.com.gocharg.command.CommandProcessor;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
-public class ProcessaHeartbeatProcessor implements CommandProcessor<String> {
+public class HeartbeatProcessor implements CommandProcessor<String> {
 
   @Autowired private OcppResponseFactory factory;
 

@@ -95,10 +95,7 @@ public abstract class TotemMapper {
 
   @AfterMapping
   void afterMapping(TotemDTO totemDTO, @MappingTarget Totem totem) {
-    if (Objects.nonNull(totemDTO.getStatus())) {
-      totem.setStatus(StatusTotemEnum.get(totemDTO.getStatus()));
-    }
-
+    totem.setStatus(StatusTotemEnum.get(Integer.valueOf(totemDTO.getStatus())));
     if (Objects.nonNull(totemDTO.getCategoria())) {
       totem.setCategoria(CategoriaEnum.get(totemDTO.getCategoria()));
     }
@@ -129,7 +126,7 @@ public abstract class TotemMapper {
 
   @AfterMapping
   void afterMapping(Totem totem, @MappingTarget TotemDTO totemDTO) {
-    totemDTO.setStatus(totem.getStatus().getCodigo());
+    totemDTO.setStatus(totem.getStatus().getCodigo().toString());
     totemDTO.setEstado(totem.getEstado().getId());
     totemDTO.setCidade(totem.getCidade().getId().toString());
     totemDTO.setZona(totem.getZona().getId().toString());
