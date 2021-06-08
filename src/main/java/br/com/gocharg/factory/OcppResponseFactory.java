@@ -25,11 +25,11 @@ public class OcppResponseFactory {
 
     retorno = retorno.concat("[");
     retorno = retorno.concat(OcppMessageTypeEnum.CALL.getType().toString());
-    retorno = retorno.concat(", \"");
+    retorno = retorno.concat(",\"");
     retorno = retorno.concat(uniqueID);
-    retorno = retorno.concat("\", \"");
+    retorno = retorno.concat("\",\"");
     retorno = retorno.concat(transaction);
-    retorno = retorno.concat("\", ");
+    retorno = retorno.concat("\",");
     retorno = retorno.concat(payload);
     retorno = retorno.concat("]");
 

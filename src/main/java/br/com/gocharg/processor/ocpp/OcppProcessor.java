@@ -22,6 +22,7 @@ public class OcppProcessor implements CommandProcessor {
   @Autowired private StartTransactionProcessor startTransactionProcessor;
   @Autowired private MeterValueProcessor meterValueProcessor;
   @Autowired private RemoteStartTransactionResponseProcessor remoteStartTransactionResponseProcessor;
+  @Autowired private OcppLogProcessor ocppLogProcessor;
 
   @Override
   public Object process(CommandContext context) {
@@ -218,6 +219,7 @@ public class OcppProcessor implements CommandProcessor {
 
           break;
       }
+      ocppLogProcessor.process(context);
 
       return retorno;
     } catch (Exception e) {

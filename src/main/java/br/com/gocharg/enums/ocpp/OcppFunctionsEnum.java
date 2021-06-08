@@ -33,15 +33,15 @@ public enum OcppFunctionsEnum {
   DATA_TRANSFER("DataTransfer"),
   TRIGGER_MESSAGE("TriggerMessage");
 
-  private String funcion;
+  private String function;
 
-  OcppFunctionsEnum(String funcion) {
-    this.funcion = funcion;
+  OcppFunctionsEnum(String function) {
+    this.function = function;
   }
 
   public static OcppFunctionsEnum get(String status) {
     return Stream.of(OcppFunctionsEnum.values())
-        .filter(value -> value.getFuncion().equals(status))
+        .filter(value -> value.getFunction().equals(status))
         .findFirst()
         .orElse(null);
   }

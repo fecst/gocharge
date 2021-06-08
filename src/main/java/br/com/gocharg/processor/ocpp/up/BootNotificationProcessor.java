@@ -10,6 +10,7 @@ import br.com.gocharg.enums.StatusTotemEnum;
 import br.com.gocharg.enums.ocpp.OcppResponseStatusEnum;
 import br.com.gocharg.factory.OcppResponseFactory;
 import br.com.gocharg.repository.TotemRepository;
+import br.com.gocharg.repository.TransacaoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,12 +23,11 @@ public class BootNotificationProcessor implements CommandProcessor<String> {
 
   @Autowired private TotemRepository repository;
   @Autowired private OcppResponseFactory factory;
+  @Autowired private TransacaoRepository transacaoRepository;
 
   @Override
   public String process(CommandContext context) {
     OcppRequest ocppRequest = context.getProperty("ocppRequest", OcppRequest.class);
-
-    BootNotificationRequest request = (BootNotificationRequest) ocppRequest.getPayload();
     String retorno = new String();
     BootNotificationResponse response = new BootNotificationResponse();
 
@@ -47,6 +47,8 @@ public class BootNotificationProcessor implements CommandProcessor<String> {
     } catch (Exception e) {
       System.out.println("Erro na conversão para JSON");
     }
+
+    transacaoRepository.deleteByApelidoTotem(ocppRequest.getApelidoTotem());
 
     return retorno;
   }
