@@ -9,15 +9,15 @@ public enum OcppResetEnum {
   HARD("Hard"),
   SOFT("Soft");
 
-  private String status;
+  private String type;
 
-  OcppResetEnum(String status) {
-    this.status = status;
+  OcppResetEnum(String type) {
+    this.type = type;
   }
 
   public static OcppResetEnum get(String status) {
     return Stream.of(OcppResetEnum.values())
-        .filter(value -> value.equals(status))
+        .filter(value -> value.getType().equals(status))
         .findFirst()
         .orElse(null);
   }

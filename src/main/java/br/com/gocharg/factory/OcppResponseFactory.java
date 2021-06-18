@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OcppResponseFactory {
-  public String retorno(String uniqueID, String payload) {
+  public String retorno(Integer uniqueID, String payload) {
     String retorno = new String();
 
     retorno = retorno.concat("[");
     retorno = retorno.concat(OcppMessageTypeEnum.CALL_RESULT.getType().toString());
     retorno = retorno.concat(", \"");
-    retorno = retorno.concat(uniqueID);
+    retorno = retorno.concat(uniqueID.toString());
     retorno = retorno.concat("\", ");
     retorno = retorno.concat(payload);
     retorno = retorno.concat("]");

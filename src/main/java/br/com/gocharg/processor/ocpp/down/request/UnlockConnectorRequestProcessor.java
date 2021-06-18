@@ -2,8 +2,9 @@ package br.com.gocharg.processor.ocpp.down.request;
 
 import br.com.gocharg.command.CommandContext;
 import br.com.gocharg.command.CommandProcessor;
+import br.com.gocharg.dto.ocpp.json.request.CancelReservationRequest;
 import br.com.gocharg.dto.ocpp.json.request.OcppRequest;
-import br.com.gocharg.dto.ocpp.json.request.RemoteStartTransactionRequest;
+import br.com.gocharg.dto.ocpp.json.request.UnlockConnectorRequest;
 import br.com.gocharg.enums.ocpp.OcppFunctionsEnum;
 import br.com.gocharg.enums.ocpp.OcppMessageTypeEnum;
 import br.com.gocharg.factory.OcppResponseFactory;
@@ -14,8 +15,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
+
 @Component
-public class RemoteStartTransactionRequestProcessor implements CommandProcessor {
+public class UnlockConnectorRequestProcessor implements CommandProcessor {
 
   @Autowired private StompClient stompClient;
   @Autowired private OcppResponseFactory factory;
@@ -26,17 +29,15 @@ public class RemoteStartTransactionRequestProcessor implements CommandProcessor 
   public Object process(CommandContext context) {
     try {
       String apelidoTotem = context.getProperty("apelidoTotem", String.class);
-      String usuario = context.getProperty("usuario", String.class);
       Integer uniqueId = transacaoRepository.getNextIdByApelidoTotem(apelidoTotem);
-      RemoteStartTransactionRequest request = new RemoteStartTransactionRequest();
+      UnlockConnectorRequest request = new UnlockConnectorRequest();
 
       request.setConnectorId(0);
-      request.setIdTag(usuario);
 
       String messageEv =
           factory.requisicao(
               uniqueId.toString(),
-              OcppFunctionsEnum.REMOTE_START_TRANSACTION.getFunction(),
+              OcppFunctionsEnum.UNLOCK_CONNECTOR.getFunction(),
               new ObjectMapper().writeValueAsString(request));
 
       stompClient.open(apelidoTotem, messageEv);
@@ -45,7 +46,7 @@ public class RemoteStartTransactionRequestProcessor implements CommandProcessor 
 
       ocppRequest.setApelidoTotem(apelidoTotem);
       ocppRequest.setOperation(OcppMessageTypeEnum.CALL);
-      ocppRequest.setAction(OcppFunctionsEnum.REMOTE_START_TRANSACTION);
+      ocppRequest.setAction(OcppFunctionsEnum.UNLOCK_CONNECTOR);
       ocppRequest.setUniqueId(uniqueId);
       ocppRequest.setPayload(request);
 

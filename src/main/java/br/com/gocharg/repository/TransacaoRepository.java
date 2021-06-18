@@ -54,13 +54,42 @@ public class TransacaoRepository {
     }
   }
 
+  public Transacao getByApelidoAndUniqueId(String apelido, String uniqueId) {
+    return TransacaoMapper.INSTANCE.toDomain(
+        (TransacaoModel)
+            entityManager
+                .createQuery(
+                    "SELECT t FROM TransacaoModel t "
+                        + "WHERE t.totem.apelido = :apelido "
+                        + "AND t.uniqueId =: uniqueId " +
+                            "ORDER BY t.dataHoraCadastro DESC")
+                .setParameter("apelido", apelido)
+                .setParameter("uniqueId", Integer.valueOf(uniqueId))
+                .getResultList().stream().findFirst().get());
+  }
+
   public Integer getNextIdByApelidoTotem(String apelidoTotem) {
-    return (Integer)
+    List<TransacaoModel> transacoes =
         entityManager
-            .createQuery(
-                "SELECT MAX(uniqueID) + 1 FROM TransacaoModel t WHERE t.totem.apelido = :apelidoTotem")
+            .createQuery("SELECT t FROM TransacaoModel t WHERE t.totem.apelido = :apelidoTotem")
             .setParameter("apelidoTotem", apelidoTotem)
-            .getSingleResult();
+            .getResultList();
+
+    return transacoes.size() > 0
+        ? transacoes.stream().mapToInt(t -> t.getUniqueId()).max().getAsInt() + 1
+        : 1;
+  }
+
+  public Integer getLastIdByApelidoTotem(String apelidoTotem) {
+    List<TransacaoModel> transacoes =
+        entityManager
+            .createQuery("SELECT t FROM TransacaoModel t WHERE t.totem.apelido = :apelidoTotem")
+            .setParameter("apelidoTotem", apelidoTotem)
+            .getResultList();
+
+    return transacoes.size() > 0
+        ? transacoes.stream().mapToInt(t -> t.getUniqueId()).max().getAsInt()
+        : 1;
   }
 
   public Transacao create(Transacao transacao) {
@@ -81,10 +110,10 @@ public class TransacaoRepository {
 
   public void deleteByTotem(UUID idTotem) {
     List<TransacaoModel> transacoes =
-            entityManager
-                    .createQuery("SELECT t FROM TransacaoModel t WHERE t.totem.id = :idTotem")
-                    .setParameter("idTotem", idTotem)
-                    .getResultList();
+        entityManager
+            .createQuery("SELECT t FROM TransacaoModel t WHERE t.totem.id = :idTotem")
+            .setParameter("idTotem", idTotem)
+            .getResultList();
 
     if (transacoes.size() > 0) {
       entityManager.remove(transacoes);
@@ -93,13 +122,13 @@ public class TransacaoRepository {
 
   public void deleteByApelidoTotem(String apelidoTotem) {
     List<TransacaoModel> transacoes =
-            entityManager
-                    .createQuery("SELECT t FROM TransacaoModel t WHERE t.totem.apelido = :apelidoTotem")
-                    .setParameter("apelidoTotem", apelidoTotem)
-                    .getResultList();
+        entityManager
+            .createQuery("SELECT t FROM TransacaoModel t WHERE t.totem.apelido = :apelidoTotem")
+            .setParameter("apelidoTotem", apelidoTotem)
+            .getResultList();
 
     if (transacoes.size() > 0) {
-      entityManager.remove(transacoes);
+      transacoes.forEach(transacao -> entityManager.remove(transacao));
     }
   }
 }

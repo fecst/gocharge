@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class ChangeAvailabilityRequest {
   private Integer connectorId;
-  private OcppAvailabilityEnum type;
+  private String type;
 }

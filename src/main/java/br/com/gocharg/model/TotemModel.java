@@ -77,7 +77,7 @@ public class TotemModel {
   @JoinColumn(
       name = "COD_STAT_TOTEM",
       referencedColumnName = "COD_STAT_TOTEM",
-      columnDefinition = "VARCHAR(1)",
+      columnDefinition = "INT",
       nullable = false)
   private StatusTotemModel status;
 

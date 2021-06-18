@@ -17,7 +17,7 @@ public enum OcppAvailabilityEnum {
 
   public static OcppAvailabilityEnum get(String status) {
     return Stream.of(OcppAvailabilityEnum.values())
-        .filter(value -> value.equals(status))
+        .filter(value -> value.getStatus().equals(status))
         .findFirst()
         .orElse(null);
   }

@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResetRequest {
-  private OcppResetEnum type;
+  private String type;
 }

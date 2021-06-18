@@ -3,10 +3,8 @@ package br.com.gocharg.processor.ocpp.up;
 import br.com.gocharg.command.CommandContext;
 import br.com.gocharg.command.CommandProcessor;
 import br.com.gocharg.domain.Totem;
-import br.com.gocharg.dto.ocpp.json.request.BootNotificationRequest;
 import br.com.gocharg.dto.ocpp.json.request.OcppRequest;
 import br.com.gocharg.dto.ocpp.json.request.StartTransactionRequest;
-import br.com.gocharg.dto.ocpp.json.response.BootNotificationResponse;
 import br.com.gocharg.dto.ocpp.json.response.StartTransactionResponse;
 import br.com.gocharg.dto.ocpp.json.response.TagInfo;
 import br.com.gocharg.enums.StatusTotemEnum;
@@ -16,8 +14,6 @@ import br.com.gocharg.repository.TotemRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 public class StartTransactionProcessor implements CommandProcessor<String> {
@@ -50,7 +46,7 @@ public class StartTransactionProcessor implements CommandProcessor<String> {
 
       retorno =
           factory.retorno(
-              ocppRequest.getUniqueID(), new ObjectMapper().writeValueAsString(response));
+              ocppRequest.getUniqueId(), new ObjectMapper().writeValueAsString(response));
     } catch (Exception e) {
       System.out.println("Erro na conversão para JSON");
     }

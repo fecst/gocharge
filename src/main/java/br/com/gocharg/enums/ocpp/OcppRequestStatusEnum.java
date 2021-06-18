@@ -25,7 +25,7 @@ public enum OcppRequestStatusEnum {
 
   public static OcppRequestStatusEnum get(String status) {
     return Stream.of(OcppRequestStatusEnum.values())
-        .filter(value -> value.equals(status))
+        .filter(value -> value.getStatus().equals(status))
         .findFirst()
         .orElse(null);
   }

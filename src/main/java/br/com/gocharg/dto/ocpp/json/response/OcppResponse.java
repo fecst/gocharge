@@ -1,4 +1,4 @@
-package br.com.gocharg.dto.ocpp.json.request;
+package br.com.gocharg.dto.ocpp.json.response;
 
 import br.com.gocharg.enums.ocpp.OcppFunctionsEnum;
 import br.com.gocharg.enums.ocpp.OcppMessageTypeEnum;
@@ -9,10 +9,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class OcppRequest<T> {
+public class OcppResponse {
   private OcppMessageTypeEnum operation;
-  private Integer uniqueId;
-  private OcppFunctionsEnum action;
-  private T payload;
+  private String uniqueID;
+  private OcppStatusResponse status;
   private String apelidoTotem;
 }

@@ -29,7 +29,7 @@ public class TransacaoModel {
   private Integer operation;
 
   @Column(name = "ID_UNICO", columnDefinition = "INT", nullable = false)
-  private Integer uniqueID;
+  private Integer uniqueId;
 
   @Column(name = "ACAO", columnDefinition = "VARCHAR(250)", nullable = false)
   private String action;

@@ -15,7 +15,7 @@ public class Transacao {
   private UUID id;
   private LocalDateTime dataHoraCadastro;
   private Integer operation;
-  private Integer uniqueID;
+  private Integer uniqueId;
   private String action;
   private String payload;
   private Totem totem;

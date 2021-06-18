@@ -7,9 +7,11 @@ import br.com.gocharg.dto.ocpp.json.request.OcppRequest;
 import br.com.gocharg.repository.TotemRepository;
 import br.com.gocharg.repository.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class OcppLogProcessor implements CommandProcessor {
 
   @Autowired private TransacaoRepository transacaoRepository;
@@ -17,19 +19,22 @@ public class OcppLogProcessor implements CommandProcessor {
 
   @Override
   public Object process(CommandContext context) {
-    OcppRequest ocppRequest = context.getProperty("ocppRequest", OcppRequest.class);
+    try {
+      OcppRequest ocppRequest = context.getProperty("ocppRequest", OcppRequest.class);
 
-    Transacao transacao = new Transacao();
+      Transacao transacao = new Transacao();
 
-    transacao.setAction(ocppRequest.getAction().getFunction());
-    transacao.setOperation(ocppRequest.getOperation().getType());
-    transacao.setDataHoraCadastro(LocalDateTime.now());
-    transacao.setPayload(ocppRequest.getPayload().toString());
-    transacao.setTotem(totemRepository.getByApelido(ocppRequest.getApelidoTotem()));
-    transacao.setUniqueID(Integer.valueOf(ocppRequest.getUniqueID()));
+      transacao.setAction(ocppRequest.getAction().getFunction());
+      transacao.setOperation(ocppRequest.getOperation().getType());
+      transacao.setDataHoraCadastro(LocalDateTime.now());
+      transacao.setPayload(ocppRequest.toString());
+      transacao.setTotem(totemRepository.getByApelido(ocppRequest.getApelidoTotem()));
+      transacao.setUniqueId(Integer.valueOf(ocppRequest.getUniqueId()));
 
-    transacaoRepository.create(transacao);
-
+      transacaoRepository.create(transacao);
+    } catch (Exception e) {
+      System.out.println("Erro ao converter em string");
+    }
     return null;
   }
 }
