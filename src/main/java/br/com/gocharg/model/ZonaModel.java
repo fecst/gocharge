@@ -14,7 +14,7 @@ public class ZonaModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "ID_ZONA",
+      name = "COD_ZONA",
       columnDefinition = "VARCHAR(36)",
       updatable = false,
       unique = true,
@@ -23,16 +23,16 @@ public class ZonaModel {
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_EST",
-      referencedColumnName = "ID_EST",
-      columnDefinition = "VARCHAR(36)",
+      name = "COD_EST",
+      referencedColumnName = "COD_EST",
+      columnDefinition = "VARCHAR(2)",
       nullable = false)
   private EstadoModel estado;
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_CID",
-      referencedColumnName = "ID_CID",
+      name = "COD_CID",
+      referencedColumnName = "COD_CID",
       columnDefinition = "VARCHAR(36)",
       nullable = false)
   private CidadeModel cidade;

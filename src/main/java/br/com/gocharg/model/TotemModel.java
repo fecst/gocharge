@@ -15,7 +15,7 @@ public class TotemModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "ID_TOTEM",
+      name = "COD_TOTEM",
       columnDefinition = "VARCHAR(36)",
       updatable = false,
       unique = true,
@@ -27,48 +27,48 @@ public class TotemModel {
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_EST",
-      referencedColumnName = "ID_EST",
-      columnDefinition = "VARCHAR(36)",
+      name = "COD_EST",
+      referencedColumnName = "COD_EST",
+      columnDefinition = "VARCHAR(2)",
       nullable = false)
   private EstadoModel estado;
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_CID",
-      referencedColumnName = "ID_CID",
-      columnDefinition = "VARCHAR(36)",
+      name = "COD_CID",
+      referencedColumnName = "COD_CID",
+      columnDefinition = "INTEGER",
       nullable = false)
   private CidadeModel cidade;
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_ZONA",
-      referencedColumnName = "ID_ZONA",
+      name = "COD_ZONA",
+      referencedColumnName = "COD_ZONA",
       columnDefinition = "VARCHAR(36)",
       nullable = false)
   private ZonaModel zona;
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_SUB_ZONA",
-      referencedColumnName = "ID_SUB_ZONA",
+      name = "COD_SUB_ZONA",
+      referencedColumnName = "COD_SUB_ZONA",
       columnDefinition = "VARCHAR(36)",
       nullable = false)
   private SubZonaModel subZona;
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_VALOR",
-      referencedColumnName = "ID_VALOR",
+      name = "COD_VALOR",
+      referencedColumnName = "COD_VALOR",
       columnDefinition = "VARCHAR(36)",
       nullable = false)
   private ValorModel valor;
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_FAB",
-      referencedColumnName = "ID_FAB",
+      name = "COD_FAB",
+      referencedColumnName = "COD_FAB",
       columnDefinition = "VARCHAR(36)",
       nullable = false)
   private FabricanteModel fabricante;
@@ -91,7 +91,7 @@ public class TotemModel {
   private Boolean propriedadeGoCharg;
 
   @OneToOne(cascade = CascadeType.REFRESH)
-  @JoinColumn(name = "ID_USU", referencedColumnName = "ID_USU", columnDefinition = "VARCHAR(36)")
+  @JoinColumn(name = "COD_USU", referencedColumnName = "COD_USU", columnDefinition = "VARCHAR(36)")
   private UsuarioModel proprietario;
 
   @Column(name = "QRCODE", columnDefinition = "VARCHAR(250)", nullable = false)

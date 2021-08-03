@@ -15,7 +15,7 @@ public class ConfiguracaoUsuarioModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "ID_CONF",
+      name = "COD_CONF",
       columnDefinition = "VARCHAR(36)",
       updatable = false,
       unique = true,
@@ -27,8 +27,8 @@ public class ConfiguracaoUsuarioModel {
 
   @OneToOne(cascade = CascadeType.REFRESH)
   @JoinColumn(
-      name = "ID_USU",
-      referencedColumnName = "ID_USU",
+      name = "COD_USU",
+      referencedColumnName = "COD_USU",
       columnDefinition = "VARCHAR(36)",
       nullable = false)
   private UsuarioModel usuarioModel;

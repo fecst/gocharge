@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class CidadeModel {
   @Id
   @Column(
-      name = "ID_CID",
+      name = "COD_CID",
       columnDefinition = "INT",
       updatable = false,
       unique = true,
@@ -21,8 +21,8 @@ public class CidadeModel {
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_EST",
-      referencedColumnName = "ID_EST",
+      name = "COD_EST",
+      referencedColumnName = "COD_EST",
       columnDefinition = "VARCHAR(2)",
       nullable = false)
   private EstadoModel estado;

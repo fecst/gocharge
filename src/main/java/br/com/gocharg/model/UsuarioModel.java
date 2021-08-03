@@ -16,7 +16,7 @@ public class UsuarioModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "ID_USU",
+      name = "COD_USU",
       columnDefinition = "VARCHAR(36)",
       updatable = false,
       unique = true,
@@ -72,11 +72,11 @@ public class UsuarioModel {
   private String bairro;
 
   @ManyToOne(cascade = CascadeType.REFRESH)
-  @JoinColumn(name = "ID_CID", referencedColumnName = "ID_CID", columnDefinition = "VARCHAR(36)")
+  @JoinColumn(name = "COD_CID", referencedColumnName = "COD_CID", columnDefinition = "VARCHAR(36)")
   private CidadeModel cidade;
 
   @ManyToOne(cascade = CascadeType.REFRESH)
-  @JoinColumn(name = "ID_EST", referencedColumnName = "ID_EST", columnDefinition = "VARCHAR(36)")
+  @JoinColumn(name = "COD_EST", referencedColumnName = "COD_EST", columnDefinition = "VARCHAR(36)")
   private EstadoModel estado;
 
   @Column(name = "PAIS", columnDefinition = "VARCHAR(250)")

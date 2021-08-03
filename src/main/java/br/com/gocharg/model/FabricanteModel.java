@@ -15,7 +15,7 @@ public class FabricanteModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "ID_FAB",
+      name = "COD_FAB",
       columnDefinition = "VARCHAR(36)",
       updatable = false,
       unique = true,

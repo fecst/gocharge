@@ -15,7 +15,7 @@ public class TransacaoModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "ID_TRAN",
+      name = "COD_TRAN",
       columnDefinition = "VARCHAR(36)",
       updatable = false,
       unique = true,
@@ -25,10 +25,10 @@ public class TransacaoModel {
   @Column(name = "DT_HR_CAD", columnDefinition = "DATETIME", updatable = false, nullable = false)
   private LocalDateTime dataHoraCadastro;
 
-  @Column(name = "OPERACAO", columnDefinition = "INT", nullable = false)
+  @Column(name = "OPERACAO", columnDefinition = "INTEGER", nullable = false)
   private Integer operation;
 
-  @Column(name = "ID_UNICO", columnDefinition = "INT", nullable = false)
+  @Column(name = "ID_UNICO", columnDefinition = "INTEGER", nullable = false)
   private Integer uniqueId;
 
   @Column(name = "ACAO", columnDefinition = "VARCHAR(250)", nullable = false)
@@ -39,8 +39,8 @@ public class TransacaoModel {
 
   @ManyToOne
   @JoinColumn(
-      name = "ID_TOTEM",
-      referencedColumnName = "ID_TOTEM",
+      name = "COD_TOTEM",
+      referencedColumnName = "COD_TOTEM",
       columnDefinition = "VARCHAR(36)",
       nullable = false)
   private TotemModel totem;

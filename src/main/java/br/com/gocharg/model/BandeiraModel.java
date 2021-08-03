@@ -15,7 +15,7 @@ public class BandeiraModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "ID_BAND",
+      name = "COD_BAND",
       columnDefinition = "VARCHAR(36)",
       updatable = false,
       unique = true,

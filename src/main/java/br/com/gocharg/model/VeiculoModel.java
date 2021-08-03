@@ -15,7 +15,7 @@ public class VeiculoModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "ID_VEIC",
+      name = "COD_VEIC",
       columnDefinition = "VARCHAR(36)",
       updatable = false,
       unique = true,
@@ -27,8 +27,8 @@ public class VeiculoModel {
 
   @ManyToOne(cascade = CascadeType.REFRESH)
   @JoinColumn(
-      name = "ID_USU",
-      referencedColumnName = "ID_USU",
+      name = "COD_USU",
+      referencedColumnName = "COD_USU",
       columnDefinition = "VARCHAR(36)",
       nullable = false,
       updatable = false)

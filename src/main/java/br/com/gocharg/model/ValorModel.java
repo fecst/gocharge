@@ -16,7 +16,7 @@ public class ValorModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(
-      name = "ID_VALOR",
+      name = "COD_VALOR",
       columnDefinition = "VARCHAR(36)",
       updatable = false,
       unique = true,
@@ -28,8 +28,8 @@ public class ValorModel {
 
   @ManyToOne(cascade = CascadeType.REFRESH)
   @JoinColumn(
-      name = "ID_BAND",
-      referencedColumnName = "ID_BAND",
+      name = "COD_BAND",
+      referencedColumnName = "COD_BAND",
       columnDefinition = "VARCHAR(36)",
       nullable = false)
   private BandeiraModel bandeira;

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class EstadoModel {
   @Id
   @Column(
-      name = "ID_EST",
+      name = "COD_EST",
       columnDefinition = "VARCHAR(2)",
       updatable = false,
       unique = true,
